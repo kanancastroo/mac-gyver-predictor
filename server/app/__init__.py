@@ -9,7 +9,6 @@ load_dotenv()
 app = Flask(__name__, static_folder='../../client/dist/',    static_url_path='/')
 app.config.from_object('config')
 db = SQLAlchemy(app)
-db.create_all()
 
 migrate = Migrate(app, db)
 
