@@ -1,0 +1,9 @@
+{
+  "name": "another-heroku",
+  "engines": {
+    "yarn": ">=1.19"
+  },
+  "scripts": {
+    "postinstall": "cd client && yarn install && yarn build"
+  }
+}

@@ -1,0 +1,1 @@
+web: cd server && gunicorn app:run --log-file -
