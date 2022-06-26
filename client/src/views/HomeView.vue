@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/casal.jpg" width="40%" height="40%">
-    <HelloWorld msg="Te amo, ursona!!!" />
+    <img alt="Vue logo" src="../assets/logo.png" width="40%" height="40%">
+    <HelloWorld msg="Mac-Gyver Predictor" />
   </div>
 </template>
 
