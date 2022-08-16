@@ -1,0 +1,6 @@
+SELECT constituent.constituent_name AS constituent, emergent_behavior.description AS emergent_behavior
+FROM constituent
+INNER JOIN constituent_basic_feature ON constituent.constituent_id = constituent_basic_feature.constituent_id
+INNER JOIN basic_feature ON basic_feature.feature_id = constituent_basic_feature.basic_feature_id
+INNER JOIN basic_feature_emergent_behavior ON basic_feature_emergent_behavior.basic_feature_id = basic_feature.feature_id
+INNER JOIN emergent_behavior ON emergent_behavior.emergent_id = basic_feature_emergent_behavior.emergent_behavior_id

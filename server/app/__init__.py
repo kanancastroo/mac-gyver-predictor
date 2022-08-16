@@ -12,4 +12,6 @@ db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
-from app.routes import routes, routes_sos, routes_constituent, routes_basic_feature, routes_emergent_behavior, routes_sos_constituent, routes_constituent_basic_feature, routes_basic_feature_emergent_behavior, routes_sos_emergent_behavior
+from app.routes import routes_misc, routes_sos, routes_constituent, routes_basic_feature, routes_emergent_behavior, \
+routes_sos_constituent, routes_constituent_basic_feature, routes_basic_feature_emergent_behavior, \
+routes_sos_emergent_behavior, routes_pre_processing

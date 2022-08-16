@@ -27,7 +27,7 @@ def reset_database():
         db.session.commit()
 
         ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
-        initial_dataset = os.path.join(ROOT_DIR, 'models', 'initial_dataset.sql')
+        initial_dataset = os.path.join(ROOT_DIR, 'sql_scripts', 'initial_dataset.sql')
         engine = create_engine(os.environ.get('DATABASE_URL'))
         with engine.connect() as con:
             with open(initial_dataset) as file:
