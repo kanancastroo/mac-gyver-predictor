@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 
 load_dotenv()
@@ -15,3 +16,5 @@ migrate = Migrate(app, db)
 from app.routes import routes_misc, routes_sos, routes_constituent, routes_basic_feature, routes_emergent_behavior, \
 routes_sos_constituent, routes_constituent_basic_feature, routes_basic_feature_emergent_behavior, \
 routes_sos_emergent_behavior, routes_pre_processing
+
+CORS(app, resources={r"/*":{'origins':'*'}})
