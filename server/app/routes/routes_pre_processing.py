@@ -58,6 +58,7 @@ import numpy as np
 import pandas as pd
 import re
 import tensorflow as tf
+from sklearn.metrics import f1_score, precision_score, recall_score
 
 load_dotenv()
 
@@ -235,7 +236,7 @@ def process_database(dataframe):
 
         # fig, ax = plt.subplots()
         # ax.plot(t, s)
-        print('Checkpoint 7... Finished!')
+        print('Checkpoint 7...')
 
         # ax.set(xlabel='Epoch', ylabel='Accuracy',
         #     title='Evolution of Accuracy of the model through epochs')
@@ -247,7 +248,86 @@ def process_database(dataframe):
         # model.summary()
         # plot_model(model, to_file='model_plot4a.png', show_shapes=True, show_layer_names=True)
 
-        # return jsonify('Database processed sucessfully!') 
+        # return jsonify('Database processed sucessfully!')
+
+        y_pred = model.predict(X_test)
+
+        THRESHOLD = 0.5 # threshold between classes
+
+        precision_results = []
+        recall_results = []
+        f1_score_results = []
+
+        overall_precision = []
+        overall_recall = []
+        overall_f1 = []
+
+        # Binary Outputs
+        for col_idx, col in enumerate(output_columns_binary):
+            print(f'{col_idx}', '-' , f'{col}')
+            
+            # print('y_pred[col_idx]: ', y_pred[col_idx])
+            # print('y_pred[col_idx][y_pred[col_idx]>=THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]>=THRESHOLD])
+            # print('y_pred[col_idx][y_pred[col_idx]<THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]<THRESHOLD])
+            # print('y_test[col]:', y_test[col])
+
+            # Transform array of probabilities to class: 0 or 1
+            y_pred[col_idx][y_pred[col_idx]>=THRESHOLD] = 1
+            y_pred[col_idx][y_pred[col_idx]<THRESHOLD] = 0
+
+            precision_results.append(precision_score(y_test[col], y_pred[col_idx], average='macro'))
+            recall_results.append(recall_score(y_test[col], y_pred[col_idx], average='macro'))
+            f1_score_results.append(f1_score(y_test[col], y_pred[col_idx], average='macro'))
+            
+            # print(classification_report(y_test[col], y_pred[col_idx]))
+            overall_precision.append(mean(precision_results))
+            overall_recall.append(mean(recall_results))
+            overall_f1.append(mean(f1_score_results))
+            print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
+            print()
+
+        mean_precision = mean(overall_precision)
+        mean_recall = mean(overall_recall)
+        mean_f1 = mean(overall_f1)
+
+        print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))
+
+        y_pred_train = model.predict(X_train)
+
+        precision_results = []
+        recall_results = []
+        f1_score_results = []
+
+        overall_precision = []
+        overall_recall = []
+        overall_f1 = []
+
+        # Binary Outputs
+        for col_idx, col in enumerate(output_columns_binary):
+            print(f'{col_idx}', '-' , f'{col}')
+
+            # Transform array of probabilities to class: 0 or 1
+            y_pred_train[col_idx][y_pred_train[col_idx]>=THRESHOLD] = 1
+            y_pred_train[col_idx][y_pred_train[col_idx]<THRESHOLD] = 0
+
+            precision_results.append(precision_score(y_train[col], y_pred_train[col_idx], average='macro'))
+            recall_results.append(recall_score(y_train[col], y_pred_train[col_idx], average='macro'))
+            f1_score_results.append(f1_score(y_train[col], y_pred_train[col_idx], average='macro'))
+            
+            # print(classification_report(y_test[col], y_pred[col_idx]))
+            overall_precision.append(mean(precision_results))
+            overall_recall.append(mean(recall_results))
+            overall_f1.append(mean(f1_score_results))
+            print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
+            print()
+
+        mean_precision = mean(overall_precision)
+        mean_recall = mean(overall_recall)
+        mean_f1 = mean(overall_f1)
+
+        print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))    
     
+        print('Checkpoint 8...')
+        
     except Exception as e:
 	    return(str(e))    
