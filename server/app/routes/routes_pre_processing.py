@@ -146,8 +146,9 @@ def pre_process_database():
         # print(type(working_deep_learning_base_dataset))
 
         process_database(working_deep_learning_base_dataset)
-
-        return jsonify('Database processed sucessfully!')  
+        
+        print('SUCCESS!!!')
+        return jsonify('OK!')  
     except Exception as e:
         # db.session.rollback()
         return(str(e))     
@@ -218,116 +219,159 @@ def process_database(dataframe):
         print('Checkpoint 4...')
         classes_weights = dict(enumerate(classes_weights))
 
-        history = model.fit(X_train, y_train_output, epochs=40, batch_size=512, class_weight=classes_weights, verbose=1)
-        hist_df = pd.DataFrame(history.history)
-        df_acurracies = hist_df.iloc[:, 38:74]
-        n = len(df_acurracies)
+        print('going to run history')
 
-        accuracy = []
-        epoch = []
-        print('Checkpoint 5...')
-        for i in range(n):
-            epoch.append(i)
-            accuracy.append(mean(df_acurracies.iloc[i].values))
-            print('Epoch', i, '- Accuracy:', mean(df_acurracies.iloc[i].values))   
-        print('Checkpoint 6...')
-        # t = epoch
-        # s = accuracy
+        history = model.fit(X_train, y_train_output, epochs=1, batch_size=8, class_weight=classes_weights, verbose=1)
+        print('ran history')
 
-        # fig, ax = plt.subplots()
-        # ax.plot(t, s)
-        print('Checkpoint 7...')
+        print(history)
 
-        # ax.set(xlabel='Epoch', ylabel='Accuracy',
-        #     title='Evolution of Accuracy of the model through epochs')
-        # ax.grid()
+        # REVIEW FROM HERE ON...
 
-        # fig.savefig("accuracy_evolution.png")
-        # plt.show()              
+        # hist_df = pd.DataFrame(history.history)
+        # df_acurracies = hist_df.iloc[:, 38:74]
+        # n = len(df_acurracies)
 
-        # model.summary()
-        # plot_model(model, to_file='model_plot4a.png', show_shapes=True, show_layer_names=True)
+        # accuracy = []
+        # epoch = []
+        # print('Checkpoint 5...')
+        # for i in range(n):
+        #     epoch.append(i)
+        #     accuracy.append(mean(df_acurracies.iloc[i].values))
+        #     print('Epoch', i, '- Accuracy:', mean(df_acurracies.iloc[i].values))   
+        # print('Checkpoint 6...')
+        # # t = epoch
+        # # s = accuracy
 
-        # return jsonify('Database processed sucessfully!')
+        # # fig, ax = plt.subplots()
+        # # ax.plot(t, s)
+        # print('Checkpoint 7...')
 
-        y_pred = model.predict(X_test)
+        # # ax.set(xlabel='Epoch', ylabel='Accuracy',
+        # #     title='Evolution of Accuracy of the model through epochs')
+        # # ax.grid()
 
-        THRESHOLD = 0.5 # threshold between classes
+        # # fig.savefig("accuracy_evolution.png")
+        # # plt.show()              
 
-        precision_results = []
-        recall_results = []
-        f1_score_results = []
+        # # model.summary()
+        # # plot_model(model, to_file='model_plot4a.png', show_shapes=True, show_layer_names=True)
 
-        overall_precision = []
-        overall_recall = []
-        overall_f1 = []
+        # # return jsonify('Database processed sucessfully!')
 
-        # Binary Outputs
-        for col_idx, col in enumerate(output_columns_binary):
-            print(f'{col_idx}', '-' , f'{col}')
+        # y_pred = model.predict(X_test)
+
+        # THRESHOLD = 0.5 # threshold between classes
+
+        # precision_results = []
+        # recall_results = []
+        # f1_score_results = []
+
+        # overall_precision = []
+        # overall_recall = []
+        # overall_f1 = []
+
+        # # Binary Outputs
+        # for col_idx, col in enumerate(output_columns_binary):
+        #     print(f'{col_idx}', '-' , f'{col}')
             
-            # print('y_pred[col_idx]: ', y_pred[col_idx])
-            # print('y_pred[col_idx][y_pred[col_idx]>=THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]>=THRESHOLD])
-            # print('y_pred[col_idx][y_pred[col_idx]<THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]<THRESHOLD])
-            # print('y_test[col]:', y_test[col])
+        #     # print('y_pred[col_idx]: ', y_pred[col_idx])
+        #     # print('y_pred[col_idx][y_pred[col_idx]>=THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]>=THRESHOLD])
+        #     # print('y_pred[col_idx][y_pred[col_idx]<THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]<THRESHOLD])
+        #     # print('y_test[col]:', y_test[col])
 
-            # Transform array of probabilities to class: 0 or 1
-            y_pred[col_idx][y_pred[col_idx]>=THRESHOLD] = 1
-            y_pred[col_idx][y_pred[col_idx]<THRESHOLD] = 0
+        #     # Transform array of probabilities to class: 0 or 1
+        #     y_pred[col_idx][y_pred[col_idx]>=THRESHOLD] = 1
+        #     y_pred[col_idx][y_pred[col_idx]<THRESHOLD] = 0
 
-            precision_results.append(precision_score(y_test[col], y_pred[col_idx], average='macro'))
-            recall_results.append(recall_score(y_test[col], y_pred[col_idx], average='macro'))
-            f1_score_results.append(f1_score(y_test[col], y_pred[col_idx], average='macro'))
+        #     precision_results.append(precision_score(y_test[col], y_pred[col_idx], average='macro'))
+        #     recall_results.append(recall_score(y_test[col], y_pred[col_idx], average='macro'))
+        #     f1_score_results.append(f1_score(y_test[col], y_pred[col_idx], average='macro'))
             
-            # print(classification_report(y_test[col], y_pred[col_idx]))
-            overall_precision.append(mean(precision_results))
-            overall_recall.append(mean(recall_results))
-            overall_f1.append(mean(f1_score_results))
-            print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
-            print()
+        #     # print(classification_report(y_test[col], y_pred[col_idx]))
+        #     overall_precision.append(mean(precision_results))
+        #     overall_recall.append(mean(recall_results))
+        #     overall_f1.append(mean(f1_score_results))
+        #     print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
+        #     print()
 
-        mean_precision = mean(overall_precision)
-        mean_recall = mean(overall_recall)
-        mean_f1 = mean(overall_f1)
+        # mean_precision = mean(overall_precision)
+        # mean_recall = mean(overall_recall)
+        # mean_f1 = mean(overall_f1)
 
-        print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))
+        # print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))
 
-        y_pred_train = model.predict(X_train)
+        # y_pred_train = model.predict(X_train)
 
-        precision_results = []
-        recall_results = []
-        f1_score_results = []
+        # precision_results = []
+        # recall_results = []
+        # f1_score_results = []
 
-        overall_precision = []
-        overall_recall = []
-        overall_f1 = []
+        # overall_precision = []
+        # overall_recall = []
+        # overall_f1 = []
 
-        # Binary Outputs
-        for col_idx, col in enumerate(output_columns_binary):
-            print(f'{col_idx}', '-' , f'{col}')
+        # # Binary Outputs
+        # for col_idx, col in enumerate(output_columns_binary):
+        #     print(f'{col_idx}', '-' , f'{col}')
 
-            # Transform array of probabilities to class: 0 or 1
-            y_pred_train[col_idx][y_pred_train[col_idx]>=THRESHOLD] = 1
-            y_pred_train[col_idx][y_pred_train[col_idx]<THRESHOLD] = 0
+        #     # Transform array of probabilities to class: 0 or 1
+        #     y_pred_train[col_idx][y_pred_train[col_idx]>=THRESHOLD] = 1
+        #     y_pred_train[col_idx][y_pred_train[col_idx]<THRESHOLD] = 0
 
-            precision_results.append(precision_score(y_train[col], y_pred_train[col_idx], average='macro'))
-            recall_results.append(recall_score(y_train[col], y_pred_train[col_idx], average='macro'))
-            f1_score_results.append(f1_score(y_train[col], y_pred_train[col_idx], average='macro'))
+        #     precision_results.append(precision_score(y_train[col], y_pred_train[col_idx], average='macro'))
+        #     recall_results.append(recall_score(y_train[col], y_pred_train[col_idx], average='macro'))
+        #     f1_score_results.append(f1_score(y_train[col], y_pred_train[col_idx], average='macro'))
             
-            # print(classification_report(y_test[col], y_pred[col_idx]))
-            overall_precision.append(mean(precision_results))
-            overall_recall.append(mean(recall_results))
-            overall_f1.append(mean(f1_score_results))
-            print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
-            print()
+        #     # print(classification_report(y_test[col], y_pred[col_idx]))
+        #     overall_precision.append(mean(precision_results))
+        #     overall_recall.append(mean(recall_results))
+        #     overall_f1.append(mean(f1_score_results))
+        #     print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
+        #     print()
 
-        mean_precision = mean(overall_precision)
-        mean_recall = mean(overall_recall)
-        mean_f1 = mean(overall_f1)
+        # mean_precision = mean(overall_precision)
+        # mean_recall = mean(overall_recall)
+        # mean_f1 = mean(overall_f1)
 
-        print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))    
+        # print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))    
     
-        print('Checkpoint 8...')
+        # print('Checkpoint 8...')
         
     except Exception as e:
 	    return(str(e))    
+
+@app.route('/predict')
+def predict():
+    try:
+        new_SoS = np.zeros(68)
+        new_SoS[18] = 1
+        new_SoS[44] = 1
+        new_SoS[60] = 1
+
+        row = new_SoS
+        newX = asarray([row])
+        yhat = model.predict(newX)
+
+        flat_list = []
+        for sublist in yhat:
+            for item in sublist:
+                for subitem in item:
+                    flat_list.append(subitem)
+
+        rounded_flat_list = []
+
+        for i in range(len(flat_list)):
+            rounded_flat_list.append(flat_list[i].round())
+
+        possible_emergent_behaviors = []
+
+        print(possible_emergent_behaviors)
+
+        for i in range(len(rounded_flat_list)):
+            if (rounded_flat_list[i] == 1):
+                possible_emergent_behaviors.append(output_columns_binary[i])
+
+        return jsonify(possible_emergent_behaviors)
+    except Exception as e:
+        return(str(e))
