@@ -68,7 +68,8 @@ import axios from 'axios';
             this.dialog = false;
         },
         getSoS() {
-            const path = 'https://mac-gyver-predictor.herokuapp.com/list_all_sos';
+            const path = `${process.env.VUE_APP_BASE_URL}/list_all_sos`;
+            console.log(path)
             axios.get(path)
                 .then((res) => {
                     this.sos = res.data;
@@ -79,7 +80,7 @@ import axios from 'axios';
             },
         getConstituents(sos) {
             this.constituents = []
-            const path = `https://mac-gyver-predictor.herokuapp.com/list_constituents_from_sos?sos_id=[${sos}]`;
+            const path = `${process.env.VUE_APP_BASE_URL}/list_constituents_from_sos?sos_id=[${sos}]`;
             axios.get(path)
                 .then((res) => {
                     this.constituents = res.data;
@@ -90,7 +91,7 @@ import axios from 'axios';
                 });
         },
         preProcessDatabase() {
-            const path = `https://mac-gyver-predictor.herokuapp.com/pre_process_database`;
+            const path = `${process.env.VUE_APP_BASE_URL}/pre_process_database`;
             axios.get(path)
                 .then((res) => {
                     this.message = res.data;
@@ -100,7 +101,7 @@ import axios from 'axios';
                 });
         },
         predict() {
-            const path = `https://mac-gyver-predictor.herokuapp.com/predict`;
+            const path = `${process.env.VUE_APP_BASE_URL}/predict`;
             axios.get(path)
                 .then((res) => {
                     this.predictions = res.data;
