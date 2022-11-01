@@ -37,6 +37,14 @@
                 color="primary"
                 @click="predict()"
             >Predict!</v-btn>
+
+            <v-chip
+                class="ma-2"
+                close
+                v-for="(predictions, index) in predictions" :key="index"
+                @click:close="removePrediction(index)">
+                    {{ predictions }}
+            </v-chip>
         </div>
 
 
@@ -107,6 +115,9 @@ import axios from 'axios';
         },
         removeConstituent(index){
             this.composedSoS.splice(index, 1)
+        },
+        removePrediction(index){
+            this.predictions.splice(index, 1)
         }
     },
     created() {
