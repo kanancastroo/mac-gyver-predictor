@@ -91,7 +91,7 @@ import axios from 'axios';
                 });
         },
         preProcessDatabase() {
-            const path = `http://localhost:5000/pre_process_database`;
+            const path = `${process.env.VUE_APP_BASE_URL}/pre_process_database`;
             axios.get(path)
                 .then((res) => {
                     this.message = res.data;
