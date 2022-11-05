@@ -25,7 +25,7 @@ def addSoS():
         )
         db.session.add(sos)
         db.session.commit()
-        return "SoS added. sos_external_id={}".format(sos.sos_external_id)
+        return "SoS added. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
 	    return(str(e))  
 
@@ -46,7 +46,7 @@ def updateSoS(sos_id):
         sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).first()
         sos.sos_name = sos_name
         db.session.commit()
-        return "SoS updated. sos_external_id={}".format(sos.sos_external_id)
+        return "SoS updated. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
 	    return(str(e))                       
 
@@ -57,7 +57,7 @@ def deleteSoS(sos_id):
         sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).one()
         db.session.delete(sos)
         db.session.commit()
-        return "SoS id={} was deleted sucessfully".format(sos_external_id)
+        return "SoS id={} was deleted sucessfully.".format(sos_external_id)
     except Exception as e:
 	    return(str(e))       
 

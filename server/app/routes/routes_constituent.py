@@ -4,36 +4,58 @@ from models import Constituent, Constituent_Basic_Feature, Basic_Feature, Basic_
 import jsons
 import numpy as np
 
-@app.route("/add_constituent")
-def add_constituent():
-    constituent_name=request.args.get('constituent_name')
-    try:
-        constituent=Constituent.Constituent(
-            constituent_name=constituent_name,
-        )
-        db.session.add(constituent)
-        db.session.commit()
-        return "Constituent added. constituent_id={}".format(constituent.constituent_id)
-    except Exception as e:
-	    return(str(e))    
-
-@app.route("/list_constituents")
-def list_constituents():
+@app.route("/constituents/get")
+def getConstituents():
     try:
         constituent=Constituent.Constituent.query.all()
         return  jsonify([e.serialize() for e in constituent])
         #return jsonify('HELL YEAH!')
     except Exception as e:
-	    return(str(e))          
+	    return(str(e))   
 
-@app.route("/delete_constituent")
-def delete_constituent():
-    constituent_id=request.args.get('constituent_id')
+@app.route("/constituents/add")
+def addConstituent():
+    constituent_name=request.args.get('constituent_name')
     try:
-        constituent = Constituent.Constituent.query.filter_by(constituent_id=constituent_id).one()
+        constituent=Constituent.Constituent(
+            constituent_external_id = uuid.uuid4().hex,
+            constituent_name=constituent_name,
+        )
+        db.session.add(constituent)
+        db.session.commit()
+        return "Constituent added. constituent_external_id={}.".format(constituent.constituent_external_id)
+    except Exception as e:
+	    return(str(e))  
+
+@app.route("/constituents/<constituent_id>/get")
+def getConstituent(constituent_id):
+    constituent_external_id=str(constituent_id)
+    try:
+        constituent = Constituent.Constituent.query.filter_by(constituent_external_id=constituent_external_id).first()
+        return jsonify(constituent.constituent_name)
+    except Exception as e:
+	    return(str(e))    
+
+@app.route("/constituents/<constituent_id>/update")
+def updateConstituent(constituent_id):
+    constituent_external_id=str(constituent_id)
+    constituent_name=request.args.get('constituent_name')
+    try:
+        constituent = Constituent.Constituent.query.filter_by(constituent_external_id=constituent_external_id).first()
+        constituent.constituent_name = constituent_name
+        db.session.commit()
+        return "Constituent updated. constituent_external_id={}.".format(constituent.constituent_external_id)
+    except Exception as e:
+	    return(str(e))     
+
+@app.route("/constituents/<constituent_id>/delete")
+def deleteConstituent(constituent_id):
+    constituent_external_id=str(constituent_id)
+    try:
+        constituent = Constituent.Constituent.query.filter_by(constituent_external_id=constituent_external_id).one()
         db.session.delete(constituent)
         db.session.commit()
-        return "Constituent id={} was deleted sucessfully".format(constituent_id)
+        return "Constituent id={} was deleted sucessfully.".format(constituent_external_id)
     except Exception as e:
 	    return(str(e))   
 

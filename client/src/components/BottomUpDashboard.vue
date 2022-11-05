@@ -5,7 +5,7 @@
                 class="ma-2"
                 color="primary"
                 v-for="(sos, index) in sos" :key="index"
-                @click="getConstituents(sos.sos_id)">
+                @click="getConstituents(sos.sos_external_id)">
                     {{ sos.sos_name }}
                 </v-chip>
         </div>
@@ -68,7 +68,7 @@ import axios from 'axios';
             this.dialog = false;
         },
         getSoS() {
-            const path = `${process.env.VUE_APP_BASE_URL}/list_all_sos`;
+            const path = `${process.env.VUE_APP_BASE_URL}/sos/get`;
             console.log(path)
             axios.get(path)
                 .then((res) => {
@@ -80,7 +80,7 @@ import axios from 'axios';
             },
         getConstituents(sos) {
             this.constituents = []
-            const path = `${process.env.VUE_APP_BASE_URL}/list_constituents_from_sos?sos_id=[${sos}]`;
+            const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos}/constituents/get`;
             axios.get(path)
                 .then((res) => {
                     this.constituents = res.data;
