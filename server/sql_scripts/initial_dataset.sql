@@ -156,6 +156,7 @@ INSERT INTO basic_feature (feature_id, feature_external_id, description) VALUES 
 INSERT INTO basic_feature (feature_id, feature_external_id, description) VALUES ( 91 , gen_random_uuid(), 'propagares changes in electric usage by end-use customers from their normal consumption patterns according to external factors');
 INSERT INTO basic_feature (feature_id, feature_external_id, description) VALUES ( 92 , gen_random_uuid(), 'LM requests: peak clipping, valley filling, and load shifting');
 INSERT INTO basic_feature (feature_id, feature_external_id, description) VALUES ( 93 , gen_random_uuid(), 'applies its own decision making to make counter proposals to the CGGs, in cases where demand does not equal allocation.');
+SELECT setval(pg_get_serial_sequence('basic_feature', 'feature_id'), COALESCE(MAX(feature_id), 1), MAX(feature_id) IS NOT null) FROM basic_feature;
 
 
 
@@ -196,7 +197,7 @@ INSERT INTO emergent_behavior (emergent_id, emergent_external_id, description) V
 INSERT INTO emergent_behavior (emergent_id, emergent_external_id, description) VALUES ( 35 , gen_random_uuid(), 'coordination mechanism, dynamic reorganization and coordination of the network under a disruption');
 INSERT INTO emergent_behavior (emergent_id, emergent_external_id, description) VALUES ( 36 , gen_random_uuid(), 'Negotiation and collaboration for resource allocation and demand efficiency');
 INSERT INTO emergent_behavior (emergent_id, emergent_external_id, description) VALUES ( 37 , gen_random_uuid(), 'Resolution of potencial conflicts');
-
+SELECT setval(pg_get_serial_sequence('emergent_behavior', 'emergent_id'), COALESCE(MAX(emergent_id), 1), MAX(emergent_id) IS NOT null) FROM emergent_behavior;
 
 
 

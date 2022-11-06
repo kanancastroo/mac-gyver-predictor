@@ -1,6 +1,6 @@
 from app import app, db
 from flask import jsonify, request
-from models import SoS, SoS_Constituent, Constituent
+from models import SoS, SoS_Constituent, Constituent, Constituent_Basic_Feature, Basic_Feature
 from sqlalchemy import update
 import jsons
 import numpy as np
@@ -106,4 +106,50 @@ def getConstituentsFromSoS(sos_id):
 	    return(str(e))           
 
 
-    
+@app.route("/sos/<sos_id>/constituents/basic_features/get")
+def getBasicFeaturesFromSoS(sos_id):
+    class BasicFeature():
+        def __init__(self, feature_external_id, description):
+            # self.constituent_id = constituent_id
+            self.feature_external_id = feature_external_id
+            self.description = description
+
+        def toJSON(self):
+            return jsons.dump(self)
+
+    sos_external_id=str(sos_id)
+    sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).one()
+
+    sos_id=sos.sos_id
+
+    try:
+        results = db.session.query(SoS.SoS, SoS_Constituent.SoS_Constituent, Constituent.Constituent, Constituent_Basic_Feature.Constituent_Basic_Feature, Basic_Feature.Basic_Feature) \
+        .select_from(SoS.SoS) \
+        .join(SoS_Constituent.SoS_Constituent, SoS.SoS.sos_id == SoS_Constituent.SoS_Constituent.sos_id) \
+        .join(Constituent.Constituent, SoS_Constituent.SoS_Constituent.constituent_id == Constituent.Constituent.constituent_id) \
+        .join(Constituent_Basic_Feature.Constituent_Basic_Feature, Constituent.Constituent.constituent_id == Constituent_Basic_Feature.Constituent_Basic_Feature.constituent_id) \
+        .join(Basic_Feature.Basic_Feature, Constituent_Basic_Feature.Constituent_Basic_Feature.basic_feature_id == Basic_Feature.Basic_Feature.feature_id) \
+        .filter(SoS.SoS.sos_id == sos_id).all()
+        # .filter(SoS.SoS.sos_id.in_((sos_list))).all()
+
+        array_basic_features = []
+
+        for sos_id, sos_constituent, constituent_id, constituent_basic_feature, feature_id in results:
+            basic_feature = BasicFeature(feature_external_id=feature_id.feature_external_id, description=feature_id.description)
+            array_basic_features.append(basic_feature)
+            # print(sos_id.sos_name, constituent_id.constituent_name, feature_id.description)
+            #print(array_constituents)
+
+        # print(array_basic_features)
+
+        # TRECHO ABAIXO ESTÁ COM ERRO, NECESSÁRIO REVISAR. MAS TALVEZ NEM PRECISE DELE
+        # seen_ids = set()
+        # new_list = []
+        # for obj in array_basic_features:
+        #     if obj.feature_id not in seen_ids:
+        #         new_list.append(obj)
+        #         seen_ids.add(obj.feature_id)
+
+        return jsonify([e.toJSON() for e in array_basic_features])
+    except Exception as e:
+	    return(str(e))      
