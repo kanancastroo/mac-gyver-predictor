@@ -4,6 +4,7 @@
             <v-chip
                 class="ma-2"
                 color="primary"
+                v-bind:id="sos.sos_external_id"
                 v-for="(sos, index) in sos" :key="index"
                 @click="getConstituents(sos.sos_external_id)">
                     {{ sos.sos_name }}
@@ -13,7 +14,8 @@
             <v-chip
                 class="ma-2"
                 color="secondary"
-                v-for="(constituent, index) in constituents" :key="index"
+                v-bind:id="constituents.constituent_external_id"
+                v-for="(constituent, index) in constituents" :key="index" 
                 @click="addConstituent(constituent)">
                     {{ constituent.constituent_name }}
             </v-chip>
@@ -35,6 +37,7 @@
 
             <v-btn
                 color="primary"
+                id="Test"
                 @click="predict()"
             >Predict!</v-btn>
 
@@ -54,6 +57,7 @@
 
 <script>
 import axios from 'axios';
+import LeaderLine from 'leader-line-new';
 
   export default {
     data: () => ({
@@ -84,7 +88,40 @@ import axios from 'axios';
             axios.get(path)
                 .then((res) => {
                     this.constituents = res.data;
-                    console.log(constituents)
+                    
+                    this.constituents.forEach(constituent => {
+                        // console.log(constituent.constituent_external_id, constituent.constituent_name)
+                        // var startElement = document.getElementById(sos)
+                        // var endElement = document.getElementById("Test");
+                        // console.log(startElement, endElement)
+                        // new LeaderLine(startElement, endElement, {
+                        //     color: 'red', 
+                        //     size: 3,
+                        //     middleLabel: 'DROP',
+                        //     startPlug: 'disc',
+                        //     endPlug: 'disc',
+                        // });
+                    })
+                    let sos_list = []
+                    sos_list.push(sos)
+
+                    let constituent_list = []
+                    this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
+
+                    console.log(sos_list)
+                    console.log(constituent_list) 
+                    
+                    const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
+                    axios.get(relations_path, {params: {
+                        sos_list: sos_list.reduce((f, s) => `${f},${s}`), 
+                        constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
+                        }})
+                        .then((res) => {
+                            console.log(res.data)
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
                 })
                 .catch((error) => {
                     console.error(error);

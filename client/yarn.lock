@@ -3506,6 +3506,11 @@
     "picocolors" "^1.0.0"
     "shell-quote" "^1.6.1"
 
+"leader-line-new@^1.1.9":
+  "integrity" "sha512-x56aRYaqJTA4aAS2fgbSpvWKY3IxRXDSFeGkNBmCQ3LX44B3F1HEjcBTkCiK5I3W0nPWeUTWe7dTt59VtdfFWw=="
+  "resolved" "https://registry.npmjs.org/leader-line-new/-/leader-line-new-1.1.9.tgz"
+  "version" "1.1.9"
+
 "lilconfig@^2.0.3":
   "integrity" "sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg=="
   "resolved" "https://registry.npmjs.org/lilconfig/-/lilconfig-2.0.5.tgz"

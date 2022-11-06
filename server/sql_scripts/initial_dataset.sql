@@ -274,6 +274,8 @@ INSERT INTO constituent_sos (constituent_id, sos_id) VALUES (16, 2);
 INSERT INTO constituent_sos (constituent_id, sos_id) VALUES (17, 2);
 
 INSERT INTO constituent_sos (constituent_id, sos_id) VALUES (18, 3);
+SELECT setval(pg_get_serial_sequence('constituent_sos', 'relation_id'), COALESCE(MAX(relation_id), 1), MAX(relation_id) IS NOT null) FROM constituent_sos;
+
 
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (24, 88);
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (24, 89);
@@ -418,6 +420,8 @@ INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES 
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (26, 50);
 
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (27, 51);
+SELECT setval(pg_get_serial_sequence('constituent_basic_feature', 'relation_id'), COALESCE(MAX(relation_id), 1), MAX(relation_id) IS NOT null) FROM constituent_basic_feature;
+
 
 INSERT INTO basic_feature_emergent_behavior (basic_feature_id, emergent_behavior_id) VALUES (84, 36);
 INSERT INTO basic_feature_emergent_behavior (basic_feature_id, emergent_behavior_id) VALUES (85, 36);
@@ -696,6 +700,8 @@ INSERT INTO basic_feature_emergent_behavior (basic_feature_id, emergent_behavior
 INSERT INTO basic_feature_emergent_behavior (basic_feature_id, emergent_behavior_id) VALUES (22, 7);
 INSERT INTO basic_feature_emergent_behavior (basic_feature_id, emergent_behavior_id) VALUES (22, 8);
 INSERT INTO basic_feature_emergent_behavior (basic_feature_id, emergent_behavior_id) VALUES (23, 9);
+SELECT setval(pg_get_serial_sequence('basic_feature_emergent_behavior', 'relation_id'), COALESCE(MAX(relation_id), 1), MAX(relation_id) IS NOT null) FROM basic_feature_emergent_behavior;
+
 
 INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (31, 11);
 INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (32, 11);
@@ -735,3 +741,4 @@ INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (9, 3);
 
 INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (14, 4);
 INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (15, 4);
+SELECT setval(pg_get_serial_sequence('sos_emergent_behavior', 'relation_id'), COALESCE(MAX(relation_id), 1), MAX(relation_id) IS NOT null) FROM sos_emergent_behavior;
