@@ -365,7 +365,6 @@ INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES 
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (19, 24);
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (20, 29);
 
-INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (19, 24);
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (19, 25);
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (19, 26);
 INSERT INTO constituent_basic_feature (constituent_id, basic_feature_id) VALUES (19, 27);

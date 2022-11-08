@@ -67,6 +67,12 @@ def getRelationsConstituentBasicFeature():
         constituent_objs = Constituent.Constituent.query.filter(Constituent.Constituent.constituent_external_id.in_(constituent_list))
         features_objs = Basic_Feature.Basic_Feature.query.filter(Basic_Feature.Basic_Feature.feature_external_id.in_(features_list))
 
+        # for item in constituent_objs:
+        #     print('constituent_id: ', item.constituent_id)
+
+        # for item in features_objs:
+        #     print('feature_id: ', item.feature_id)
+
         relations = []
 
         for constituent_obj in constituent_objs:
@@ -74,17 +80,17 @@ def getRelationsConstituentBasicFeature():
                     relation = Constituent_Basic_Feature.Constituent_Basic_Feature.query.filter_by(
                         constituent_id=constituent_obj.constituent_id,
                         basic_feature_id=features_obj.feature_id
-                    ).all()
+                    ).first()
 
                     relations.append(relation)
 
+        relations = [x for x in relations if x != None]
+
         constituent_basic_features_relations = []
-        print(constituent_basic_features_relations)
 
         for relation in relations:
             constituent = Constituent.Constituent.query.filter_by(constituent_id=relation.constituent_id).first()
-            feature = Basic_Feature.Basic_Feature.query.filter_by(feature_id=relation.feature_id).first()            
-
+            feature = Basic_Feature.Basic_Feature.query.filter_by(feature_id=relation.basic_feature_id).first()            
 
             constituent_basic_feature_relation = ConstituentBasicFeature(constituent_external_id=constituent.constituent_external_id, feature_external_id=feature.feature_external_id)
             constituent_basic_features_relations.append(constituent_basic_feature_relation)

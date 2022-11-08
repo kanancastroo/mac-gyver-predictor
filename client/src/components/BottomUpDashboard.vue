@@ -4,9 +4,9 @@
             <v-chip
                 class="ma-2"
                 color="primary"
-                v-bind:id="sos.sos_external_id"
+                ref="sos"
                 v-for="(sos, index) in sos" :key="index"
-                @click="getConstituents(sos.sos_external_id)">
+                @click="getConstituents(sos.sos_external_id, $refs.sos[index])">
                     {{ sos.sos_name }}
                 </v-chip>
         </div>
@@ -14,7 +14,7 @@
             <v-chip
                 class="ma-2"
                 color="secondary"
-                v-bind:id="constituents.constituent_external_id"
+                ref="constituents"
                 v-for="(constituent, index) in constituents" :key="index" 
                 @click="addConstituent(constituent)">
                     {{ constituent.constituent_name }}
@@ -65,7 +65,8 @@ import LeaderLine from 'leader-line-new';
         constituents: [],
         composedSoS: [],
         message: 'Train Model',
-        predictions: []
+        predictions: [],
+        SoSLines: []
     }),
     methods: {
         closeDialog() {
@@ -82,46 +83,51 @@ import LeaderLine from 'leader-line-new';
                     console.error(error);
                 });
             },
-        getConstituents(sos) {
+        getConstituents(id, el) {
             this.constituents = []
-            const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos}/constituents/get`;
+            this.SoSLines.forEach(line => line.remove())
+            this.SoSLines = []
+            const path = `${process.env.VUE_APP_BASE_URL}/sos/${id}/constituents/get`;
             axios.get(path)
                 .then((res) => {
                     this.constituents = res.data;
-                    
-                    this.constituents.forEach(constituent => {
-                        // console.log(constituent.constituent_external_id, constituent.constituent_name)
-                        // var startElement = document.getElementById(sos)
-                        // var endElement = document.getElementById("Test");
-                        // console.log(startElement, endElement)
-                        // new LeaderLine(startElement, endElement, {
-                        //     color: 'red', 
-                        //     size: 3,
-                        //     middleLabel: 'DROP',
-                        //     startPlug: 'disc',
-                        //     endPlug: 'disc',
-                        // });
-                    })
-                    let sos_list = []
-                    sos_list.push(sos)
-
-                    let constituent_list = []
-                    this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
-
-                    console.log(sos_list)
-                    console.log(constituent_list) 
-                    
-                    const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
-                    axios.get(relations_path, {params: {
-                        sos_list: sos_list.reduce((f, s) => `${f},${s}`), 
-                        constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
-                        }})
-                        .then((res) => {
-                            console.log(res.data)
-                        })
-                        .catch((error) => {
-                            console.error(error);
+                    console.log(this.$refs.constituents)
+                    this.$nextTick(() => {
+                        this.$refs.constituents.forEach(constituent => {
+                        // var startElement = document.getElementById(sos);
+                        // var endElement = document.getElementById(constituent);
+                        console.log(el, constituent)
+                        const line = new LeaderLine(el.$el, constituent.$el, {
+                            color: 'red', 
+                            size: 3,
+                            startPlug: 'disc',
+                            endPlug: 'disc',
                         });
+
+                        this.SoSLines.push(line)
+                    })
+                })
+
+                    // let sos_list = []
+                    // sos_list.push(sos)
+
+                    // let constituent_list = []
+                    // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
+
+                    // console.log(sos_list)
+                    // console.log(constituent_list) 
+                    
+                    // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
+                    // axios.get(relations_path, {params: {
+                    //     sos_list: sos_list.reduce((f, s) => `${f},${s}`), 
+                    //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
+                    //     }})
+                    //     .then((res) => {
+                    //         console.log(res.data)
+                    //     })
+                    //     .catch((error) => {
+                    //         console.error(error);
+                    //     });
                 })
                 .catch((error) => {
                     console.error(error);

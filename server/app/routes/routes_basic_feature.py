@@ -5,7 +5,7 @@ import jsons
 import numpy as np
 import uuid
 
-@app.route("/basic_feature/get")
+@app.route("/basic_features/get")
 def getBasicFeatures():
     try:
         basic_feature=Basic_Feature.Basic_Feature.query.all()
@@ -14,8 +14,8 @@ def getBasicFeatures():
     except Exception as e:
 	    return(str(e))  
 
-@app.route("/basic_feature/add")
-def addBasicFeature():
+@app.route("/basic_features/add")
+def addBasicFeatures():
     description=request.args.get('description')
     try:
         basic_feature=Basic_Feature.Basic_Feature(
@@ -28,7 +28,7 @@ def addBasicFeature():
     except Exception as e:
 	    return(str(e))           
 
-@app.route("/basic_feature/<feature_id>/get")
+@app.route("/basic_features/<feature_id>/get")
 def getBasicFeature(feature_id):
     feature_external_id=str(feature_id)
     try:
@@ -37,7 +37,7 @@ def getBasicFeature(feature_id):
     except Exception as e:
 	    return(str(e))    
 
-@app.route("/basic_feature/<feature_id>/update")
+@app.route("/basic_features/<feature_id>/update")
 def updateBasicFeature(feature_id):
     feature_external_id=str(feature_id)
     description=request.args.get('description')
@@ -49,7 +49,7 @@ def updateBasicFeature(feature_id):
     except Exception as e:
 	    return(str(e))     
 
-@app.route("/basic_feature/<feature_id>/delete")
+@app.route("/basic_features/<feature_id>/delete")
 def deleteBasicFeature(feature_id):
     feature_external_id=str(feature_id)
     try:
