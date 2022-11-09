@@ -13,8 +13,8 @@ load_dotenv()
 def index():
     return app.send_static_file('index.html')
 
-@app.route('/reset_database')
-def reset_database():
+@app.route('/database/reset')
+def resetDatabase():
     try:
         delete_sos = db.session.query(SoS.SoS).delete()
         delete_constituent = db.session.query(Constituent.Constituent).delete()
