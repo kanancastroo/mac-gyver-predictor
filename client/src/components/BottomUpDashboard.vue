@@ -35,18 +35,50 @@
                 @click="preProcessDatabase()"
             >{{ this.message }}</v-btn>
 
-            <v-btn
+            <div class="text-center">
+                <v-btn
+                :disabled="dialog"
+                :loading="dialog"
+                class="white--text"
+                color="purple darken-2"
+                @click="dialog = true; predict()"
+                >
+                Predict
+                </v-btn>
+                <v-dialog
+                v-model="dialog"
+                hide-overlay
+                persistent
+                width="300"
+                >
+                <v-card
+                    color="primary"
+                    dark
+                >
+                    <v-card-text>
+                    Processing predictions...
+                    <v-progress-linear
+                        indeterminate
+                        color="white"
+                        class="mb-0"
+                    ></v-progress-linear>
+                    </v-card-text>
+                </v-card>
+                </v-dialog>
+            </div>
+
+            <!-- <v-btn
                 color="primary"
                 id="Test"
                 @click="predict()"
-            >Predict!</v-btn>
+            >Predict!</v-btn> -->
 
             <v-chip
                 class="ma-2"
                 close
-                v-for="(predictions, index) in predictions" :key="index"
+                v-for="(prediction, index) in predictions" :key="index"
                 @click:close="removePrediction(index)">
-                    {{ predictions }}
+                    {{ prediction }}
             </v-chip>
         </div>
 
@@ -66,8 +98,16 @@ import LeaderLine from 'leader-line-new';
         composedSoS: [],
         message: 'Train Model',
         predictions: [],
-        SoSLines: []
+        SoSLines: [],
+        dialog: false,
     }),
+    watch: {
+      dialog (val) {
+        if (!val) return
+
+        // setTimeout(() => (this.dialog = false), 4000)
+      },
+    },
     methods: {
         closeDialog() {
             this.dialog = false;
@@ -85,28 +125,28 @@ import LeaderLine from 'leader-line-new';
             },
         getConstituents(id, el) {
             this.constituents = []
-            this.SoSLines.forEach(line => line.remove())
-            this.SoSLines = []
+            // this.SoSLines.forEach(line => line.remove())
+            // this.SoSLines = []
             const path = `${process.env.VUE_APP_BASE_URL}/sos/${id}/constituents/get`;
             axios.get(path)
                 .then((res) => {
                     this.constituents = res.data;
-                    console.log(this.$refs.constituents)
-                    this.$nextTick(() => {
-                        this.$refs.constituents.forEach(constituent => {
-                        // var startElement = document.getElementById(sos);
-                        // var endElement = document.getElementById(constituent);
-                        console.log(el, constituent)
-                        const line = new LeaderLine(el.$el, constituent.$el, {
-                            color: 'red', 
-                            size: 3,
-                            startPlug: 'disc',
-                            endPlug: 'disc',
-                        });
+                    // console.log(this.$refs.constituents)
+                    // this.$nextTick(() => {
+                    //     this.$refs.constituents.forEach(constituent => {
+                    //     // var startElement = document.getElementById(sos);
+                    //     // var endElement = document.getElementById(constituent);
+                    //     console.log(el, constituent)
+                    //     const line = new LeaderLine(el.$el, constituent.$el, {
+                    //         color: 'red', 
+                    //         size: 3,
+                    //         startPlug: 'disc',
+                    //         endPlug: 'disc',
+                    //     });
 
-                        this.SoSLines.push(line)
-                    })
-                })
+                    //     this.SoSLines.push(line)
+                    // })
+                // })
 
                     // let sos_list = []
                     // sos_list.push(sos)
@@ -134,7 +174,7 @@ import LeaderLine from 'leader-line-new';
                 });
         },
         preProcessDatabase() {
-            const path = `${process.env.VUE_APP_BASE_URL}/pre_process_database`;
+            const path = `${process.env.VUE_APP_BASE_URL}/database/process`;
             axios.get(path)
                 .then((res) => {
                     this.message = res.data;
@@ -145,13 +185,32 @@ import LeaderLine from 'leader-line-new';
         },
         predict() {
             const path = `${process.env.VUE_APP_BASE_URL}/predict`;
-            axios.get(path)
+            // console.log(this.composedSoS)
+            // let constituents_elements = this.composedSoS.map(constituent => {return constituent.constituent_name})
+            // console.log(constituents_elements)
+            // let constituents_elements = this.composedSoS[0].toString()
+            // for (let i=1; i < this.composedSoS.length - 1; i++){
+            //     constituents_elements.concat(',',this.composedSoS[i])
+            // }
+            // constituents_elements.concat(',',this.composedSoS[this.composedSoS.length])
+            // console.log(constituents_elements)
+            let payload = {
+                constituent_list: this.composedSoS
+            }
+            axios({
+                url: path,
+                method: 'post',
+                data: payload
+                })
                 .then((res) => {
-                    this.predictions = res.data;
+                    // your action after success
+                    this.predictions = res.data
+                    this.dialog = false
                     console.log(this.predictions)
                 })
                 .catch((error) => {
-                    console.error(error);
+                // your action on error success
+                    console.log(error);
                 });
         },
         addConstituent(constituent){

@@ -383,10 +383,9 @@ def temp():
     return jsonify(ct)
 
 
-@app.route('/predict')
+@app.route('/predict', methods=['POST'])
 def predict():
     try:
-        constituents_elements=request.args.get('constituents_elements')
         print('Starting process...')
 
         pd.set_option('display.max_rows', None)
@@ -522,13 +521,16 @@ def predict():
 
         new_SoS = np.zeros(np.shape(constituents_one_hot_encoding)[1])
 
-        arr_constituent = constituents_elements.split(sep=',')
-        constituent_list = np.array(arr_constituent)
+        constituents_elements=request.json['constituent_list']
+
+        # aux = constituents_elements[1:-1]
+        # arr_constituent = aux.split(sep=',')
+        # constituent_list = np.array(arr_constituent)
 
         # print(list(constituents_one_hot_encoding.columns))
 
-        for constituent_element in constituent_list:
-            index = list(constituents_one_hot_encoding.columns).index('%s' % constituent_element)
+        for constituent_element in constituents_elements:
+            index = list(constituents_one_hot_encoding.columns).index('%s' % constituent_element['constituent_name'])
             new_SoS[index] = 1
 
         print(new_SoS)
