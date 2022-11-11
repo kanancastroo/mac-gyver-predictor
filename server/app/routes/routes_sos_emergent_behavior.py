@@ -4,25 +4,58 @@ import numpy as np
 import jsons
 from models import SoS_Emergent_Behavior, SoS, Emergent_Behavior
 
-@app.route("/relation/sos_emergent_behavior/add")
+@app.route("/relation/sos_emergent_behavior/add", methods=['GET', 'POST'])
 def addRelationSoSEmergentBehavior():
-    emergent_external_id=request.args.get('emergent_external_id')
-    sos_external_id=request.args.get('sos_external_id')
+    if request.method == 'POST':
+        sos_external_id=request.json['sos_external_id']
+        emergent_behaviors_list=request.json['emergent_behaviors_list']
 
-    emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=emergent_external_id).first()
-    sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).first()
+        # print(len(basic_features_list))
+        # print(len(emergent_behaviors_list))
+        items = []
+        i = 0
 
-    try:
-        sos_emergent_behavior=SoS_Emergent_Behavior.SoS_Emergent_Behavior(
-            emergent_behavior_id=emergent_behavior.emergent_id,
-            sos_id=sos.sos_id
-        )
-        db.session.add(sos_emergent_behavior)
+        for behavior in emergent_behaviors_list:
+            print('i: ', i)
+            print(sos_external_id)
+            print(behavior['emergent_external_id'])
+            sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).first()
+            emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=behavior['emergent_external_id']).first()
+            
+            sos_emergent_behavior=SoS_Emergent_Behavior.SoS_Emergent_Behavior(
+                sos_id=sos.sos_id,
+                emergent_behavior_id=emergent_behavior.emergent_id,
+            )
+
+            items.append(sos_emergent_behavior)
+            # db.session.add(basic_feature_emergent_behavior)
+
+
+            i = i + 1
+            
+        db.session.add_all(items)
         db.session.commit()
-        # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
-        return "Relation SoS/Emergent Behavior added successfully."
-    except Exception as e:
-	    return(str(e))        
+    
+        return "Relations SoS/Emergent Behavior added successfully."
+
+    else:
+        emergent_external_id=request.args.get('emergent_external_id')
+        sos_external_id=request.args.get('sos_external_id')
+
+        emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=emergent_external_id).first()
+        sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).first()
+
+        try:
+            sos_emergent_behavior=SoS_Emergent_Behavior.SoS_Emergent_Behavior(
+                emergent_behavior_id=emergent_behavior.emergent_id,
+                sos_id=sos.sos_id
+            )
+            db.session.add(sos_emergent_behavior)
+            db.session.commit()
+            # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
+            return "Relation SoS/Emergent Behavior added successfully."
+        except Exception as e:
+            return(str(e))        
 
 
 @app.route("/relation/sos_emergent_behavior/delete")

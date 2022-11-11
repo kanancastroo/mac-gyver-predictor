@@ -60,6 +60,50 @@ def deleteConstituent(constituent_id):
     except Exception as e:
 	    return(str(e))   
 
+@app.route("/constituents/basic_features/post", methods=['POST'])
+def getBasicFeaturesFromConstituents():
+    class BasicFeature():
+        def __init__(self, feature_external_id, description):
+            self.feature_external_id = feature_external_id
+            self.description = description
+
+        def toJSON(self):
+            return jsons.dump(self)
+
+    constituents_elements=request.json['constituent_list']
+    constituents_external_ids = []
+
+    for item in constituents_elements:
+        constituents_external_ids.append(item['constituent_external_id'])
+
+    try:
+        results = db.session.query(Constituent.Constituent, Constituent_Basic_Feature.Constituent_Basic_Feature, \
+        Basic_Feature.Basic_Feature) \
+        .select_from(Constituent.Constituent) \
+        .join(Constituent_Basic_Feature.Constituent_Basic_Feature, Constituent.Constituent.constituent_id == Constituent_Basic_Feature.Constituent_Basic_Feature.constituent_id) \
+        .join(Basic_Feature.Basic_Feature, Constituent_Basic_Feature.Constituent_Basic_Feature.basic_feature_id == Basic_Feature.Basic_Feature.feature_id) \
+        .filter(Constituent.Constituent.constituent_external_id.in_((constituents_external_ids))) \
+        .distinct().all()
+
+        array_basic_features = []
+
+        for constituent_id, relation_id, feature_id in results:
+            basic_feature = BasicFeature(feature_external_id=feature_id.feature_external_id, description=feature_id.description)
+            array_basic_features.append(basic_feature)
+            # print(sos_id.sos_name, constituent_id.constituent_id, constituent_id.constituent_name)
+            # print(array_constituents)
+
+        seen_ids = set()
+        new_list = []
+        for obj in array_basic_features:
+            if obj.feature_external_id not in seen_ids:
+                new_list.append(obj)
+                seen_ids.add(obj.feature_external_id)
+
+        return jsonify([e.toJSON() for e in new_list])
+    except Exception as e:
+	    return(str(e))  
+
 # @app.route("/list_emergent_behaviors_from_constituents")
 # def list_emergent_behaviors_from_constituents():
 #     class EmergentBehavior():

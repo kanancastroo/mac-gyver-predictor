@@ -6,6 +6,7 @@ from sqlalchemy import text
 from models import SoS, Constituent, Basic_Feature, Emergent_Behavior, SoS_Constituent, Constituent_Basic_Feature, Basic_Feature_Emergent_Behavior, SoS_Emergent_Behavior
 import os
 import datetime
+import jsons
 
 from tensorflow.keras.callbacks import Callback,ModelCheckpoint
 # from tensorflow.keras.layers import Dense, Flatten, LSTM, Conv1D, MaxPooling1D, Dropout, Activation, Input
@@ -385,6 +386,13 @@ def temp():
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    class EmergentBehavior():
+        def __init__(self, emergent_external_id, description):
+            self.emergent_external_id = emergent_external_id
+            self.description = description
+
+        def toJSON(self):
+            return jsons.dump(self) 
     try:
         print('Starting process...')
 
@@ -556,7 +564,14 @@ def predict():
             if (rounded_flat_list[i] == 1):
                 possible_emergent_behaviors.append(emergent_behaviors_labels[i])
 
-        return jsonify(possible_emergent_behaviors)
+        emergent_behaviors_obj = Emergent_Behavior.Emergent_Behavior.query.filter(Emergent_Behavior.Emergent_Behavior.description.in_(possible_emergent_behaviors))
+
+        arr_prediction_obj = []
+        for behavior_obj in emergent_behaviors_obj:
+            prediction = EmergentBehavior(emergent_external_id=behavior_obj.emergent_external_id, description=behavior_obj.description)
+            arr_prediction_obj.append(prediction)
+        
+        return jsonify([e.toJSON() for e in arr_prediction_obj])
     except Exception as e:
         return(str(e))
 

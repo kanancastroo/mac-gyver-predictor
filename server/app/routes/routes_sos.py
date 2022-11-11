@@ -25,7 +25,7 @@ def addSoS():
         )
         db.session.add(sos)
         db.session.commit()
-        return "SoS added. sos_external_id={}.".format(sos.sos_external_id)
+        return jsonify(sos.sos_external_id)
     except Exception as e:
 	    return(str(e))  
 

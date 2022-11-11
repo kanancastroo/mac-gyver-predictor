@@ -4,25 +4,63 @@ import numpy as np
 import jsons
 from models import Basic_Feature_Emergent_Behavior, Basic_Feature, Emergent_Behavior
 
-@app.route("/relation/basic_feature_emergent_behavior/add")
+@app.route("/relation/basic_feature_emergent_behavior/add", methods=['GET', 'POST'])
 def addRelationBasicFeatureEmergentBehavior():
-    feature_external_id=request.args.get('feature_external_id')
-    emergent_external_id=request.args.get('emergent_external_id')
+    if request.method == 'POST':
+        basic_features_list=request.json['basic_features_list']
+        emergent_behaviors_list=request.json['emergent_behaviors_list']
 
-    basic_feature = Basic_Feature.Basic_Feature.query.filter_by(feature_external_id=feature_external_id).first()
-    emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=emergent_external_id).first()
+        # print(len(basic_features_list))
+        # print(len(emergent_behaviors_list))
+        try:
+            items = []
+            i = 0
+            for behavior in emergent_behaviors_list:
+                j = 0
+                for feature in basic_features_list:
+                    print('i: ', i, 'j: ', j)
+                    print(feature['feature_external_id'])
+                    print(behavior['emergent_external_id'])
+                    basic_feature = Basic_Feature.Basic_Feature.query.filter_by(feature_external_id=feature['feature_external_id']).first()
+                    emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=behavior['emergent_external_id']).first()
+                    
+                    basic_feature_emergent_behavior=Basic_Feature_Emergent_Behavior.Basic_Feature_Emergent_Behavior(
+                        basic_feature_id=basic_feature.feature_id,
+                        emergent_behavior_id=emergent_behavior.emergent_id,
+                    )
 
-    try:
-        basic_feature_emergent_behavior=Basic_Feature_Emergent_Behavior.Basic_Feature_Emergent_Behavior(
-            basic_feature_id=basic_feature.feature_id,
-            emergent_behavior_id=emergent_behavior.emergent_id,
-        )
-        db.session.add(basic_feature_emergent_behavior)
-        db.session.commit()
-        # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
-        return "Relation Basic Feature/Emergent Behavior added successfully."
-    except Exception as e:
-	    return(str(e))        
+                    items.append(basic_feature_emergent_behavior)
+                    # db.session.add(basic_feature_emergent_behavior)
+                    j = j + 1
+
+                i = i + 1
+                
+            db.session.add_all(items)
+            db.session.commit()
+        
+            return "Relations Basic Feature/Emergent Behavior added successfully."
+        except Exception as e:
+            return(str(e))  
+
+    else:
+        print('ENTREI AQUI INDEVIDAMENTE!!!')
+        feature_external_id=request.args.get('feature_external_id')
+        emergent_external_id=request.args.get('emergent_external_id')
+
+        basic_feature = Basic_Feature.Basic_Feature.query.filter_by(feature_external_id=feature_external_id).first()
+        emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=emergent_external_id).first()
+
+        try:
+            basic_feature_emergent_behavior=Basic_Feature_Emergent_Behavior.Basic_Feature_Emergent_Behavior(
+                basic_feature_id=basic_feature.feature_id,
+                emergent_behavior_id=emergent_behavior.emergent_id,
+            )
+            db.session.add(basic_feature_emergent_behavior)
+            db.session.commit()
+            # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
+            return "Relation Basic Feature/Emergent Behavior added successfully."
+        except Exception as e:
+            return(str(e))        
 
 
 @app.route("/relation/basic_feature_emergent_behavior/delete")

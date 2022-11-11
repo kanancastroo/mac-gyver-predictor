@@ -30,6 +30,38 @@
             </v-chip>
         </div>
         <div class="panel">
+            <div class="text-center">
+                <v-btn
+                :disabled="dialog"
+                :loading="dialog"
+                class="white--text"
+                color="purple darken-2"
+                @click="dialog = true; saveSoS()"
+                >
+                Save SoS
+                </v-btn>
+                <v-dialog
+                v-model="dialog"
+                hide-overlay
+                persistent
+                width="300"
+                >
+                <v-card
+                    color="red"
+                    dark
+                >
+                    <v-card-text>
+                    Saving new SoS...
+                    <v-progress-linear
+                        indeterminate
+                        color="white"
+                        class="mb-0"
+                    ></v-progress-linear>
+                    </v-card-text>
+                </v-card>
+                </v-dialog>
+            </div>
+
             <v-btn
                 color="primary"
                 @click="preProcessDatabase()"
@@ -78,7 +110,7 @@
                 close
                 v-for="(prediction, index) in predictions" :key="index"
                 @click:close="removePrediction(index)">
-                    {{ prediction }}
+                    {{ prediction.description }}
             </v-chip>
         </div>
 
@@ -96,6 +128,7 @@ import LeaderLine from 'leader-line-new';
         sos: [],
         constituents: [],
         composedSoS: [],
+        featuresFromChosenConstituents: [],
         message: 'Train Model',
         predictions: [],
         SoSLines: [],
@@ -109,6 +142,81 @@ import LeaderLine from 'leader-line-new';
       },
     },
     methods: {
+        saveSoS() {
+            const path_addSoS = `${process.env.VUE_APP_BASE_URL}/sos/add`;
+            console.log(path_addSoS)
+            let sos_name = 'Seinfeld'
+            axios.get(path_addSoS, {params: {sos_name: sos_name}})
+                .then(async res => {
+                    let sos_external_id = res.data
+                    console.log(sos_external_id)
+
+                    const path_addRelationSoSConstituent = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/add`;
+                    console.log(path_addRelationSoSConstituent)
+                    let promises = []
+                    for (let i=0; i < this.composedSoS.length; i++) {
+                        promises.push(
+                            axios.get(path_addRelationSoSConstituent, {params: {sos_external_id: sos_external_id, constituent_external_id:this.composedSoS[i].constituent_external_id}})
+                            .then((res) => {
+                                console.log(`Added relation between ${sos_name} and ${this.composedSoS[i].constituent_name}`)
+                            })
+                            .catch((error) => {
+                                console.error('ERROR ON ADD RELATION SOS/CONSTITUENT =>>> ', error);
+                                this.dialog = false
+                            })
+                        )
+                    }
+
+                    await Promise.all(promises)
+                    console.log('Relations SoS/Constituent added Successfully. Now adding relations Basic Features/Emergent Behaviors...')
+
+                    let payload = {
+                        basic_features_list: this.featuresFromChosenConstituents,
+                        emergent_behaviors_list: this.predictions
+                    }
+                    const path_addRelationsFeaturesBehaviors = `${process.env.VUE_APP_BASE_URL}/relation/basic_feature_emergent_behavior/add`;
+                    axios({
+                        url: path_addRelationsFeaturesBehaviors,
+                        method: 'post',
+                        data: payload
+                        })
+                        .then((res) => {
+                            // your action after success
+                            // this.dialog = false
+                            console.log('Relations Basic Features/Emergent Behaviors added Successfully. Now adding relations SoS/Emergent Behaviors...')
+                            let payload_final = {
+                                sos_external_id: sos_external_id,
+                                emergent_behaviors_list: this.predictions
+                            }
+                            const path_addRelationsSoSBehaviors = `${process.env.VUE_APP_BASE_URL}/relation/sos_emergent_behavior/add`;
+                            axios({
+                                url: path_addRelationsSoSBehaviors,
+                                method: 'post',
+                                data: payload_final
+                                })
+                                .then((res) => {
+                                    // your action after success
+                                    // this.dialog = false
+                                    console.log('PROCESS FINISHED!!!')
+                                    this.dialog = false
+                                })
+                                .catch((error) => {
+                                // your action on error success
+                                    console.log('ERROR ON ADD RELATION FEATURES/BEHAVIORS =>>> ', error);
+                                    this.dialog = false
+                                });
+                        })
+                        .catch((error) => {
+                        // your action on error success
+                            console.log('ERROR ON ADD RELATION FEATURES/BEHAVIORS =>>> ', error);
+                            this.dialog = false
+                        });
+                })
+                .catch((error) => {
+                    this.dialog = false
+                    console.error('ERROR ON ADD SOS =>>> ', error);
+                });
+        },
         closeDialog() {
             this.dialog = false;
         },
@@ -205,8 +313,27 @@ import LeaderLine from 'leader-line-new';
                 .then((res) => {
                     // your action after success
                     this.predictions = res.data
-                    this.dialog = false
+                    // this.dialog = false
                     console.log(this.predictions)
+
+                    const featuresPath = `${process.env.VUE_APP_BASE_URL}/constituents/basic_features/post`
+                    axios({
+                        url: featuresPath,
+                        method: 'post',
+                        data: payload
+                        })
+                        .then((res) => {
+                            // your action after success
+                            this.featuresFromChosenConstituents = res.data
+                            console.log('BASIC FEATURES:')
+                            console.log(this.featuresFromChosenConstituents)
+                            this.dialog = false
+                        })
+                        .catch((error) => {
+                        // your action on error success
+                            this.dialog = false
+                            console.log(error);
+                        });
                 })
                 .catch((error) => {
                 // your action on error success
@@ -215,6 +342,7 @@ import LeaderLine from 'leader-line-new';
         },
         addConstituent(constituent){
             this.composedSoS.push(constituent)
+            console.log(this.composedSoS)
         },
         removeConstituent(index){
             this.composedSoS.splice(index, 1)
