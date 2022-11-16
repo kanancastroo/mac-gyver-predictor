@@ -62,8 +62,8 @@ def deleteSoS(sos_id):
 	    return(str(e))       
 
 
-@app.route("/sos/<sos_id>/constituents/get")
-def getConstituentsFromSoS(sos_id):
+@app.route("/sos/<sos_external_id>/constituents/get")
+def getConstituentsFromSoS(sos_external_id):
     class CS():
         def __init__(self, constituent_external_id, constituent_name):
             # self.constituent_id = constituent_id
@@ -73,11 +73,11 @@ def getConstituentsFromSoS(sos_id):
         def toJSON(self):
             return jsons.dump(self)
 
-    sos_external_id=str(sos_id)
+    sos_external_id=str(sos_external_id)
     sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).one()
 
     sos_id=sos.sos_id
-    # print('internal ID iS =>>> ', sos_id)
+    print('internal ID iS =>>> ', sos_id)
     # aux = sos_id[1:-1]
     # arr = aux.split(sep=',')
     # print(arr)
@@ -106,8 +106,8 @@ def getConstituentsFromSoS(sos_id):
 	    return(str(e))           
 
 
-@app.route("/sos/<sos_id>/constituents/basic_features/get")
-def getBasicFeaturesFromSoS(sos_id):
+@app.route("/sos/<sos_external_id>/constituents/basic_features/get")
+def getBasicFeaturesFromSoS(sos_external_id):
     class BasicFeature():
         def __init__(self, feature_external_id, description):
             # self.constituent_id = constituent_id
@@ -117,7 +117,7 @@ def getBasicFeaturesFromSoS(sos_id):
         def toJSON(self):
             return jsons.dump(self)
 
-    sos_external_id=str(sos_id)
+    sos_external_id=str(sos_external_id)
     sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).one()
 
     sos_id=sos.sos_id
@@ -154,8 +154,8 @@ def getBasicFeaturesFromSoS(sos_id):
 	    return(str(e))      
 
 
-@app.route("/sos/<sos_id>/constituents/basic_features/emergent_behaviors/get")
-def getEmergentBehaviorsFromSoS(sos_id):
+@app.route("/sos/<sos_external_id>/constituents/basic_features/emergent_behaviors/get")
+def getEmergentBehaviorsFromSoS(sos_external_id):
     class EmergentBehavior():
         def __init__(self, emergent_external_id, description):
             # self.constituent_id = constituent_id
@@ -165,7 +165,7 @@ def getEmergentBehaviorsFromSoS(sos_id):
         def toJSON(self):
             return jsons.dump(self)
 
-    sos_external_id=str(sos_id)
+    sos_external_id=str(sos_external_id)
     sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).one()
 
     sos_id=sos.sos_id

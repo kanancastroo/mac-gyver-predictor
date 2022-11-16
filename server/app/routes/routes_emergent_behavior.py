@@ -24,7 +24,7 @@ def addEmergentBehavior():
         )
         db.session.add(emergent_behavior)
         db.session.commit()
-        return "Emergent Behavior added. emergent_external_id={}".format(emergent_behavior.emergent_external_id)
+        return jsonify(emergent_behavior.emergent_external_id)
     except Exception as e:
 	    return(str(e))    
 

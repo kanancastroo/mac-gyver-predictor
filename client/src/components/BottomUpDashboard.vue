@@ -1,6 +1,7 @@
 <template>
     <div class="dashboard">
         <div class="panel">
+            <div class="title">SoS</div>
             <v-chip
                 class="ma-2"
                 color="primary"
@@ -8,9 +9,10 @@
                 v-for="(sos, index) in sos" :key="index"
                 @click="getConstituents(sos.sos_external_id, $refs.sos[index])">
                     {{ sos.sos_name }}
-                </v-chip>
+            </v-chip>
         </div>
         <div class="panel">
+            <div class="title">Constituents</div>
             <v-chip
                 class="ma-2"
                 color="secondary"
@@ -21,27 +23,82 @@
             </v-chip>
         </div>
         <div class="panel">
-            <v-chip
-                class="ma-2"
-                close
-                v-for="(constituent, index) in composedSoS" :key="index"
-                @click:close="removeConstituent(index)">
-                    {{ constituent.constituent_name }}
-            </v-chip>
-        </div>
-        <div class="panel">
+            <div class="title">Dashboard</div>
+            <div class="composedSoSPanel">
+                <v-chip
+                    class="ma-2"
+                    close
+                    v-for="(constituent, index) in composedSoS" :key="index"
+                    @click:close="removeConstituent(index)">
+                        {{ constituent.constituent_name }}
+                </v-chip>
+            </div>
+
             <div class="text-center">
-                <v-btn
-                :disabled="dialog"
-                :loading="dialog"
+                <!-- <v-btn
+                :disabled="saveDialog"
+                :loading="saveDialog"
                 class="white--text"
                 color="purple darken-2"
-                @click="dialog = true; saveSoS()"
+                @click="saveDialog = true; saveSoS()"
                 >
                 Save SoS
-                </v-btn>
+                </v-btn> -->
+                <v-row justify="center">
                 <v-dialog
-                v-model="dialog"
+                v-model="addSoSDialog"
+                persistent
+                max-width="600px"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    Save SoS
+                    </v-btn>
+                </template>
+                    <v-card>
+                        <v-card-title>
+                        <span class="text-h5">New SoS name</span>
+                        </v-card-title>
+                        <small>Type a name for the new SoS:</small>                        
+                        <v-card-text>
+                        <v-container>
+                            <v-row>
+                            <v-col cols="12">
+                                <v-text-field
+                                v-model="sosName"
+                                label=""
+                                ></v-text-field>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="addSoSDialog = false"
+                        >
+                            Cancel
+                        </v-btn>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="addSoSDialog = false; saveSoS(sosName)"
+                        >
+                            Save
+                        </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    </v-dialog>
+                </v-row>
+                <v-dialog
+                v-model="saveDialog"
                 hide-overlay
                 persistent
                 width="300"
@@ -61,24 +118,44 @@
                 </v-card>
                 </v-dialog>
             </div>
-
+        </div>
+        <div class="panel">
+            <div class="title">Emergent Behaviors</div> 
+            <div class="text">Known:</div>
+            <div class="behaviors">
+                <v-chip
+                    class="ma-2"
+                    close
+                    v-for="(behavior, index) in knownBehaviors" :key="index"
+                    @click:close="removeKnownBehavior(index)">
+                        {{ behavior.description }}
+                </v-chip>
+            </div>
             <v-btn
-                color="primary"
-                @click="preProcessDatabase()"
-            >{{ this.message }}</v-btn>
-
+                elevation="2" @click="showKnownEmergentBehaviors()"
+            >Show</v-btn>
+            <div class="text">Predicted:</div>
+            <div class="behaviors">
+                <v-chip
+                    class="ma-2"
+                    close
+                    v-for="(prediction, index) in predictions" :key="index"
+                    @click:close="removePrediction(index)">
+                        {{ prediction.description }}
+                </v-chip>
+            </div>
             <div class="text-center">
                 <v-btn
-                :disabled="dialog"
-                :loading="dialog"
+                :disabled="predictDialog"
+                :loading="predictDialog"
                 class="white--text"
                 color="purple darken-2"
-                @click="dialog = true; predict()"
+                @click="predictDialog = true; predict()"
                 >
                 Predict
                 </v-btn>
                 <v-dialog
-                v-model="dialog"
+                v-model="predictDialog"
                 hide-overlay
                 persistent
                 width="300"
@@ -98,20 +175,81 @@
                 </v-card>
                 </v-dialog>
             </div>
-
-            <!-- <v-btn
-                color="primary"
-                id="Test"
-                @click="predict()"
-            >Predict!</v-btn> -->
-
-            <v-chip
-                class="ma-2"
-                close
-                v-for="(prediction, index) in predictions" :key="index"
-                @click:close="removePrediction(index)">
-                    {{ prediction.description }}
-            </v-chip>
+            <div class="text">Observed:</div>
+            <div class="behaviors">
+                <v-chip
+                    class="ma-2"
+                    close
+                    v-for="(behavior, index) in observedBehaviors" :key="index"
+                    @click:close="removeObservedBehavior(index)">
+                        {{ behavior.description }}
+                </v-chip>
+            </div>
+            <v-row justify="center">
+                <v-dialog
+                v-model="behaviorDialog"
+                persistent
+                max-width="600px"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    Add
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                    <span class="text-h5">Emergent Behavior</span>
+                    <small>Pick one from the list or type a new behavior in the textbox</small>
+                    </v-card-title>
+                    <v-card-text>
+                    <v-container>
+                        <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                        >
+                            <v-select
+                            :items="this.emergentBehaviors"
+                            item-text="description"
+                            label="Pick an emergent behavior"
+                            v-model="selectedBehavior"
+                            return-object
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                            v-model="insertedBehavior"
+                            label="...or type a new one here"
+                            ></v-text-field>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="behaviorDialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="behaviorDialog = false; addObservedBehavior(selectedBehavior, insertedBehavior)"
+                    >
+                        Add
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+            </v-row>
         </div>
 
 
@@ -131,21 +269,92 @@ import LeaderLine from 'leader-line-new';
         featuresFromChosenConstituents: [],
         message: 'Train Model',
         predictions: [],
+        knownBehaviors: [],
+        observedBehaviors: [],
         SoSLines: [],
-        dialog: false,
+        emergentBehaviors: [],
+        selectedBehavior: null,
+        insertedBehavior: null,
+        predictDialog: false,
+        saveDialog: false,
+        behaviorDialog: false,
+        addSoSDialog: false,
+        sosName: 'Unnamed SoS'
     }),
     watch: {
-      dialog (val) {
-        if (!val) return
+        predictDialog (val) {
+            if (!val) return
 
-        // setTimeout(() => (this.dialog = false), 4000)
-      },
+            // setTimeout(() => (this.dialog = false), 4000)
+        },
+        saveDialog (val) {
+            if (!val) return
+
+            // setTimeout(() => (this.dialog = false), 4000)
+        },
+        behaviorDialog (val) {
+            if (!val) return
+
+            // setTimeout(() => (this.dialog = false), 4000)
+        },
+        addSoSDialog (val) {
+            if (!val) return
+
+            // setTimeout(() => (this.dialog = false), 4000)
+        },
     },
     methods: {
-        saveSoS() {
+        addObservedBehavior(selectedBehavior, insertedBehavior) {
+            // console.log('selectedBehavior: ', selectedBehavior)
+            // console.log('insertedBehavior: ', insertedBehavior)
+            if (insertedBehavior) {
+                const addBehavior = `${process.env.VUE_APP_BASE_URL}/emergent_behaviors/add`;
+                axios.get(addBehavior, {params: {description: insertedBehavior}})
+                    .then(res => {
+                        let newBehavior = {}
+                        newBehavior.emergent_external_id = res.data
+                        newBehavior.description = insertedBehavior
+                        this.observedBehaviors.push(newBehavior)
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            } else {
+                this.observedBehaviors.push(selectedBehavior)
+            }
+        },
+        showKnownEmergentBehaviors() {
+            const path = `${process.env.VUE_APP_BASE_URL}/constituents/basic_features/emergent_behaviors/post`;
+            let payload = {
+                        constituent_list: this.composedSoS,
+                    }    
+            axios({
+                    url: path,
+                    method: 'post',
+                    data: payload
+                    })
+                    .then((res) => {
+                        this.knownBehaviors = res.data
+                    })
+                    .catch((error) => {
+                        console.error('ERROR ON SHOW KNOWN EMERGENT BEHAVIORS =>>> ', error);
+                    })
+        },
+        getAllEmergentBehaviors() {
+            const path = `${process.env.VUE_APP_BASE_URL}/emergent_behaviors/get`;
+            axios.get(path)
+                .then((res) => {
+                    this.emergentBehaviors = res.data;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        saveSoS(sosName) {
+            this.saveDialog = true
             const path_addSoS = `${process.env.VUE_APP_BASE_URL}/sos/add`;
             console.log(path_addSoS)
-            let sos_name = 'Seinfeld'
+            let sos_name = sosName
             axios.get(path_addSoS, {params: {sos_name: sos_name}})
                 .then(async res => {
                     let sos_external_id = res.data
@@ -162,7 +371,7 @@ import LeaderLine from 'leader-line-new';
                             })
                             .catch((error) => {
                                 console.error('ERROR ON ADD RELATION SOS/CONSTITUENT =>>> ', error);
-                                this.dialog = false
+                                this.saveDialog = false
                             })
                         )
                     }
@@ -170,52 +379,83 @@ import LeaderLine from 'leader-line-new';
                     await Promise.all(promises)
                     console.log('Relations SoS/Constituent added Successfully. Now adding relations Basic Features/Emergent Behaviors...')
 
-                    let payload = {
-                        basic_features_list: this.featuresFromChosenConstituents,
-                        emergent_behaviors_list: this.predictions
-                    }
-                    const path_addRelationsFeaturesBehaviors = `${process.env.VUE_APP_BASE_URL}/relation/basic_feature_emergent_behavior/add`;
-                    axios({
-                        url: path_addRelationsFeaturesBehaviors,
-                        method: 'post',
-                        data: payload
+                    console.log('Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.predictions)')
+                    this.addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.predictions).then(result => {
+                        console.log('Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.knownBehaviors)')
+                        this.addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.knownBehaviors).then(result => {
+                            console.log('Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.observedBehaviors)')
+                            this.addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.observedBehaviors).then(result => {
+                                console.log('Executing updateModel()')
+                                this.updateModel().then(result => console.log('DONE!'))
+                            })
                         })
-                        .then((res) => {
-                            // your action after success
-                            // this.dialog = false
-                            console.log('Relations Basic Features/Emergent Behaviors added Successfully. Now adding relations SoS/Emergent Behaviors...')
-                            let payload_final = {
-                                sos_external_id: sos_external_id,
-                                emergent_behaviors_list: this.predictions
-                            }
-                            const path_addRelationsSoSBehaviors = `${process.env.VUE_APP_BASE_URL}/relation/sos_emergent_behavior/add`;
-                            axios({
-                                url: path_addRelationsSoSBehaviors,
-                                method: 'post',
-                                data: payload_final
-                                })
-                                .then((res) => {
-                                    // your action after success
-                                    // this.dialog = false
-                                    console.log('PROCESS FINISHED!!!')
-                                    this.dialog = false
-                                })
-                                .catch((error) => {
-                                // your action on error success
-                                    console.log('ERROR ON ADD RELATION FEATURES/BEHAVIORS =>>> ', error);
-                                    this.dialog = false
-                                });
-                        })
-                        .catch((error) => {
-                        // your action on error success
-                            console.log('ERROR ON ADD RELATION FEATURES/BEHAVIORS =>>> ', error);
-                            this.dialog = false
-                        });
+                    })
+                    
                 })
                 .catch((error) => {
-                    this.dialog = false
+                    this.saveDialog = false
                     console.error('ERROR ON ADD SOS =>>> ', error);
                 });
+        },
+        updateModel() {
+            const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
+            return new Promise((resolve, reject) => {
+                axios.get(path_processing)
+                    .then((res) => {                          
+                        console.log('Model updated successfully!')
+                        this.saveDialog = false
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        this.saveDialog = false
+                    });
+            })
+        },
+        addRelationBasicFeaturesEmergentBehaviors(sos_external_id, behaviorsList) {
+            let payload = {
+                        basic_features_list: this.featuresFromChosenConstituents,
+                        emergent_behaviors_list: behaviorsList
+                    }
+            const path_addRelationsFeaturesBehaviors = `${process.env.VUE_APP_BASE_URL}/relation/basic_feature_emergent_behavior/add`;
+            return new Promise((resolve, reject) => {
+                axios({
+                    url: path_addRelationsFeaturesBehaviors,
+                    method: 'post',
+                    data: payload
+                    })
+                    .then((res) => {
+                        // your action after success
+                        // this.dialog = false
+                        console.log('Relations Basic Features/Emergent Behaviors added Successfully. Now adding relations SoS/Emergent Behaviors...')
+                        let payload_final = {
+                            sos_external_id: sos_external_id,
+                            emergent_behaviors_list: behaviorsList
+                        }
+                        const path_addRelationsSoSBehaviors = `${process.env.VUE_APP_BASE_URL}/relation/sos_emergent_behavior/add`;
+                        axios({
+                            url: path_addRelationsSoSBehaviors,
+                            method: 'post',
+                            data: payload_final
+                            })
+                            .then((res) => {
+                                // your action after success
+                                // this.dialog = false
+                                console.log('SUBPROCESS FINISHED!!!')
+                                resolve()
+                            })
+                            .catch((error) => {
+                            // your action on error success
+                                console.log('ERROR ON ADD RELATION SoS/BEHAVIORS =>>> ', error);
+                                this.saveDialog = false
+                            });
+                    })
+                    .catch((error) => {
+                    // your action on error success
+                        console.log('ERROR ON ADD RELATION FEATURES/BEHAVIORS =>>> ', error);
+                        this.saveDialog = false
+                    });
+            })
         },
         closeDialog() {
             this.dialog = false;
@@ -327,11 +567,11 @@ import LeaderLine from 'leader-line-new';
                             this.featuresFromChosenConstituents = res.data
                             console.log('BASIC FEATURES:')
                             console.log(this.featuresFromChosenConstituents)
-                            this.dialog = false
+                            this.predictDialog = false
                         })
                         .catch((error) => {
                         // your action on error success
-                            this.dialog = false
+                            this.predictDialog = false
                             console.log(error);
                         });
                 })
@@ -349,12 +589,19 @@ import LeaderLine from 'leader-line-new';
         },
         removePrediction(index){
             this.predictions.splice(index, 1)
+        },
+        removeKnownBehavior(index){
+            this.knownBehaviors.splice(index, 1)
+        },
+        removeObservedBehavior(index){
+            this.observedBehaviors.splice(index, 1)
         }
     },
     created() {
         this.getSoS();
+        this.getAllEmergentBehaviors();
     }
-  }
+}
 </script>
 
 <style>
@@ -387,5 +634,28 @@ import LeaderLine from 'leader-line-new';
 
 .v-chip {
     white-space: normal !important;
+}
+
+.composedSoSPanel {
+    min-height: 90%;
+}
+
+.behaviors {
+    min-height: 100px;
+    width: 90%;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.row {
+    margin: 0 !important;
+}
+
+#observed {
+    width: 90%;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
 }
 </style>
