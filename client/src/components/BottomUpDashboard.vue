@@ -259,7 +259,7 @@
 
 <script>
 import axios from 'axios';
-import LeaderLine from 'leader-line-new';
+// import LeaderLine from 'leader-line-new';
 
   export default {
     data: () => ({

@@ -44,7 +44,7 @@ def deleteRelationConstituentBasicFeature():
     except Exception as e:
 	    return(str(e))        
 
-@app.route("/relation/constituent_basic_feature/get")
+@app.route("/relation/constituent_basic_feature/post", methods=['POST'])
 def getRelationsConstituentBasicFeature():
     class ConstituentBasicFeature():
         def __init__(self, constituent_external_id, feature_external_id):
@@ -55,14 +55,17 @@ def getRelationsConstituentBasicFeature():
             return jsons.dump(self) 
 
     try:
-        constituents=request.args.get('constituent_list')
-        features=request.args.get('features_list')
+        constituents=request.json['constituent_list']
+        features=request.json['features_list']
 
-        arr_constituent = constituents.split(sep=',')
-        constituent_list = np.array(arr_constituent)
+        constituent_list = []
+        features_list = []
 
-        arr_features = features.split(sep=',')
-        features_list = np.array(arr_features)        
+        for item in constituents:
+            constituent_list.append(item['constituent_external_id'])
+
+        for item in features:
+            features_list.append(item['feature_external_id'])            
         
         constituent_objs = Constituent.Constituent.query.filter(Constituent.Constituent.constituent_external_id.in_(constituent_list))
         features_objs = Basic_Feature.Basic_Feature.query.filter(Basic_Feature.Basic_Feature.feature_external_id.in_(features_list))

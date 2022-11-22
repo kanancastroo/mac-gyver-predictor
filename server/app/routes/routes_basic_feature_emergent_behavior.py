@@ -43,7 +43,6 @@ def addRelationBasicFeatureEmergentBehavior():
             return(str(e))  
 
     else:
-        print('ENTREI AQUI INDEVIDAMENTE!!!')
         feature_external_id=request.args.get('feature_external_id')
         emergent_external_id=request.args.get('emergent_external_id')
 
@@ -83,7 +82,7 @@ def deleteRelationBasicFeatureEmergentBehavior():
     except Exception as e:
 	    return(str(e))        
 
-@app.route("/relation/basic_feature_emergent_behavior/get")
+@app.route("/relation/basic_feature_emergent_behavior/post", methods=['POST'])
 def getRelationsBasicFeatureEmergentBehavior():
     class BasicFeatureEmergentBehavior():
         def __init__(self, feature_external_id, emergent_external_id):
@@ -94,14 +93,18 @@ def getRelationsBasicFeatureEmergentBehavior():
             return jsons.dump(self) 
 
     try:
-        features=request.args.get('features_list')
-        emergents=request.args.get('emergents_list')
+        features=request.json['features_list']
+        emergents=request.json['emergents_list']
+        
+        features_list = []
+        emergents_list = []
 
-        arr_features = features.split(sep=',')
-        features_list = np.array(arr_features)    
+        for item in features:
+            features_list.append(item['feature_external_id'])  
 
-        arr_emergents = emergents.split(sep=',')
-        emergents_list = np.array(arr_emergents)              
+        for item in emergents:
+            emergents_list.append(item['emergent_external_id'])  
+            
         
         features_objs = Basic_Feature.Basic_Feature.query.filter(Basic_Feature.Basic_Feature.feature_external_id.in_(features_list))
         emergents_objs = Emergent_Behavior.Emergent_Behavior.query.filter(Emergent_Behavior.Emergent_Behavior.emergent_external_id.in_(emergents_list))
