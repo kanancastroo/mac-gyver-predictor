@@ -2,11 +2,6 @@
     <div class="dashboard">
         <div class="panel">
             <div class="title">SoS</div>
-            <v-col
-                class="d-flex"
-                cols="12"
-                sm="10"
-            >
                 <v-select
                 :items="this.sos"
                 item-text="sos_name"
@@ -17,10 +12,136 @@
                 dense
                 return-object
                 ></v-select>
-            </v-col>
+                            <v-row justify="center">
+                <v-dialog
+                v-model="sosDialog"
+                persistent
+                max-width="600px"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    Create
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                    <span class="text-h5">Create SoS</span>
+                    </v-card-title>
+                    <v-card-text>
+                    <v-container>
+                        <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                        >
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                            v-model="insertedSoS"
+                            label="Type a name for the new SoS"
+                            ></v-text-field>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="sosDialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="sosDialog = false; createSoS()"
+                    >
+                        Create
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+            </v-row>
+            <v-btn
+                color="primary"
+                elevation="2"
+                @click="redrawLines()"
+            >Redraw lines</v-btn>
         </div>
         <div class="panel">
             <div class="title">Constituents</div>
+            <v-row justify="center">
+                <v-dialog
+                v-model="constituentDialog"
+                persistent
+                max-width="600px"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    Add
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                    <span class="text-h5">Add constituent</span>
+                    <small>Pick one from the list or type a name for a new constituent in the textbox</small>
+                    </v-card-title>
+                    <v-card-text>
+                    <v-container>
+                        <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                        >
+                            <v-select
+                            :items="this.constituents"
+                            item-text="name"
+                            label="Pick a constituent"
+                            v-model="selectedConstituent"
+                            return-object
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                            v-model="insertedConstituent"
+                            label="...or type a new one here"
+                            ></v-text-field>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="constituentDialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="constituentDialog = false; addConstituent()"
+                    >
+                        Add
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+            </v-row>
             <v-chip
                     class="ma-2"
                     :color="selectedConstituents.includes(constituent.constituent_external_id) ? 'error' : 'primary'"
@@ -33,6 +154,71 @@
         </div>
         <div class="panel">
             <div class="title">Basic Features</div>
+            <v-row justify="center">
+                <v-dialog
+                v-model="featureDialog"
+                persistent
+                max-width="600px"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    Add
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                    <span class="text-h5">Add basic feature</span>
+                    <small>Pick one from the list or type a name for a new basic feature in the textbox</small>
+                    </v-card-title>
+                    <v-card-text>
+                    <v-container>
+                        <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                        >
+                            <v-select
+                            :items="this.basicFeatures"
+                            item-text="description"
+                            label="Pick a constituent"
+                            v-model="selectedFeature"
+                            return-object
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                            v-model="insertedFeature"
+                            label="...or type a new one here"
+                            ></v-text-field>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="featureDialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="featureDialog = false; addBasicFeature()"
+                    >
+                        Add
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+            </v-row>
             <v-chip
                     class="ma-2"
                     :color="selectedFeatures.includes(feature.feature_external_id) ? 'error' : 'primary'"
@@ -44,7 +230,72 @@
             </v-chip>
         </div>
         <div class="panel">
-            <div class="title">Emergent Behaviors</div> 
+            <div class="title">Emergent Behaviors</div>
+            <v-row justify="center">
+                <v-dialog
+                v-model="behaviorDialog"
+                persistent
+                max-width="600px"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    Add
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                    <span class="text-h5">Add emergent behavior</span>
+                    <small>Pick one from the list or type a name for a new emergent behavior in the textbox</small>
+                    </v-card-title>
+                    <v-card-text>
+                    <v-container>
+                        <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                        >
+                            <v-select
+                            :items="this.emergentBehaviors"
+                            item-text="description"
+                            label="Pick an emergent behavior"
+                            v-model="selectedBehavior"
+                            return-object
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                            v-model="insertedBehavior"
+                            label="...or type a new one here"
+                            ></v-text-field>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="behaviorDialog = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="behaviorDialog = false; addEmergentBehavior()"
+                    >
+                        Add
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+            </v-row> 
             <v-chip
                     class="ma-2"
                     :color="selectedBehaviors.includes(behavior.emergent_external_id) ? 'error' : 'primary'"
@@ -100,20 +351,115 @@ import {v4 as uuidv4} from 'uuid';
         constituents: [],
         basicFeatures: [],
         emergentBehaviors: [],
+
+        insertionSoS: null,
+        editionSoS: null,
+        remotionSoS: null,
+
+        insertionConstituents: [],
+        editionConstituents: [],
+        remotionConstituents: [],
+
+        insertionFeatures: [],
+        editionFeatures: [],
+        remotionFeatures: [],
+
+        insertionBehaviors: [],
+        editionBehaviors: [],
+        remotionBehaviors: [],
+
+        additionRelationsSoSConstituents: [],
+        remotionRelationsSoSConstituents: [],
+
+        additionRelationsConstituentsFeatures: [],
+        remotionRelationsConstituentsFeatures: [],
+
+        additionRelationsFeaturesBehaviors: [],
+        remotionRelationsFeaturesBehaviors: [],
+
         ConstituentsBasicFeaturesLines: [],
         BasicFeaturesEmergentBehaviorsLines: [],
+
+        ConstituentsBasicFeaturesLinesUser: [],
+        BasicFeaturesEmergentBehaviorsLinesUser: [],
+
         selectedSoS: null,
         selectedConstituents: [],
         selectedFeatures: [],
         selectedBehaviors: [],
         selectedForCheck: [],
-        dialog: false
+
+        dialog: false,
+        sosDialog: false,
+        constituentDialog: false,
+        featureDialog: false,
+        behaviorDialog: false
     }),
     created() {
         this.clearAll();
         this.getSoS();
     },
     methods: {
+        redrawLines() {
+            this.ConstituentsBasicFeaturesLines.forEach(item => {
+                console.log('Constituent/Feature =>>> ', item)
+                let color = item.line.color
+                item.line.remove()
+
+                let constituent = this.$refs.constituents.find(constituent => {                       
+                    return constituent.$attrs.id == item.constituent_external_id
+                })
+
+                let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                        
+                    return basicFeature.$attrs.id == item.feature_external_id
+                })
+            
+                const line = new LeaderLine(LeaderLine.mouseHoverAnchor(constituent.$el), basicFeature.$el, {
+                    size: 3,
+                    color: color,
+                    startPlug: 'disc',
+                    endPlug: 'disc',
+                    path: 'straight'                            
+                });
+
+                item.line = line
+            })
+            this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
+                console.log('Feature/Behavior =>>> ', item)
+                let color = item.line.color
+                item.line.remove()
+
+                let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {                          
+                    return emergentBehavior.$attrs.id == item.emergent_external_id
+                })
+
+                let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                         
+                    return basicFeature.$attrs.id == item.feature_external_id
+                })
+            
+                const line = new LeaderLine(LeaderLine.mouseHoverAnchor(basicFeature.$el), emergentBehavior.$el, {
+                    size: 3,
+                    color: color,
+                    startPlug: 'disc',
+                    endPlug: 'disc',
+                    path: 'straight'                            
+                });
+
+                item.line = line
+            })
+        },
+        createSoS() {
+            console.log('Create SoS...')
+        },
+        addConstituent() {
+            console.log('Add Constituent...')
+        },
+        addBasicFeature() {
+            console.log('Add Basic Feature...')
+        },
+        addEmergentBehavior() {
+            console.log('Add Emergent Behavior...')
+        },
         checkConnection() {
             if (this.selectedForCheck.length > 2) {
                 this.dialog = true
@@ -134,18 +480,13 @@ import {v4 as uuidv4} from 'uuid';
                             return (lineObj.constituent_external_id == this.selectedForCheck[0].constituent_external_id
                              && lineObj.feature_external_id == this.selectedForCheck[1].feature_external_id)
                         })
-
-                        // console.log('connection =>>> ', connection)
                         
                         if (connection.length == 0) {
-                            // console.log('connection is ZERO')
-                            let constituent = this.$refs.constituents.find(constituent => {   
-                                // console.log(constituent)                         
+                            let constituent = this.$refs.constituents.find(constituent => {                       
                                 return constituent.$attrs.id == this.selectedForCheck[0].constituent_external_id
                             })
 
-                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {     
-                                // console.log(basicFeature)                       
+                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                        
                                 return basicFeature.$attrs.id == this.selectedForCheck[1].feature_external_id
                             })
                         
@@ -165,21 +506,8 @@ import {v4 as uuidv4} from 'uuid';
                             //AVALIAR PARA ADICIONAR EM OUTRO ARRAY
                             this.ConstituentsBasicFeaturesLines.push(lineObj)
                         } else if (connection.length == 1) {
-                            // console.log('connection is ONE')
-                            // let element = this.ConstituentsBasicFeaturesLines.filter(el => {
-                            //     return (el.constituent_external_id == connection[0].constituent_external_id
-                            //     && el.feature_external_id == connection[0].feature_external_id)
-                            // })
-
-                            // console.log('element =>>> ', element)
-                            // element.line = connection[0].line
-
                             connection[0].line.remove()
-                            // console.log(this.ConstituentsBasicFeaturesLines)
-                            // console.log(this.ConstituentsBasicFeaturesLines.length)
                             this.ConstituentsBasicFeaturesLines.splice(this.ConstituentsBasicFeaturesLines.indexOf(connection[0]), 1)
-                            // console.log(this.ConstituentsBasicFeaturesLines)
-                            // console.log(this.ConstituentsBasicFeaturesLines.length)
                         } else {
                             this.dialog = true
                         }
@@ -203,15 +531,11 @@ import {v4 as uuidv4} from 'uuid';
                         })
 
                         if (connection.length == 0) {
-                            // console.log('connection is ZERO')
-
-                            let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {     
-                                // console.log(basicFeature)                       
+                            let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {                          
                                 return emergentBehavior.$attrs.id == this.selectedForCheck[0].emergent_external_id
                             })
 
-                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {     
-                                // console.log(basicFeature)                       
+                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                         
                                 return basicFeature.$attrs.id == this.selectedForCheck[1].feature_external_id
                             })
                         
@@ -249,17 +573,12 @@ import {v4 as uuidv4} from 'uuid';
                              && lineObj.feature_external_id == this.selectedForCheck[0].feature_external_id)
                         })
 
-                        // console.log('connection =>>> ', connection)
-                        
                         if (connection.length == 0) {
-                            // console.log('connection is ZERO')
-                            let constituent = this.$refs.constituents.find(constituent => {   
-                                // console.log(constituent)                         
+                            let constituent = this.$refs.constituents.find(constituent => {                           
                                 return constituent.$attrs.id == this.selectedForCheck[1].constituent_external_id
                             })
 
-                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {     
-                                // console.log(basicFeature)                       
+                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                          
                                 return basicFeature.$attrs.id == this.selectedForCheck[0].feature_external_id
                             })
                         
@@ -279,21 +598,8 @@ import {v4 as uuidv4} from 'uuid';
                             //AVALIAR PARA ADICIONAR EM OUTRO ARRAY
                             this.ConstituentsBasicFeaturesLines.push(lineObj)
                         } else if (connection.length == 1) {
-                            // console.log('connection is ONE')
-                            // let element = this.ConstituentsBasicFeaturesLines.filter(el => {
-                            //     return (el.constituent_external_id == connection[0].constituent_external_id
-                            //     && el.feature_external_id == connection[0].feature_external_id)
-                            // })
-
-                            // console.log('element =>>> ', element)
-                            // element.line = connection[0].line
-
                             connection[0].line.remove()
-                            // console.log(this.ConstituentsBasicFeaturesLines)
-                            // console.log(this.ConstituentsBasicFeaturesLines.length)
                             this.ConstituentsBasicFeaturesLines.splice(this.ConstituentsBasicFeaturesLines.indexOf(connection[0]), 1)
-                            // console.log(this.ConstituentsBasicFeaturesLines)
-                            // console.log(this.ConstituentsBasicFeaturesLines.length)
                         } else {
                             this.dialog = true
                         }
@@ -309,15 +615,11 @@ import {v4 as uuidv4} from 'uuid';
                         })
 
                         if (connection.length == 0) {
-                            // console.log('connection is ZERO')
-
-                            let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {     
-                                // console.log(basicFeature)                       
+                            let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {                         
                                 return emergentBehavior.$attrs.id == this.selectedForCheck[1].emergent_external_id
                             })
 
-                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {     
-                                // console.log(basicFeature)                       
+                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                         
                                 return basicFeature.$attrs.id == this.selectedForCheck[0].feature_external_id
                             })
                         
@@ -350,7 +652,6 @@ import {v4 as uuidv4} from 'uuid';
                     }                    
                 }
             } else {
-                // console.log(this.selectedForCheck)
                 // console.log('waiting for more chips...')
             } 
         },
@@ -365,12 +666,10 @@ import {v4 as uuidv4} from 'uuid';
             } else {
                 const el = this.selectedConstituents.findIndex(el => el === id);
                 if (el < 0) {
-                    // console.log(this.selectedConstituents)
                     this.selectedConstituents.push(id)
                     this.selectedForCheck.push(item)
                     this.checkConnection()
                 } else {
-                    // console.log(this.selectedConstituents)
                     this.selectedConstituents.splice(el, 1);
                     this.selectedForCheck.splice(item, 1);
                 } 
@@ -387,12 +686,10 @@ import {v4 as uuidv4} from 'uuid';
             } else {
                 const el = this.selectedFeatures.findIndex(el => el === id);
                 if (el < 0) {
-                    // console.log(this.selectedFeatures)
                     this.selectedFeatures.push(id)
                     this.selectedForCheck.push(item)
                     this.checkConnection()
                 } else {
-                    // console.log(this.selectedFeatures)
                     this.selectedFeatures.splice(el, 1);
                     this.selectedForCheck.splice(item, 1);
                 } 
@@ -409,12 +706,10 @@ import {v4 as uuidv4} from 'uuid';
             } else {
                 const el = this.selectedBehaviors.findIndex(el => el === id);
                 if (el < 0) {
-                    // console.log(this.selectedBehaviors)
                     this.selectedBehaviors.push(id)
                     this.selectedForCheck.push(item)
                     this.checkConnection()
                 } else {
-                    // console.log(this.selectedBehaviors)
                     this.selectedBehaviors.splice(el, 1);
                     this.selectedForCheck.splice(item, 1);
                 } 
@@ -422,7 +717,6 @@ import {v4 as uuidv4} from 'uuid';
         },
         getSoS() {
             const path = `${process.env.VUE_APP_BASE_URL}/sos/get`;
-            // console.log(path)
             axios.get(path)
                 .then((res) => {
                     this.sos = res.data;
@@ -436,7 +730,6 @@ import {v4 as uuidv4} from 'uuid';
             this.ConstituentsBasicFeaturesLines = []
             this.BasicFeaturesEmergentBehaviorsLines = []
             const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_external_id}/constituents/get`;
-            // console.log(path, {params: {sos_external_id: sos_external_id}})
             
             return new Promise((resolve, reject) => {
                 axios.get(path)
@@ -460,7 +753,6 @@ import {v4 as uuidv4} from 'uuid';
             this.ConstituentsBasicFeaturesLines = []
             this.BasicFeaturesEmergentBehaviorsLines = []
             const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_external_id}/constituents/basic_features/get`;
-            // console.log(path, {params: {sos_external_id: sos_external_id}})
             
             return new Promise((resolve, reject) => {
                 axios.get(path)
@@ -473,8 +765,6 @@ import {v4 as uuidv4} from 'uuid';
                         })
                         
                         this.$nextTick(() => {
-                            // console.log(this.$refs.constituents)
-                            // console.log(this.$refs.basicFeatures)
                             resolve()
                         })                       
                     })
@@ -488,7 +778,6 @@ import {v4 as uuidv4} from 'uuid';
             this.ConstituentsBasicFeaturesLines = []
             this.BasicFeaturesEmergentBehaviorsLines = []
             const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_external_id}/constituents/basic_features/emergent_behaviors/get`;
-            // console.log(path, {params: {sos_external_id: sos_external_id}})
             
             return new Promise((resolve, reject) => {
                 axios.get(path)
@@ -522,77 +811,35 @@ import {v4 as uuidv4} from 'uuid';
                     data: payload
                     })
                     .then((res) => {
-                        // console.log(res.data)
                         let relations = res.data
                         relations.forEach(relation => {
-                        // var startElement = document.getElementById(sos);
-                        // var endElement = document.getElementById(constituent);
-                        let constituent = this.$refs.constituents.find(constituent => {   
-                            // console.log(constituent)                         
-                            return constituent.$attrs.id == relation.constituent_external_id
-                        })
 
-                        let basicFeature = this.$refs.basicFeatures.find(basicFeature => {     
-                            // console.log(basicFeature)                       
-                            return basicFeature.$attrs.id == relation.feature_external_id
-                        })
+                            let constituent = this.$refs.constituents.find(constituent => {                           
+                                return constituent.$attrs.id == relation.constituent_external_id
+                            })
 
-                        // console.log('Constituent => ', constituent.$attrs.id, 'relation constituent id =>>> ', relation.constituent_external_id)
-                        // console.log('Basic Feature => ', basicFeature.$attrs.id, 'relation feature id =>>> ', relation.feature_external_id)
+                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                       
+                                return basicFeature.$attrs.id == relation.feature_external_id
+                            })
 
-                        const line = new LeaderLine(LeaderLine.mouseHoverAnchor(constituent.$el), basicFeature.$el, {
-                            size: 3,
-                            color: '#000000',
-                            startPlug: 'disc',
-                            endPlug: 'disc',
-                            path: 'straight'                            
-                        });
+                            const line = new LeaderLine(LeaderLine.mouseHoverAnchor(constituent.$el), basicFeature.$el, {
+                                size: 3,
+                                color: '#000000',
+                                startPlug: 'disc',
+                                endPlug: 'disc',
+                                path: 'straight'                            
+                            });
 
-                        let lineObj = {}
-                        lineObj.constituent_external_id = relation.constituent_external_id
-                        lineObj.feature_external_id = relation.feature_external_id
-                        lineObj.line = line
+                            let lineObj = {}
+                            lineObj.constituent_external_id = relation.constituent_external_id
+                            lineObj.feature_external_id = relation.feature_external_id
+                            lineObj.line = line
 
-                        // let elmLine = document.querySelector('.leader-line:last-of-type')
-                        // let myuuid = uuidv4();
-                        // console.log('id =>>> ', myuuid)
-                        
-                        // elmLine.setAttribute('id', myuuid)
-
-                        // constituent.$el.appendChild(elmLine);
-                        
-                        // constituent.$el.addEventListener('click', () => {
-                        //     console.log(this.ConstituentsBasicFeaturesLines.find(line => line.endLabel == number.toString()))
-                        //     let droppedLine = this.ConstituentsBasicFeaturesLines.find(line => line.endLabel == number.toString())
-                        //     droppedLine.remove()
-                        //     // let children = document.getElementById(constituent.$el.id).children;
-                        //     // line.show() 
-                        //     // console.log(elmLine)
-                        //     // var div = document.getElementById(myuuid);
-                        //     // console.log(children)
-                        //     // if (children.style.display === "none") {
-                        //     //     children.style.display = "block";
-                        //     //     line.show()
-                        //     // } else {
-                        //     //     children.style.display = "none";
-                        //     //     line.hide()
-                        //     // }
-                        // });
-
-                        // const line = new LeaderLine(LeaderLine.mouseHoverAnchor(constituent.$el), basicFeature.$el, {
-                        //     color: this.rbgToHex(this.randomRgbColor()), 
-                        //     size: 3,
-                        //     startPlug: 'disc',
-                        //     endPlug: 'disc',
-                        //     path: 'straight'
-                        // });
-
-                        this.ConstituentsBasicFeaturesLines.push(lineObj)
-                        resolve()
+                            this.ConstituentsBasicFeaturesLines.push(lineObj)
+                            resolve()
                         })                       
                     })
                     .catch((error) => {
-                    // your action on error success
                         console.log('ERROR ON ADD RELATION CONSTITUENTS/BASIC FEATURES =>>> ', error);
                     });
             })
@@ -610,52 +857,36 @@ import {v4 as uuidv4} from 'uuid';
                     data: payload
                     })
                     .then((res) => {
-                        // console.log(res.data)
                         let relations = res.data
                         relations.forEach(relation => {
-                        // var startElement = document.getElementById(sos);
-                        // var endElement = document.getElementById(constituent);
 
-                        let basicFeature = this.$refs.basicFeatures.find(basicFeature => {     
-                            // console.log(basicFeature)                       
-                            return basicFeature.$attrs.id == relation.feature_external_id
-                        })
+                            let basicFeature = this.$refs.basicFeatures.find(basicFeature => {                          
+                                return basicFeature.$attrs.id == relation.feature_external_id
+                            })
 
-                        let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {     
-                            // console.log(emergentBehavior)                       
-                            return emergentBehavior.$attrs.id == relation.emergent_external_id
-                        })
+                            let emergentBehavior = this.$refs.emergentBehaviors.find(emergentBehavior => {                          
+                                return emergentBehavior.$attrs.id == relation.emergent_external_id
+                            })
 
-                        // console.log('Constituent => ', constituent)
-                        // console.log('Basic Feature => ', basicFeature)
 
-                        // var line = new LeaderLine(LeaderLine.mouseHoverAnchor(basicFeature.$el), emergentBehavior.$el, {
-                        //     size: 3,
-                        //     color: '#000000',
-                        //     startPlug: 'disc',
-                        //     endPlug: 'disc',
-                        //     path: 'straight'
-                        // });
+                            const line = new LeaderLine(LeaderLine.mouseHoverAnchor(basicFeature.$el), emergentBehavior.$el, {
+                                size: 3,
+                                color: '#000000',
+                                startPlug: 'disc',
+                                endPlug: 'disc',
+                                path: 'straight',
+                            });
 
-                        const line = new LeaderLine(LeaderLine.mouseHoverAnchor(basicFeature.$el), emergentBehavior.$el, {
-                            size: 3,
-                            color: '#000000',
-                            startPlug: 'disc',
-                            endPlug: 'disc',
-                            path: 'straight',
-                        });
+                            let lineObj = {}
+                            lineObj.feature_external_id = relation.feature_external_id
+                            lineObj.emergent_external_id = relation.emergent_external_id
+                            lineObj.line = line
 
-                        let lineObj = {}
-                        lineObj.feature_external_id = relation.feature_external_id
-                        lineObj.emergent_external_id = relation.emergent_external_id
-                        lineObj.line = line
-
-                        this.BasicFeaturesEmergentBehaviorsLines.push(lineObj)
-                        resolve()
+                            this.BasicFeaturesEmergentBehaviorsLines.push(lineObj)
+                            resolve()
                         })                       
                     })
                     .catch((error) => {
-                    // your action on error success
                         console.log('ERROR ON ADD RELATION CONSTITUENTS/BASIC FEATURES =>>> ', error);
                     });
             })
@@ -677,15 +908,13 @@ import {v4 as uuidv4} from 'uuid';
             })
         },
         clearAll() {
-            // console.log('this.ConstituentsBasicFeaturesLines =>>> ', this.ConstituentsBasicFeaturesLines)
-            // console.log('this.BasicFeaturesEmergentBehaviorsLines =>>> ', this.BasicFeaturesEmergentBehaviorsLines)
-            this.ConstituentsBasicFeaturesLines.forEach(line => {
-                // console.log('removing ConstituentsBasicFeaturesLines')
-                line.remove()
+            this.ConstituentsBasicFeaturesLines.forEach(item => {
+                console.log('Constituent/Feature =>>> ', item)
+                item.line.remove()
             })
-            this.BasicFeaturesEmergentBehaviorsLines.forEach(line => {
-                // console.log('removing BasicFeaturesEmergentBehaviorsLines')
-                line.remove()
+            this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
+                console.log('Feature/Behavior =>>> ', item)
+                item.line.remove()
             })
             this.constituents = []
             this.basicFeatures = []
@@ -694,22 +923,21 @@ import {v4 as uuidv4} from 'uuid';
             this.BasicFeaturesEmergentBehaviorsLines = []
         },
         removeConstituent(index){            
-            this.ConstituentsBasicFeaturesLines.forEach(line => {
-                // console.log('removing ConstituentsBasicFeaturesLines')
-                line.remove()
+            this.ConstituentsBasicFeaturesLines.forEach(item => {
+                item.line.remove()
             })
             this.ConstituentsBasicFeaturesLines = []
             this.constituents.splice(index, 1)
             this.getRelationsConstituentsBasicFeatures()
         },
         removeBasicFeature(index){
-            this.ConstituentsBasicFeaturesLines.forEach(line => {
-                // console.log('removing ConstituentsBasicFeaturesLines')
-                line.remove()
+            this.ConstituentsBasicFeaturesLines.forEach(item => {
+                console.log('line Constituents/Features =>>> ', item)
+                item.line.remove()
             })
-            this.BasicFeaturesEmergentBehaviorsLines.forEach(line => {
-                // console.log('removing BasicFeaturesEmergentBehaviorsLines')
-                line.remove()
+            this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
+                console.log('line Features/Behaviors =>>> ', item)
+                item.line.remove()
             })
             this.ConstituentsBasicFeaturesLines = []
             this.BasicFeaturesEmergentBehaviorsLines = []
@@ -718,30 +946,12 @@ import {v4 as uuidv4} from 'uuid';
             this.getRelationsBasicFeaturesEmergentBehaviors()
         },
         removeEmergentBehavior(index){
-            this.BasicFeaturesEmergentBehaviorsLines.forEach(line => {
-                // console.log('removing BasicFeaturesEmergentBehaviorsLines')
-                line.remove()
+            this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
+                item.line.remove()
             })
             this.BasicFeaturesEmergentBehaviorsLines = []
             this.emergentBehaviors.splice(index, 1)
             this.getRelationsBasicFeaturesEmergentBehaviors()
-        },
-        randomRgbColor() {
-            const r = this.randomInteger(255);
-            const g = this.randomInteger(255);
-            const b = this.randomInteger(255);
-            return [r, g, b]
-        },
-        randomInteger(max) {
-            return Math.floor(Math.random() * (max + 1))
-        },
-        rbgToHex(rgb)  {
-            const [r, g, b] = rgb;
-
-            const hr = r.toString(16).padStart(2, '0');
-            const hg = g.toString(16).padStart(2, '0');
-            const hb = b.toString(16).padStart(2, '0');
-            return `#${hr}${hg}${hb}`
         }
     }
 }
