@@ -42,7 +42,6 @@
                         </v-col>
                         <v-col cols="12">
                             <v-text-field
-                            v-model="insertedSoS"
                             label="Type a name for the new SoS"
                             ></v-text-field>
                         </v-col>
@@ -72,6 +71,11 @@
             <v-btn
                 color="primary"
                 elevation="2"
+                @click="saveSoS()"
+            >Save Changes</v-btn>
+            <v-btn
+                color="primary"
+                elevation="2"
                 @click="redrawLines()"
             >Redraw lines</v-btn>
         </div>
@@ -89,6 +93,7 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
+                    @click="getConstituents()"
                     >
                     Add
                     </v-btn>
@@ -106,17 +111,18 @@
                             sm="12"
                         >
                             <v-select
-                            :items="this.constituents"
-                            item-text="name"
+                            :items="this.availableConstituents"
+                            item-text="constituent_name"
+                            item-value="constituent_external_id"
                             label="Pick a constituent"
-                            v-model="selectedConstituent"
+                            v-model="addingConstituent"
                             return-object
                             ></v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field
-                            v-model="insertedConstituent"
                             label="...or type a new one here"
+                            v-model="addingConstituent"
                             ></v-text-field>
                         </v-col>
                         </v-row>
@@ -134,7 +140,7 @@
                     <v-btn
                         color="blue darken-1"
                         text
-                        @click="constituentDialog = false; addConstituent()"
+                        @click="constituentDialog = false; addConstituent(addingConstituent)"
                     >
                         Add
                     </v-btn>
@@ -146,10 +152,70 @@
                     class="ma-2"
                     :color="selectedConstituents.includes(constituent.constituent_external_id) ? 'error' : 'primary'"
                     close
+                    close-icon="mdi-delete"
                     ref="constituents"
                     v-for="(constituent, index) in constituents" :key="index" :id="constituent.constituent_external_id"
-                    @click:close="removeConstituent(index)" @click="handleColorConstituents(constituent)">
-                        {{ constituent.constituent_name }}
+                    @click:close="removeConstituent(constituent, index)" @click="handleColorConstituents(constituent)">
+                        <v-dialog
+                        v-model="editConstituentDialog"
+                        :retain-focus="false"
+                        persistent
+                        max-width="600px"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            color="primary"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="selectConstituentForEdition(constituent)"
+                            >
+                                <v-icon>
+                                    {{ icons.mdiPencil }}
+                                </v-icon> 
+                            </v-btn>                            
+                        </template>
+                        <v-card>
+                            <v-card-title>
+                            <span class="text-h5">Edit Constituent</span>
+                            </v-card-title>
+                            <v-card-text>
+                            <v-container>
+                                <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="12"
+                                >
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field
+                                    label="Type a name for this constituent"
+                                    v-model="constituentNewName"
+                                    ></v-text-field>
+                                </v-col>
+                                </v-row>
+                            </v-container>
+                            </v-card-text>
+                            <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editConstituentDialog = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editConstituentDialog = false; editConstituent(constituentNewName)"
+                            >
+                                Edit
+                            </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                        </v-dialog>                                       
+                            {{ constituent.constituent_name }}
             </v-chip>
         </div>
         <div class="panel">
@@ -186,13 +252,11 @@
                             :items="this.basicFeatures"
                             item-text="description"
                             label="Pick a constituent"
-                            v-model="selectedFeature"
                             return-object
                             ></v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field
-                            v-model="insertedFeature"
                             label="...or type a new one here"
                             ></v-text-field>
                         </v-col>
@@ -263,13 +327,11 @@
                             :items="this.emergentBehaviors"
                             item-text="description"
                             label="Pick an emergent behavior"
-                            v-model="selectedBehavior"
                             return-object
                             ></v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field
-                            v-model="insertedBehavior"
                             label="...or type a new one here"
                             ></v-text-field>
                         </v-col>
@@ -344,46 +406,60 @@
 import axios from 'axios';
 import LeaderLine from 'leader-line-new';
 import {v4 as uuidv4} from 'uuid';
+import { mdiPencil } from '@mdi/js'
 
   export default {
     data: () => ({
+        icons: {
+            mdiPencil
+        },
+
         sos: [],
         constituents: [],
         basicFeatures: [],
         emergentBehaviors: [],
 
-        insertionSoS: null,
-        editionSoS: null,
-        remotionSoS: null,
+        availableConstituents: [],
 
-        insertionConstituents: [],
-        editionConstituents: [],
-        remotionConstituents: [],
+        addingConstituent: null,
+        constituentNewName: null,
 
-        insertionFeatures: [],
-        editionFeatures: [],
-        remotionFeatures: [],
+        operationsQueue: [],
 
-        insertionBehaviors: [],
-        editionBehaviors: [],
-        remotionBehaviors: [],
+        // insertionSoS: null,
+        // editionSoS: null,
+        // remotionSoS: null,
 
-        additionRelationsSoSConstituents: [],
-        remotionRelationsSoSConstituents: [],
+        // insertionConstituents: [],
+        // editionConstituents: [],
+        // remotionConstituents: [],
 
-        additionRelationsConstituentsFeatures: [],
-        remotionRelationsConstituentsFeatures: [],
+        // insertionFeatures: [],
+        // editionFeatures: [],
+        // remotionFeatures: [],
 
-        additionRelationsFeaturesBehaviors: [],
-        remotionRelationsFeaturesBehaviors: [],
+        // insertionBehaviors: [],
+        // editionBehaviors: [],
+        // remotionBehaviors: [],
+
+        // additionRelationsSoSConstituents: [],
+        // remotionRelationsSoSConstituents: [],
+
+        // additionRelationsConstituentsFeatures: [],
+        // remotionRelationsConstituentsFeatures: [],
+
+        // additionRelationsFeaturesBehaviors: [],
+        // remotionRelationsFeaturesBehaviors: [],
 
         ConstituentsBasicFeaturesLines: [],
         BasicFeaturesEmergentBehaviorsLines: [],
 
-        ConstituentsBasicFeaturesLinesUser: [],
-        BasicFeaturesEmergentBehaviorsLinesUser: [],
+        // ConstituentsBasicFeaturesLinesUser: [],
+        // BasicFeaturesEmergentBehaviorsLinesUser: [],
 
         selectedSoS: null,
+        selectedConstituent: null,
+
         selectedConstituents: [],
         selectedFeatures: [],
         selectedBehaviors: [],
@@ -393,16 +469,177 @@ import {v4 as uuidv4} from 'uuid';
         sosDialog: false,
         constituentDialog: false,
         featureDialog: false,
-        behaviorDialog: false
+        behaviorDialog: false,
+
+        editConstituentDialog: false
     }),
     created() {
         this.clearAll();
         this.getSoS();
     },
     methods: {
+        async saveSoS() {
+            let promisesArray = []
+
+            for (let i = 0; i < this.operationsQueue.length; i++) {
+                try {
+
+                    if (this.operationsQueue[i].type == 'element') {
+                        if (this.operationsQueue[i].subtype == 'sos') {
+                            if (this.operationsQueue[i].operation == 'add') {
+
+                            }
+                            if (this.operationsQueue[i].operation == 'update') {
+                                
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                
+                            }
+                        }
+                        if (this.operationsQueue[i].subtype == 'constituent') {
+                            if (this.operationsQueue[i].operation == 'add') {
+                                promisesArray.push(
+                                    await this.addConstituentDB(this.operationsQueue[i].constituent_external_id, this.operationsQueue[i].constituent_name).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                            if (this.operationsQueue[i].operation == 'update') {
+                                promisesArray.push(
+                                    await this.updateConstituentDB(this.operationsQueue[i].constituent_external_id, this.operationsQueue[i].constituent_name).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                promisesArray.push(
+                                    await this.removeConstituentDB(this.operationsQueue[i].constituent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                        }
+                        if (this.operationsQueue[i].subtype == 'basicFeature') {
+                            if (this.operationsQueue[i].operation == 'add') {
+
+                            }
+                            if (this.operationsQueue[i].operation == 'update') {
+                                
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                
+                            }                            
+                        }
+                        if (this.operationsQueue[i].subtype == 'emergentBehavior') {
+                            if (this.operationsQueue[i].operation == 'add') {
+
+                            }
+                            if (this.operationsQueue[i].operation == 'update') {
+                                
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                
+                            }                            
+                        }
+                    }
+                    if (this.operationsQueue[i].type == 'connection') {
+                        if (this.operationsQueue[i].subtype == 'sos/constituent') {
+                            if (this.operationsQueue[i].operation == 'add') {
+                                promisesArray.push(
+                                    await this.addConnectionSoSConstituentDB(this.operationsQueue[i].sos_external_id, this.operationsQueue[i].constituent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                promisesArray.push(
+                                    await this.removeConnectionSoSConstituentDB(this.operationsQueue[i].sos_external_id, this.operationsQueue[i].constituent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                        }
+                        if (this.operationsQueue[i].subtype == 'constituent/basicFeature') {
+                            if (this.operationsQueue[i].operation == 'add') {
+                                promisesArray.push(
+                                    await this.addConnectionConstituentBasicFeatureDB(this.operationsQueue[i].constituent_external_id, this.operationsQueue[i].feature_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                promisesArray.push(
+                                    await this.removeConnectionConstituentBasicFeatureDB(this.operationsQueue[i].constituent_external_id, this.operationsQueue[i].feature_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
+                            }
+                        }
+                        if (this.operationsQueue[i].subtype == 'basicFeature/emergentBehavior') {
+                            if (this.operationsQueue[i].operation == 'add') {
+
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                
+                            }
+                        }
+                        if (this.operationsQueue[i].subtype == 'sos/emergentBehavior') {
+                            if (this.operationsQueue[i].operation == 'add') {
+
+                            }
+                            if (this.operationsQueue[i].operation == 'remove') {
+                                
+                            }
+                        }
+                    }
+                } catch(err) {
+                    console.log('ERR => ', err)
+                    continue
+                }
+            }
+
+            let operations = await Promise.all(promisesArray)
+        },
+        selectConstituentForEdition(constituent) {
+            this.selectedConstituent = constituent
+        },
+        editConstituent(newName) {
+            let constituent = this.constituents.find(constituent => {                       
+                    return constituent.constituent_external_id == this.selectedConstituent.constituent_external_id
+                })
+            constituent.constituent_name = newName
+
+            let queuedItem = {}
+            queuedItem.type = 'element'
+            queuedItem.subtype = constituent.type
+            queuedItem.operation = 'update'
+            queuedItem.constituent_external_id = constituent.constituent_external_id
+            queuedItem.constituent_name = newName
+
+            this.operationsQueue.push(queuedItem)
+            console.log('constituents => ', this.constituents)
+            console.log('operations Queue => ', this.operationsQueue)
+            this.constituentNewName = null
+        },
+        addConstituent(item) {
+            if (typeof(item) == 'object') {
+                this.constituents.push(item)
+            } else {
+                let constituent = {}
+                let id = uuidv4()
+                constituent.constituent_external_id = id
+                constituent.constituent_name = item
+                constituent.type = 'constituent'
+                this.constituents.push(constituent)
+
+                let queuedItem = {}
+                queuedItem.type = 'element'
+                queuedItem.subtype = 'constituent'
+                queuedItem.operation = 'add'
+                queuedItem.constituent_external_id = id
+                queuedItem.constituent_name = item
+                this.operationsQueue.push(queuedItem)
+
+                let queuedItem_connection = {}
+                queuedItem_connection.type = 'connection'
+                queuedItem_connection.subtype = 'sos/constituent'
+                queuedItem_connection.operation = 'add'
+                queuedItem_connection.constituent_external_id = id
+                queuedItem_connection.sos_external_id = this.selectedSoS.sos_external_id
+                this.operationsQueue.push(queuedItem_connection)                
+            }
+            console.log('constituents => ', this.constituents)
+            console.log('operations Queue => ', this.operationsQueue)
+        },
         redrawLines() {
             this.ConstituentsBasicFeaturesLines.forEach(item => {
-                console.log('Constituent/Feature =>>> ', item)
+                // console.log('Constituent/Feature =>>> ', item)
                 let color = item.line.color
                 item.line.remove()
 
@@ -425,7 +662,7 @@ import {v4 as uuidv4} from 'uuid';
                 item.line = line
             })
             this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
-                console.log('Feature/Behavior =>>> ', item)
+                // console.log('Feature/Behavior =>>> ', item)
                 let color = item.line.color
                 item.line.remove()
 
@@ -450,9 +687,6 @@ import {v4 as uuidv4} from 'uuid';
         },
         createSoS() {
             console.log('Create SoS...')
-        },
-        addConstituent() {
-            console.log('Add Constituent...')
         },
         addBasicFeature() {
             console.log('Add Basic Feature...')
@@ -505,9 +739,29 @@ import {v4 as uuidv4} from 'uuid';
 
                             //AVALIAR PARA ADICIONAR EM OUTRO ARRAY
                             this.ConstituentsBasicFeaturesLines.push(lineObj)
+
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'constituent/basicFeature'
+                            queuedItem.operation = 'add'
+                            queuedItem.constituent_external_id = this.selectedForCheck[0].constituent_external_id
+                            queuedItem.feature_external_id = this.selectedForCheck[1].feature_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else if (connection.length == 1) {
                             connection[0].line.remove()
                             this.ConstituentsBasicFeaturesLines.splice(this.ConstituentsBasicFeaturesLines.indexOf(connection[0]), 1)
+                        
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'constituent/basicFeature'
+                            queuedItem.operation = 'remove'
+                            queuedItem.constituent_external_id = connection[0].constituent_external_id
+                            queuedItem.feature_external_id = connection[0].feature_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else {
                             this.dialog = true
                         }
@@ -715,11 +969,119 @@ import {v4 as uuidv4} from 'uuid';
                 } 
             }
         },
+        addConnectionSoSConstituentDB (sos_external_id, constituent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { sos_external_id: sos_external_id, constituent_external_id: constituent_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeConnectionSoSConstituentDB (sos_external_id, constituent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { sos_external_id: sos_external_id, constituent_external_id: constituent_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        addConnectionConstituentBasicFeatureDB (constituent_external_id, feature_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/constituent_basic_feature/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { constituent_external_id: constituent_external_id, feature_external_id: feature_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeConnectionConstituentBasicFeatureDB (constituent_external_id, feature_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/constituent_basic_feature/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { constituent_external_id: constituent_external_id, feature_external_id: feature_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        addConstituentDB(constituent_external_id, constituent_name) {
+            const path = `${process.env.VUE_APP_BASE_URL}/constituents/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { constituent_id: constituent_external_id, constituent_name: constituent_name}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        updateConstituentDB(constituent_external_id, constituent_name) {
+            const path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_external_id}/update`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: {constituent_name: constituent_name}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeConstituentDB(constituent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_external_id}/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path)
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
         getSoS() {
             const path = `${process.env.VUE_APP_BASE_URL}/sos/get`;
             axios.get(path)
                 .then((res) => {
                     this.sos = res.data;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        getConstituents() {
+            const path = `${process.env.VUE_APP_BASE_URL}/constituents/get`;
+            axios.get(path)
+                .then((res) => {
+                    this.availableConstituents = res.data;
                 })
                 .catch((error) => {
                     console.error(error);
@@ -909,11 +1271,11 @@ import {v4 as uuidv4} from 'uuid';
         },
         clearAll() {
             this.ConstituentsBasicFeaturesLines.forEach(item => {
-                console.log('Constituent/Feature =>>> ', item)
+                // console.log('Constituent/Feature =>>> ', item)
                 item.line.remove()
             })
             this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
-                console.log('Feature/Behavior =>>> ', item)
+                // console.log('Feature/Behavior =>>> ', item)
                 item.line.remove()
             })
             this.constituents = []
@@ -922,13 +1284,24 @@ import {v4 as uuidv4} from 'uuid';
             this.ConstituentsBasicFeaturesLines = []
             this.BasicFeaturesEmergentBehaviorsLines = []
         },
-        removeConstituent(index){            
+        removeConstituent(constituent, index){       
             this.ConstituentsBasicFeaturesLines.forEach(item => {
                 item.line.remove()
             })
             this.ConstituentsBasicFeaturesLines = []
             this.constituents.splice(index, 1)
             this.getRelationsConstituentsBasicFeatures()
+
+            let queuedItem = {}
+            queuedItem.constituent_external_id = constituent.constituent_external_id
+            queuedItem.constituent_name = constituent.constituent_name
+            queuedItem.type = 'element'
+            queuedItem.subtype = constituent.type
+            queuedItem.operation = 'remove'
+
+            this.operationsQueue.push(queuedItem)
+            console.log('constituents => ', this.constituents)
+            console.log('operations Queue => ', this.operationsQueue)
         },
         removeBasicFeature(index){
             this.ConstituentsBasicFeaturesLines.forEach(item => {

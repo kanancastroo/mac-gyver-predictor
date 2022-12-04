@@ -1013,6 +1013,11 @@
   "resolved" "https://registry.npmjs.org/@mdi/font/-/font-7.0.96.tgz"
   "version" "7.0.96"
 
+"@mdi/js@^7.0.96":
+  "integrity" "sha512-lNqhkV3cpPfYb/Avh+vXLFukUTbHbyHoFo4Jdc7Oc9UvURGVhamFIpgOVvEf2bNA78zvjXTZeVWExUTR+DLBfQ=="
+  "resolved" "https://registry.npmjs.org/@mdi/js/-/js-7.0.96.tgz"
+  "version" "7.0.96"
+
 "@node-ipc/js-queue@2.0.3":
   "integrity" "sha512-fL1wpr8hhD5gT2dA1qifeVaoDFlQR5es8tFuKqjHX+kdOtdNHnxkVZbtIrR2rxnMFvehkjaZRNV2H/gPXlb0hw=="
   "resolved" "https://registry.npmjs.org/@node-ipc/js-queue/-/js-queue-2.0.3.tgz"

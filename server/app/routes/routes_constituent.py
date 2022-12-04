@@ -17,9 +17,10 @@ def getConstituents():
 @app.route("/constituents/add")
 def addConstituent():
     constituent_name=request.args.get('constituent_name')
+    constituent_external_id=request.args.get('constituent_id')
     try:
         constituent=Constituent.Constituent(
-            constituent_external_id = uuid.uuid4().hex,
+            constituent_external_id = constituent_external_id,
             constituent_name=constituent_name,
         )
         db.session.add(constituent)
