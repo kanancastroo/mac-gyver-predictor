@@ -32,6 +32,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
+                                v-model="addingSoS"
                                 label="Type a name for the new SoS"
                                 ></v-text-field>
                             </v-col>
@@ -50,7 +51,7 @@
                         <v-btn
                             color="blue darken-1"
                             text
-                            @click="sosDialog = false; createSoS()"
+                            @click="sosDialog = false; createSoS(addingSoS)"
                         >
                             Create
                         </v-btn>
@@ -132,6 +133,7 @@
                 <v-btn
                 depressed
                 color="primary"
+                @click="removeSoS()"
                 >
                     <v-icon>
                         {{ icons.mdiDelete }}
@@ -672,13 +674,19 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     if (this.operationsQueue[i].type == 'element') {
                         if (this.operationsQueue[i].subtype == 'sos') {
                             if (this.operationsQueue[i].operation == 'add') {
-                                
+                                promisesArray.push(
+                                    await this.addSoSDB(this.operationsQueue[i].sos_external_id, this.operationsQueue[i].sos_name).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'update') {
-                                
+                                promisesArray.push(
+                                    await this.updateSoSDB(this.operationsQueue[i].sos_external_id, this.operationsQueue[i].sos_name).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'remove') {
-                                
+                                promisesArray.push(
+                                    await this.removeSoSDB(this.operationsQueue[i].sos_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                         }
                         if (this.operationsQueue[i].subtype == 'constituent') {
@@ -800,6 +808,27 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
         selectEmergentBehaviorForEdition(behavior) {
             this.selectedEmergentBehavior = behavior
         },
+        removeSoS() {
+            // console.log('this.editingSoS => ', this.editingSoS)
+            let sos = this.sos.find(sos => {                       
+                    return sos.sos_external_id == this.editingSoS.sos_external_id
+            })
+
+            this.sos.splice(this.sos.indexOf(sos), 1)
+
+            this.clearAll()
+
+            let queuedItem = {}
+            queuedItem.type = 'element'
+            queuedItem.subtype = sos.type
+            queuedItem.operation = 'remove'
+            queuedItem.sos_external_id = this.editingSoS.sos_external_id
+
+            this.operationsQueue.push(queuedItem)
+            console.log('this.editingSoS => ', this.editingSoS)
+            console.log('operations Queue => ', this.operationsQueue)
+            this.sosNewName = null
+        },
         editSoS(newName) {
             let sos = this.sos.find(sos => {                       
                     return sos.sos_external_id == this.editingSoS.sos_external_id
@@ -813,6 +842,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
             queuedItem.sos_external_id = sos.sos_external_id
             queuedItem.sos_name = newName
 
+            this.operationsQueue.push(queuedItem)
             console.log('selectedSoS => ', this.editingSoS)
             console.log('operations Queue => ', this.operationsQueue)
             this.sosNewName = null
@@ -870,6 +900,30 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
             console.log('emergent Behaviors => ', this.emergentBehaviors)
             console.log('operations Queue => ', this.operationsQueue)
             this.emergentNewDescription = null
+        },
+        createSoS(item) {
+            this.clearAll()
+
+            let sos = {}
+            let id = uuidv4()
+            sos.sos_external_id = id
+            sos.sos_name = item
+            sos.type = 'sos'
+            this.sos.push(sos)
+
+            this.editingSoS = sos
+            this.selectedSoS = sos
+
+            let queuedItem = {}
+            queuedItem.type = 'element'
+            queuedItem.subtype = 'sos'
+            queuedItem.operation = 'add'
+            queuedItem.sos_external_id = id
+            queuedItem.sos_name = item
+            this.operationsQueue.push(queuedItem)             
+            
+            console.log('editingSoS => ', this.editingSoS)
+            console.log('operations Queue => ', this.operationsQueue)
         },
         addConstituent(item) {
             if (typeof(item) == 'object') {
@@ -1000,10 +1054,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
 
                 item.line = line
             })
-        },
-        createSoS() {
-            console.log('Create SoS...')
-        },
+        },        
         checkConnection() {
             if (this.selectedForCheck.length > 2) {
                 this.dialog = true
@@ -1451,6 +1502,20 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     });
                 })
         },
+        addSoSDB(sos_external_id, sos_name) {
+            const path = `${process.env.VUE_APP_BASE_URL}/sos/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { sos_id: sos_external_id, sos_name: sos_name}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
         addConstituentDB(constituent_external_id, constituent_name) {
             const path = `${process.env.VUE_APP_BASE_URL}/constituents/add`;
             
@@ -1493,6 +1558,20 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     });
                 })
         },
+        updateSoSDB(sos_external_id, sos_name) {
+            const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_external_id}/update`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: {sos_name: sos_name}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
         updateConstituentDB(constituent_external_id, constituent_name) {
             const path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_external_id}/update`;
             
@@ -1526,6 +1605,20 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
             
             return new Promise((resolve, reject) => {
                 axios.get(path, {params: {description: description}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeSoSDB(sos_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_external_id}/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path)
                     .then((res) => {
                         console.log(res.data)
                         resolve()
@@ -1582,6 +1675,10 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
             axios.get(path)
                 .then((res) => {
                     this.sos = res.data;
+
+                    this.sos.forEach(sos => {
+                        sos.type = 'sos'
+                    })
                 })
                 .catch((error) => {
                     console.error(error);
@@ -1787,6 +1884,8 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
             this.editingSoS = this.sos.find(sos => {return sos.sos_external_id == sos_external_id})
             console.log('editingSoS => ', this.editingSoS)
             this.clearAll()
+            this.sos = []
+            this.getSoS()
             this.getConstituentsFromSoS(sos_external_id).then(result => {
                 this.getBasicFeaturesFromSoS(sos_external_id).then(result => {
                     this.getEmergentBehaviorsFromSoS(sos_external_id).then(result => {
@@ -1810,6 +1909,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                 // console.log('Feature/Behavior =>>> ', item)
                 item.line.remove()
             })
+
             this.constituents = []
             this.basicFeatures = []
             this.emergentBehaviors = []
