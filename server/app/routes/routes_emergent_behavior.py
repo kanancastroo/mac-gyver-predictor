@@ -17,14 +17,15 @@ def getEmergentBehaviors():
 @app.route("/emergent_behaviors/add")
 def addEmergentBehavior():
     description=request.args.get('description')
+    emergent_external_id=request.args.get('emergent_id')
     try:
         emergent_behavior=Emergent_Behavior.Emergent_Behavior(
-            emergent_external_id = uuid.uuid4().hex,
+            emergent_external_id = emergent_external_id,
             description=description,
         )
         db.session.add(emergent_behavior)
         db.session.commit()
-        return jsonify(emergent_behavior.emergent_external_id)
+        return "Emergent Behavior added. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
     except Exception as e:
 	    return(str(e))    
 

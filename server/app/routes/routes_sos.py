@@ -18,14 +18,15 @@ def getAllSoS():
 @app.route("/sos/add")
 def addSoS():
     sos_name=request.args.get('sos_name')
+    sos_external_id=request.args.get('sos_id')
     try:
         sos=SoS.SoS(
-            sos_external_id = uuid.uuid4().hex,
+            sos_external_id = sos_external_id,
             sos_name = sos_name
         )
         db.session.add(sos)
         db.session.commit()
-        return jsonify(sos.sos_external_id)
+        return "SoS added. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
 	    return(str(e))  
 

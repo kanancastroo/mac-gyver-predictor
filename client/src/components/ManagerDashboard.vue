@@ -2,9 +2,67 @@
     <div class="dashboard">
         <div class="panel">
             <div class="title">SoS</div>
+                <v-row justify="center">
+                    <v-dialog
+                    v-model="sosDialog"
+                    persistent
+                    max-width="600px"
+                    >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        >
+                        Create
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-title>
+                        <span class="text-h5">Create SoS</span>
+                        </v-card-title>
+                        <v-card-text>
+                        <v-container>
+                            <v-row>
+                            <v-col
+                                cols="12"
+                                sm="12"
+                            >
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field
+                                label="Type a name for the new SoS"
+                                ></v-text-field>
+                            </v-col>
+                            </v-row>
+                        </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="sosDialog = false"
+                        >
+                            Cancel
+                        </v-btn>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="sosDialog = false; createSoS()"
+                        >
+                            Create
+                        </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    </v-dialog>
+                </v-row>
+            <v-row justify="center">
                 <v-select
                 :items="this.sos"
                 item-text="sos_name"
+                item-value="sos_external_id"
                 label="Pick a SoS"
                 v-model="selectedSoS"
                 ref="sos"
@@ -12,62 +70,74 @@
                 dense
                 return-object
                 ></v-select>
-                            <v-row justify="center">
                 <v-dialog
-                v-model="sosDialog"
-                persistent
-                max-width="600px"
-                >
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                    >
-                    Create
-                    </v-btn>
-                </template>
-                <v-card>
-                    <v-card-title>
-                    <span class="text-h5">Create SoS</span>
-                    </v-card-title>
-                    <v-card-text>
-                    <v-container>
-                        <v-row>
-                        <v-col
-                            cols="12"
-                            sm="12"
+                        v-model="editSoSDialog"
+                        :retain-focus="false"
+                        persistent
+                        max-width="600px"
                         >
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field
-                            label="Type a name for the new SoS"
-                            ></v-text-field>
-                        </v-col>
-                        </v-row>
-                    </v-container>
-                    </v-card-text>
-                    <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="sosDialog = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="sosDialog = false; createSoS()"
-                    >
-                        Create
-                    </v-btn>
-                    </v-card-actions>
-                </v-card>
-                </v-dialog>
-            </v-row>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            color="primary"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                            >
+                                <v-icon>
+                                    {{ icons.mdiPencil }}
+                                </v-icon> 
+                            </v-btn>                            
+                        </template>
+                        <v-card>
+                            <v-card-title>
+                            <span class="text-h5">Edit SoS</span>
+                            </v-card-title>
+                            <v-card-text>
+                            <v-container>
+                                <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="12"
+                                >
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field
+                                    label="Type a name for this SoS"
+                                    v-model="sosNewName"
+                                    ></v-text-field>
+                                </v-col>
+                                </v-row>
+                            </v-container>
+                            </v-card-text>
+                            <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editSoSDialog = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editSoSDialog = false; editSoS(sosNewName)"
+                            >
+                                Edit
+                            </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                        </v-dialog> 
+                
+                <v-btn
+                depressed
+                color="primary"
+                >
+                    <v-icon>
+                        {{ icons.mdiDelete }}
+                    </v-icon>
+                </v-btn>
+            </v-row>       
             <v-btn
                 color="primary"
                 elevation="2"
@@ -232,6 +302,7 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
+                    @click="getBasicFeatures()"
                     >
                     Add
                     </v-btn>
@@ -249,15 +320,18 @@
                             sm="12"
                         >
                             <v-select
-                            :items="this.basicFeatures"
+                            :items="this.availableBasicFeatures"
                             item-text="description"
-                            label="Pick a constituent"
+                            item-value="feature_external_id"
+                            label="Pick a basic feature"
+                            v-model="addingFeature"
                             return-object
                             ></v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field
                             label="...or type a new one here"
+                            v-model="addingFeature"
                             ></v-text-field>
                         </v-col>
                         </v-row>
@@ -275,7 +349,7 @@
                     <v-btn
                         color="blue darken-1"
                         text
-                        @click="featureDialog = false; addBasicFeature()"
+                        @click="featureDialog = false; addBasicFeature(addingFeature)"
                     >
                         Add
                     </v-btn>
@@ -289,7 +363,66 @@
                     close
                     ref="basicFeatures"
                     v-for="(feature, index) in basicFeatures" :key="index" :id="feature.feature_external_id"
-                    @click:close="removeBasicFeature(index)" @click="handleColorBasicFeatures(feature)">
+                    @click:close="removeBasicFeature(feature, index)" @click="handleColorBasicFeatures(feature)">
+                    <v-dialog
+                        v-model="editBasicFeatureDialog"
+                        :retain-focus="false"
+                        persistent
+                        max-width="600px"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            color="primary"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="selectBasicFeatureForEdition(feature)"
+                            >
+                                <v-icon>
+                                    {{ icons.mdiPencil }}
+                                </v-icon> 
+                            </v-btn>                            
+                        </template>
+                        <v-card>
+                            <v-card-title>
+                            <span class="text-h5">Edit Basic Feature</span>
+                            </v-card-title>
+                            <v-card-text>
+                            <v-container>
+                                <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="12"
+                                >
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field
+                                    label="Type a description for this basic feature"
+                                    v-model="featureNewDescription"
+                                    ></v-text-field>
+                                </v-col>
+                                </v-row>
+                            </v-container>
+                            </v-card-text>
+                            <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editBasicFeatureDialog = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editBasicFeatureDialog = false; editBasicFeature(featureNewDescription)"
+                            >
+                                Edit
+                            </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                         {{ feature.description }}
             </v-chip>
         </div>
@@ -307,6 +440,7 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
+                    @click="getEmergentBehaviors()"
                     >
                     Add
                     </v-btn>
@@ -324,15 +458,18 @@
                             sm="12"
                         >
                             <v-select
-                            :items="this.emergentBehaviors"
+                            :items="this.availableEmergentBehaviors"
                             item-text="description"
+                            item-value="emergent_external_id"
                             label="Pick an emergent behavior"
+                            v-model="addingEmergent"
                             return-object
                             ></v-select>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field
                             label="...or type a new one here"
+                            v-model="addingEmergent"
                             ></v-text-field>
                         </v-col>
                         </v-row>
@@ -350,7 +487,7 @@
                     <v-btn
                         color="blue darken-1"
                         text
-                        @click="behaviorDialog = false; addEmergentBehavior()"
+                        @click="behaviorDialog = false; addEmergentBehavior(addingEmergent)"
                     >
                         Add
                     </v-btn>
@@ -364,7 +501,66 @@
                     close
                     ref="emergentBehaviors"
                     v-for="(behavior, index) in emergentBehaviors" :key="index" :id="behavior.emergent_external_id"
-                    @click:close="removeEmergentBehavior(index)" @click="handleColorEmergentBehaviors(behavior)">
+                    @click:close="removeEmergentBehavior(behavior, index)" @click="handleColorEmergentBehaviors(behavior)">
+                    <v-dialog
+                        v-model="editEmergentBehaviorDialog"
+                        :retain-focus="false"
+                        persistent
+                        max-width="600px"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            color="primary"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="selectEmergentBehaviorForEdition(behavior)"
+                            >
+                                <v-icon>
+                                    {{ icons.mdiPencil }}
+                                </v-icon> 
+                            </v-btn>                            
+                        </template>
+                        <v-card>
+                            <v-card-title>
+                            <span class="text-h5">Edit Emergent Behavior</span>
+                            </v-card-title>
+                            <v-card-text>
+                            <v-container>
+                                <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="12"
+                                >
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field
+                                    label="Type a description for this emergent behavior"
+                                    v-model="emergentNewDescription"
+                                    ></v-text-field>
+                                </v-col>
+                                </v-row>
+                            </v-container>
+                            </v-card-text>
+                            <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editEmergentBehaviorDialog = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="editEmergentBehaviorDialog = false; editEmergentBehavior(emergentNewDescription)"
+                            >
+                                Edit
+                            </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog> 
                         {{ behavior.description }}
             </v-chip>
         </div>
@@ -406,12 +602,12 @@
 import axios from 'axios';
 import LeaderLine from 'leader-line-new';
 import {v4 as uuidv4} from 'uuid';
-import { mdiPencil } from '@mdi/js'
+import { mdiPencil, mdiDelete } from '@mdi/js'
 
   export default {
     data: () => ({
         icons: {
-            mdiPencil
+            mdiPencil, mdiDelete
         },
 
         sos: [],
@@ -420,45 +616,31 @@ import { mdiPencil } from '@mdi/js'
         emergentBehaviors: [],
 
         availableConstituents: [],
+        availableBasicFeatures: [],
+        availableEmergentBehaviors: [],
 
         addingConstituent: null,
         constituentNewName: null,
 
+        addingFeature: null,
+        featureNewDescription: null,
+
+        addingEmergent: null,
+        emergentNewDescription: null,
+
+        addingSoS: null,
+        editingSoS: null,
+        sosNewName: null,
+
         operationsQueue: [],
-
-        // insertionSoS: null,
-        // editionSoS: null,
-        // remotionSoS: null,
-
-        // insertionConstituents: [],
-        // editionConstituents: [],
-        // remotionConstituents: [],
-
-        // insertionFeatures: [],
-        // editionFeatures: [],
-        // remotionFeatures: [],
-
-        // insertionBehaviors: [],
-        // editionBehaviors: [],
-        // remotionBehaviors: [],
-
-        // additionRelationsSoSConstituents: [],
-        // remotionRelationsSoSConstituents: [],
-
-        // additionRelationsConstituentsFeatures: [],
-        // remotionRelationsConstituentsFeatures: [],
-
-        // additionRelationsFeaturesBehaviors: [],
-        // remotionRelationsFeaturesBehaviors: [],
 
         ConstituentsBasicFeaturesLines: [],
         BasicFeaturesEmergentBehaviorsLines: [],
 
-        // ConstituentsBasicFeaturesLinesUser: [],
-        // BasicFeaturesEmergentBehaviorsLinesUser: [],
-
         selectedSoS: null,
         selectedConstituent: null,
+        selectedBasicFeature: null,
+        selectedEmergentBehavior: null,
 
         selectedConstituents: [],
         selectedFeatures: [],
@@ -471,7 +653,10 @@ import { mdiPencil } from '@mdi/js'
         featureDialog: false,
         behaviorDialog: false,
 
-        editConstituentDialog: false
+        editConstituentDialog: false,
+        editBasicFeatureDialog: false,
+        editEmergentBehaviorDialog: false,
+        editSoSDialog: false
     }),
     created() {
         this.clearAll();
@@ -487,7 +672,7 @@ import { mdiPencil } from '@mdi/js'
                     if (this.operationsQueue[i].type == 'element') {
                         if (this.operationsQueue[i].subtype == 'sos') {
                             if (this.operationsQueue[i].operation == 'add') {
-
+                                
                             }
                             if (this.operationsQueue[i].operation == 'update') {
                                 
@@ -515,24 +700,36 @@ import { mdiPencil } from '@mdi/js'
                         }
                         if (this.operationsQueue[i].subtype == 'basicFeature') {
                             if (this.operationsQueue[i].operation == 'add') {
-
+                                promisesArray.push(
+                                    await this.addBasicFeatureDB(this.operationsQueue[i].feature_external_id, this.operationsQueue[i].description).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'update') {
-                                
+                                promisesArray.push(
+                                    await this.updateBasicFeatureDB(this.operationsQueue[i].feature_external_id, this.operationsQueue[i].description).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'remove') {
-                                
+                                promisesArray.push(
+                                    await this.removeBasicFeatureDB(this.operationsQueue[i].feature_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }                            
                         }
                         if (this.operationsQueue[i].subtype == 'emergentBehavior') {
                             if (this.operationsQueue[i].operation == 'add') {
-
+                                promisesArray.push(
+                                    await this.addEmergentBehaviorDB(this.operationsQueue[i].emergent_external_id, this.operationsQueue[i].description).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'update') {
-                                
+                                promisesArray.push(
+                                    await this.updateEmergentBehaviorDB(this.operationsQueue[i].emergent_external_id, this.operationsQueue[i].description).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'remove') {
-                                
+                                promisesArray.push(
+                                    await this.removeEmergentBehaviorDB(this.operationsQueue[i].emergent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }                            
                         }
                     }
@@ -563,18 +760,26 @@ import { mdiPencil } from '@mdi/js'
                         }
                         if (this.operationsQueue[i].subtype == 'basicFeature/emergentBehavior') {
                             if (this.operationsQueue[i].operation == 'add') {
-
+                                promisesArray.push(
+                                    await this.addConnectionBasicFeatureEmergentBehaviorDB(this.operationsQueue[i].feature_external_id, this.operationsQueue[i].emergent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'remove') {
-                                
+                                promisesArray.push(
+                                    await this.removeConnectionBasicFeatureEmergentBehaviorDB(this.operationsQueue[i].feature_external_id, this.operationsQueue[i].emergent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                         }
                         if (this.operationsQueue[i].subtype == 'sos/emergentBehavior') {
                             if (this.operationsQueue[i].operation == 'add') {
-
+                                promisesArray.push(
+                                    await this.addConnectionSoSEmergentBehaviorDB(this.operationsQueue[i].sos_external_id, this.operationsQueue[i].emergent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                             if (this.operationsQueue[i].operation == 'remove') {
-                                
+                                promisesArray.push(
+                                    await this.removeConnectionSoSEmergentBehaviorDB(this.operationsQueue[i].sos_external_id, this.operationsQueue[i].emergent_external_id).then(result => console.log('Executed operation index => ', i))
+                                )
                             }
                         }
                     }
@@ -588,6 +793,29 @@ import { mdiPencil } from '@mdi/js'
         },
         selectConstituentForEdition(constituent) {
             this.selectedConstituent = constituent
+        },
+        selectBasicFeatureForEdition(feature) {
+            this.selectedBasicFeature = feature
+        },
+        selectEmergentBehaviorForEdition(behavior) {
+            this.selectedEmergentBehavior = behavior
+        },
+        editSoS(newName) {
+            let sos = this.sos.find(sos => {                       
+                    return sos.sos_external_id == this.editingSoS.sos_external_id
+                })
+            sos.sos_name = newName
+
+            let queuedItem = {}
+            queuedItem.type = 'element'
+            queuedItem.subtype = sos.type
+            queuedItem.operation = 'update'
+            queuedItem.sos_external_id = sos.sos_external_id
+            queuedItem.sos_name = newName
+
+            console.log('selectedSoS => ', this.editingSoS)
+            console.log('operations Queue => ', this.operationsQueue)
+            this.sosNewName = null
         },
         editConstituent(newName) {
             let constituent = this.constituents.find(constituent => {                       
@@ -606,6 +834,42 @@ import { mdiPencil } from '@mdi/js'
             console.log('constituents => ', this.constituents)
             console.log('operations Queue => ', this.operationsQueue)
             this.constituentNewName = null
+        },
+        editBasicFeature(newDescription) {
+            let feature = this.basicFeatures.find(feature => {                       
+                    return feature.feature_external_id == this.selectedBasicFeature.feature_external_id
+                })
+            feature.description = newDescription
+
+            let queuedItem = {}
+            queuedItem.type = 'element'
+            queuedItem.subtype = feature.type
+            queuedItem.operation = 'update'
+            queuedItem.feature_external_id = feature.feature_external_id
+            queuedItem.description = newDescription
+
+            this.operationsQueue.push(queuedItem)
+            console.log('basic Features => ', this.basicFeatures)
+            console.log('operations Queue => ', this.operationsQueue)
+            this.featureNewDescription = null
+        },
+        editEmergentBehavior(newDescription) {
+            let emergent = this.emergentBehaviors.find(emergent => {                       
+                    return emergent.emergent_external_id == this.selectedEmergentBehavior.emergent_external_id
+                })
+            emergent.description = newDescription
+
+            let queuedItem = {}
+            queuedItem.type = 'element'
+            queuedItem.subtype = emergent.type
+            queuedItem.operation = 'update'
+            queuedItem.emergent_external_id = emergent.emergent_external_id
+            queuedItem.description = newDescription
+
+            this.operationsQueue.push(queuedItem)
+            console.log('emergent Behaviors => ', this.emergentBehaviors)
+            console.log('operations Queue => ', this.operationsQueue)
+            this.emergentNewDescription = null
         },
         addConstituent(item) {
             if (typeof(item) == 'object') {
@@ -635,6 +899,58 @@ import { mdiPencil } from '@mdi/js'
                 this.operationsQueue.push(queuedItem_connection)                
             }
             console.log('constituents => ', this.constituents)
+            console.log('operations Queue => ', this.operationsQueue)
+        },
+        addBasicFeature(item) {
+            if (typeof(item) == 'object') {
+                this.basicFeatures.push(item)
+            } else {
+                let basicFeature = {}
+                let id = uuidv4()
+                basicFeature.feature_external_id = id
+                basicFeature.description = item
+                basicFeature.type = 'basicFeature'
+                this.basicFeatures.push(basicFeature)
+
+                let queuedItem = {}
+                queuedItem.type = 'element'
+                queuedItem.subtype = 'basicFeature'
+                queuedItem.operation = 'add'
+                queuedItem.feature_external_id = id
+                queuedItem.description = item
+                this.operationsQueue.push(queuedItem)              
+            }
+            console.log('basic Features => ', this.basicFeatures)
+            console.log('operations Queue => ', this.operationsQueue)
+        },
+        addEmergentBehavior(item) {
+            if (typeof(item) == 'object') {
+                this.emergentBehaviors.push(item)
+            } else {
+                let emergentBehavior = {}
+                let id = uuidv4()
+                emergentBehavior.emergent_external_id = id
+                emergentBehavior.description = item
+                emergentBehavior.type = 'emergentBehavior'
+                this.emergentBehaviors.push(emergentBehavior)
+
+                let queuedItem = {}
+                queuedItem.type = 'element'
+                queuedItem.subtype = 'emergentBehavior'
+                queuedItem.operation = 'add'
+                queuedItem.emergent_external_id = id
+                queuedItem.description = item
+                this.operationsQueue.push(queuedItem)   
+                
+                let queuedItem_connection = {}
+                queuedItem_connection.type = 'connection'
+                queuedItem_connection.subtype = 'sos/emergentBehavior'
+                queuedItem_connection.operation = 'add'
+                queuedItem_connection.emergent_external_id = id
+                queuedItem_connection.sos_external_id = this.selectedSoS.sos_external_id
+                this.operationsQueue.push(queuedItem_connection)  
+            }
+            console.log('emergent Behaviors Features => ', this.emergentBehaviors)
             console.log('operations Queue => ', this.operationsQueue)
         },
         redrawLines() {
@@ -687,12 +1003,6 @@ import { mdiPencil } from '@mdi/js'
         },
         createSoS() {
             console.log('Create SoS...')
-        },
-        addBasicFeature() {
-            console.log('Add Basic Feature...')
-        },
-        addEmergentBehavior() {
-            console.log('Add Emergent Behavior...')
         },
         checkConnection() {
             if (this.selectedForCheck.length > 2) {
@@ -808,9 +1118,29 @@ import { mdiPencil } from '@mdi/js'
 
                             //AVALIAR PARA ADICIONAR EM OUTRO ARRAY
                             this.BasicFeaturesEmergentBehaviorsLines.push(lineObj)
+
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'basicFeature/emergentBehavior'
+                            queuedItem.operation = 'add'
+                            queuedItem.emergent_external_id = this.selectedForCheck[0].emergent_external_id
+                            queuedItem.feature_external_id = this.selectedForCheck[1].feature_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else if (connection.length == 1) {
                             connection[0].line.remove()
                             this.BasicFeaturesEmergentBehaviorsLines.splice(this.BasicFeaturesEmergentBehaviorsLines.indexOf(connection[0]), 1)
+                        
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'basicFeature/emergentBehavior'
+                            queuedItem.operation = 'remove'
+                            queuedItem.emergent_external_id = connection[0].emergent_external_id
+                            queuedItem.feature_external_id = connection[0].feature_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else {
                             this.dialog = true
                         }
@@ -851,9 +1181,29 @@ import { mdiPencil } from '@mdi/js'
 
                             //AVALIAR PARA ADICIONAR EM OUTRO ARRAY
                             this.ConstituentsBasicFeaturesLines.push(lineObj)
+
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'constituent/basicFeature'
+                            queuedItem.operation = 'add'
+                            queuedItem.feature_external_id = this.selectedForCheck[0].feature_external_id
+                            queuedItem.constituent_external_id = this.selectedForCheck[1].constituent_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else if (connection.length == 1) {
                             connection[0].line.remove()
                             this.ConstituentsBasicFeaturesLines.splice(this.ConstituentsBasicFeaturesLines.indexOf(connection[0]), 1)
+                        
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'constituent/basicFeature'
+                            queuedItem.operation = 'remove'
+                            queuedItem.constituent_external_id = connection[0].constituent_external_id
+                            queuedItem.feature_external_id = connection[0].feature_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else {
                             this.dialog = true
                         }
@@ -892,9 +1242,29 @@ import { mdiPencil } from '@mdi/js'
 
                             //AVALIAR PARA ADICIONAR EM OUTRO ARRAY
                             this.BasicFeaturesEmergentBehaviorsLines.push(lineObj)
+
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'basicFeature/emergentBehavior'
+                            queuedItem.operation = 'add'
+                            queuedItem.feature_external_id = this.selectedForCheck[0].feature_external_id
+                            queuedItem.emergent_external_id = this.selectedForCheck[1].emergent_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else if (connection.length == 1) {
                             connection[0].line.remove()
                             this.BasicFeaturesEmergentBehaviorsLines.splice(this.BasicFeaturesEmergentBehaviorsLines.indexOf(connection[0]), 1)
+                        
+                            let queuedItem = {}
+                            queuedItem.type = 'connection'
+                            queuedItem.subtype = 'basicFeature/emergentBehavior'
+                            queuedItem.operation = 'remove'
+                            queuedItem.emergent_external_id = connection[0].emergent_external_id
+                            queuedItem.feature_external_id = connection[0].feature_external_id
+                            this.operationsQueue.push(queuedItem)                
+                        
+                            console.log('operations Queue => ', this.operationsQueue)
                         } else {
                             this.dialog = true
                         }
@@ -997,6 +1367,34 @@ import { mdiPencil } from '@mdi/js'
                     });
                 })
         },
+        addConnectionSoSEmergentBehaviorDB (sos_external_id, emergent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/sos_emergent_behavior/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { sos_external_id: sos_external_id, emergent_external_id: emergent_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeConnectionSoSEmergentBehaviorDB (sos_external_id, emergent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/sos_emergent_behavior/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { sos_external_id: sos_external_id, emergent_external_id: emergent_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
         addConnectionConstituentBasicFeatureDB (constituent_external_id, feature_external_id) {
             const path = `${process.env.VUE_APP_BASE_URL}/relation/constituent_basic_feature/add`;
             
@@ -1025,11 +1423,67 @@ import { mdiPencil } from '@mdi/js'
                     });
                 })
         },
+        addConnectionBasicFeatureEmergentBehaviorDB (feature_external_id, emergent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/basic_feature_emergent_behavior/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { emergent_external_id: emergent_external_id, feature_external_id: feature_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeConnectionBasicFeatureEmergentBehaviorDB (feature_external_id, emergent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/relation/basic_feature_emergent_behavior/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { emergent_external_id: emergent_external_id, feature_external_id: feature_external_id}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
         addConstituentDB(constituent_external_id, constituent_name) {
             const path = `${process.env.VUE_APP_BASE_URL}/constituents/add`;
             
             return new Promise((resolve, reject) => {
                 axios.get(path, {params: { constituent_id: constituent_external_id, constituent_name: constituent_name}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        addBasicFeatureDB(feature_external_id, description) {
+            const path = `${process.env.VUE_APP_BASE_URL}/basic_features/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { feature_id: feature_external_id, description: description}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        addEmergentBehaviorDB(emergent_external_id, description) {
+            const path = `${process.env.VUE_APP_BASE_URL}/emergent_behaviors/add`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: { emergent_id: emergent_external_id, description: description}})
                     .then((res) => {
                         console.log(res.data)
                         resolve()
@@ -1053,8 +1507,64 @@ import { mdiPencil } from '@mdi/js'
                     });
                 })
         },
+        updateBasicFeatureDB(feature_external_id, description) {
+            const path = `${process.env.VUE_APP_BASE_URL}/basic_features/${feature_external_id}/update`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: {description: description}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        updateEmergentBehaviorDB(emergent_external_id, description) {
+            const path = `${process.env.VUE_APP_BASE_URL}/emergent_behaviors/${emergent_external_id}/update`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path, {params: {description: description}})
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
         removeConstituentDB(constituent_external_id) {
             const path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_external_id}/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path)
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeBasicFeatureDB(feature_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/basic_features/${feature_external_id}/delete`;
+            
+            return new Promise((resolve, reject) => {
+                axios.get(path)
+                    .then((res) => {
+                        console.log(res.data)
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+                })
+        },
+        removeEmergentBehaviorDB(emergent_external_id) {
+            const path = `${process.env.VUE_APP_BASE_URL}/emergent_behaviors/${emergent_external_id}/delete`;
             
             return new Promise((resolve, reject) => {
                 axios.get(path)
@@ -1082,6 +1592,26 @@ import { mdiPencil } from '@mdi/js'
             axios.get(path)
                 .then((res) => {
                     this.availableConstituents = res.data;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        getBasicFeatures() {
+            const path = `${process.env.VUE_APP_BASE_URL}/basic_features/get`;
+            axios.get(path)
+                .then((res) => {
+                    this.availableBasicFeatures = res.data;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        getEmergentBehaviors() {
+            const path = `${process.env.VUE_APP_BASE_URL}/emergent_behaviors/get`;
+            axios.get(path)
+                .then((res) => {
+                    this.availableEmergentBehaviors = res.data;
                 })
                 .catch((error) => {
                     console.error(error);
@@ -1254,6 +1784,8 @@ import { mdiPencil } from '@mdi/js'
             })
         },
         loadSoS(sos_external_id) {
+            this.editingSoS = this.sos.find(sos => {return sos.sos_external_id == sos_external_id})
+            console.log('editingSoS => ', this.editingSoS)
             this.clearAll()
             this.getConstituentsFromSoS(sos_external_id).then(result => {
                 this.getBasicFeaturesFromSoS(sos_external_id).then(result => {
@@ -1283,6 +1815,34 @@ import { mdiPencil } from '@mdi/js'
             this.emergentBehaviors = []
             this.ConstituentsBasicFeaturesLines = []
             this.BasicFeaturesEmergentBehaviorsLines = []
+
+            this.availableConstituents = []
+            this.availableBasicFeatures = []
+            this.availableEmergentBehaviors = []
+
+            this.addingConstituent = null
+            this.constituentNewName = null
+
+            this.addingFeature = null
+            this.featureNewDescription = null
+
+            this.addingEmergent = null
+            this.emergentNewDescription = null
+
+            this.addingSoS = null
+            this.sosNewName = null
+
+            this.operationsQueue = []
+
+            this.selectedSoS = null
+            this.selectedConstituent = null
+            this.selectedBasicFeature = null
+            this.selectedEmergentBehavior = null
+
+            this.selectedConstituents = []
+            this.selectedFeatures = []
+            this.selectedBehaviors = []
+            this.selectedForCheck = []
         },
         removeConstituent(constituent, index){       
             this.ConstituentsBasicFeaturesLines.forEach(item => {
@@ -1303,7 +1863,7 @@ import { mdiPencil } from '@mdi/js'
             console.log('constituents => ', this.constituents)
             console.log('operations Queue => ', this.operationsQueue)
         },
-        removeBasicFeature(index){
+        removeBasicFeature(feature, index){
             this.ConstituentsBasicFeaturesLines.forEach(item => {
                 console.log('line Constituents/Features =>>> ', item)
                 item.line.remove()
@@ -1317,14 +1877,36 @@ import { mdiPencil } from '@mdi/js'
             this.basicFeatures.splice(index, 1)
             this.getRelationsConstituentsBasicFeatures()
             this.getRelationsBasicFeaturesEmergentBehaviors()
+
+            let queuedItem = {}
+            queuedItem.feature_external_id = feature.feature_external_id
+            queuedItem.description = feature.description
+            queuedItem.type = 'element'
+            queuedItem.subtype = feature.type
+            queuedItem.operation = 'remove'
+
+            this.operationsQueue.push(queuedItem)
+            console.log('basic Features => ', this.basicFeatures)
+            console.log('operations Queue => ', this.operationsQueue)
         },
-        removeEmergentBehavior(index){
+        removeEmergentBehavior(behavior, index){
             this.BasicFeaturesEmergentBehaviorsLines.forEach(item => {
                 item.line.remove()
             })
             this.BasicFeaturesEmergentBehaviorsLines = []
             this.emergentBehaviors.splice(index, 1)
             this.getRelationsBasicFeaturesEmergentBehaviors()
+
+            let queuedItem = {}
+            queuedItem.emergent_external_id = behavior.emergent_external_id
+            queuedItem.description = behavior.description
+            queuedItem.type = 'element'
+            queuedItem.subtype = behavior.type
+            queuedItem.operation = 'remove'
+
+            this.operationsQueue.push(queuedItem)
+            console.log('emergent Behaviors => ', this.emergentBehaviors)
+            console.log('operations Queue => ', this.operationsQueue)
         }
     }
 }

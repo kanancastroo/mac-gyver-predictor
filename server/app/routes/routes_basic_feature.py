@@ -17,9 +17,10 @@ def getBasicFeatures():
 @app.route("/basic_features/add")
 def addBasicFeatures():
     description=request.args.get('description')
+    feature_external_id=request.args.get('feature_id')
     try:
         basic_feature=Basic_Feature.Basic_Feature(
-            feature_external_id = uuid.uuid4().hex,
+            feature_external_id = feature_external_id,
             description=description,
         )
         db.session.add(basic_feature)
