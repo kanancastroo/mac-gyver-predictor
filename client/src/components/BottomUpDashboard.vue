@@ -259,6 +259,7 @@
 
 <script>
 import axios from 'axios';
+import {v4 as uuidv4} from 'uuid';
 // import LeaderLine from 'leader-line-new';
 
   export default {
@@ -355,10 +356,10 @@ import axios from 'axios';
             const path_addSoS = `${process.env.VUE_APP_BASE_URL}/sos/add`;
             console.log(path_addSoS)
             let sos_name = sosName
-            axios.get(path_addSoS, {params: {sos_name: sos_name}})
+            let sos_external_id = uuidv4()
+            axios.get(path_addSoS, {params: {sos_name: sos_name, sos_id: sos_external_id}})
                 .then(async res => {
-                    let sos_external_id = res.data
-                    console.log(sos_external_id)
+                    console.log(res.data)
 
                     const path_addRelationSoSConstituent = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/add`;
                     console.log(path_addRelationSoSConstituent)
@@ -413,6 +414,7 @@ import axios from 'axios';
             })
         },
         addRelationBasicFeaturesEmergentBehaviors(sos_external_id, behaviorsList) {
+            console.log('sos_external_id =>>> ', sos_external_id)
             let payload = {
                         basic_features_list: this.featuresFromChosenConstituents,
                         emergent_behaviors_list: behaviorsList

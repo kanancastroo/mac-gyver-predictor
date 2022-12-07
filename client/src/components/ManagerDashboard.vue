@@ -595,6 +595,27 @@
                 </v-card-actions>
             </v-card>
             </v-dialog>
+
+            <v-dialog
+                v-model="saveDialog"
+                hide-overlay
+                persistent
+                width="300"
+                >
+                <v-card
+                    color="blue"
+                    dark
+                >
+                    <v-card-text>
+                    Saving SoS and updating model...
+                    <v-progress-linear
+                        indeterminate
+                        color="white"
+                        class="mb-0"
+                    ></v-progress-linear>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
         </div>
     </div>
 
@@ -654,6 +675,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
         constituentDialog: false,
         featureDialog: false,
         behaviorDialog: false,
+        saveDialog: false,
 
         editConstituentDialog: false,
         editBasicFeatureDialog: false,
@@ -665,7 +687,23 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
         this.getSoS();
     },
     methods: {
+        updateModel() {
+            const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
+            return new Promise((resolve, reject) => {
+                axios.get(path_processing)
+                    .then((res) => {                          
+                        console.log('Model updated successfully!')
+                        this.saveDialog = false
+                        resolve()
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        this.saveDialog = false
+                    });
+            })
+        },
         async saveSoS() {
+            this.saveDialog = true
             let promisesArray = []
 
             for (let i = 0; i < this.operationsQueue.length; i++) {
@@ -798,6 +836,11 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
             }
 
             let operations = await Promise.all(promisesArray)
+            this.updateModel().then(result => {
+                this.clearAll()
+                this.getSoS()
+                console.log('Database Updated Successfully!')
+            })            
         },
         selectConstituentForEdition(constituent) {
             this.selectedConstituent = constituent
@@ -949,7 +992,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                 queuedItem_connection.subtype = 'sos/constituent'
                 queuedItem_connection.operation = 'add'
                 queuedItem_connection.constituent_external_id = id
-                queuedItem_connection.sos_external_id = this.selectedSoS.sos_external_id
+                queuedItem_connection.sos_external_id = this.editingSoS.sos_external_id
                 this.operationsQueue.push(queuedItem_connection)                
             }
             console.log('constituents => ', this.constituents)
@@ -1001,7 +1044,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                 queuedItem_connection.subtype = 'sos/emergentBehavior'
                 queuedItem_connection.operation = 'add'
                 queuedItem_connection.emergent_external_id = id
-                queuedItem_connection.sos_external_id = this.selectedSoS.sos_external_id
+                queuedItem_connection.sos_external_id = this.editingSoS.sos_external_id
                 this.operationsQueue.push(queuedItem_connection)  
             }
             console.log('emergent Behaviors Features => ', this.emergentBehaviors)
