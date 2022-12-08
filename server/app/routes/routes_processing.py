@@ -63,6 +63,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
+import pathlib
+
 load_dotenv()
 
 def get_tail_label(df):
@@ -390,6 +392,8 @@ def processDatabase():
         
         # f, axes = plt.subplots(19, 2, figsize=(10,100))
         # axes = axes.ravel()
+        path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'confusion_matrices', ts))
+        path.mkdir(parents=True, exist_ok=True)
 
         for col_idx, col in enumerate(output_columns_binary):
             y_real = y_test[col]
@@ -402,8 +406,14 @@ def processDatabase():
             confusion_matrix1 = confusion_matrix(y_real, y_predito)
             display = ConfusionMatrixDisplay(confusion_matrix1).plot()
             plt.title(col)
-            plt.savefig("{}.png".format(col_idx), bbox_inches='tight')
-            plt.clf()
+
+            # fig_path = os.path.join(ROOT_DIR, 'shared', 'confusion_matrices', 'matrix_{:03}.png'.format(col_idx))
+
+            file_path = os.path.join(path, 'matrix_{:03}.png'.format(col_idx))
+            print('writing file: ', file_path)
+
+            plt.savefig(file_path, bbox_inches='tight')
+            plt.close()
 
             # disp = ConfusionMatrixDisplay(confusion_matrix(y_test[col], y_pred[col_idx]),
             #                             display_labels=[1,0])
