@@ -1,6 +1,11 @@
 <template>
     <div>
         <v-btn
+        elevation="2"
+        @click="savePlot()"
+        >Save Plot</v-btn>
+
+        <v-btn
             :disabled="dialog"
             :loading="dialog"
             class="white--text"
@@ -55,6 +60,17 @@ import axios from 'axios';
                             this.dialog = false
                         });
 
+                })
+                .catch((error) => {
+                    console.error(error);
+                    this.dialog = false
+                });
+        },
+        savePlot() {
+            const path_reset = `${process.env.VUE_APP_BASE_URL}/database/saveplot`;
+            axios.get(path_reset)
+                .then((res) => {
+                    console.log('Saved Plot!')
                 })
                 .catch((error) => {
                     console.error(error);

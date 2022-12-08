@@ -40,7 +40,6 @@ from sklearn.utils.class_weight import compute_class_weight
 from sqlalchemy import create_engine
 import io
 import tensorflow.keras.backend as K
-import matplotlib.pyplot as plt
 import nltk
 import numpy as np
 import pandas as pd
@@ -56,6 +55,13 @@ from sklearn.neighbors import NearestNeighbors
 from tensorflow.keras.models import load_model
 
 import csv
+
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix
+
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 load_dotenv()
 
@@ -364,11 +370,78 @@ def processDatabase():
         # np.savetxt(labels_path, output_columns_binary, delimiter=";", fmt='%s')
 
         # print('SUCCESS!!!')
+
+        y_pred = model.predict(X_test)
+
+        THRESHOLD = 0.5
+
+        f1_score_results = []
+        # Binary Outputs
+        for col_idx, col in enumerate(output_columns_binary):
+            print(f'{col} accuracy \n')
+
+            # Transform array of probabilities to class: 0 or 1
+            y_pred[col_idx][y_pred[col_idx]>=THRESHOLD] = 1
+            y_pred[col_idx][y_pred[col_idx]<THRESHOLD] = 0
+            f1_score_results.append(f1_score(y_test[col], y_pred[col_idx], average='macro'))
+            print(classification_report(y_test[col], y_pred[col_idx]))
+
+        print('Total :', np.sum(f1_score_results))
+        
+        # f, axes = plt.subplots(19, 2, figsize=(10,100))
+        # axes = axes.ravel()
+
+        for col_idx, col in enumerate(output_columns_binary):
+            y_real = y_test[col]
+            y_predito = y_pred[col_idx]
+
+            # print(col_idx)
+            # print('y_real: ', y_real, 'y_predito: ', y_predito)
+            # print('---------------------------------------------------------------------')
+
+            confusion_matrix1 = confusion_matrix(y_real, y_predito)
+            display = ConfusionMatrixDisplay(confusion_matrix1).plot()
+            plt.title(col)
+            plt.savefig("{}.png".format(col_idx), bbox_inches='tight')
+            plt.clf()
+
+            # disp = ConfusionMatrixDisplay(confusion_matrix(y_test[col], y_pred[col_idx]),
+            #                             display_labels=[1,0])
+            # disp.plot(ax=axes[col_idx], values_format='.4g')
+            # disp.ax_.set_title(formatString(col))
+
+            # if col_idx<10:
+            #     disp.ax_.set_xlabel('')
+            # if col_idx%5!=0:
+            #     disp.ax_.set_ylabel('')
+            # disp.im_.colorbar.remove()
+
+
+        # plt.subplots_adjust(wspace=1, hspace=1)
+        # # f.colorbar(disp.im_, ax=axes)
+        # # plt.savefig('confusion_matrix_results.png')
+        # plt.show()
+
         return jsonify('Database processed and model trained succesfully!')  
     except Exception as e:
         # db.session.rollback()
         return(str(e))     
 
+
+@app.route('/database/saveplot')
+def savePlot():
+    for i in range(100):
+        y_true = [2, 0, 2, 2, 0, 1]
+        y_pred = [0, 0, 2, 2, 0, 2]
+
+        # print(type(y_true))
+        # print(np.shape(y_true))
+        confusion_matrix1  =confusion_matrix(y_true, y_pred)
+        display = ConfusionMatrixDisplay(confusion_matrix1).plot()
+        plt.savefig("Instant{}.png".format(i))
+        plt.clf()
+    return 'ok'
+    # plt.show()
 
 @app.route('/temp')
 def temp():
