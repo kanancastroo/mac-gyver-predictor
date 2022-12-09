@@ -377,23 +377,48 @@ def processDatabase():
 
         THRESHOLD = 0.5
 
+        report_path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'classification_reports', ts))
+        report_path.mkdir(parents=True, exist_ok=True)
+
         f1_score_results = []
+        df_report_labels = pd.DataFrame()
+
         # Binary Outputs
         for col_idx, col in enumerate(output_columns_binary):
-            print(f'{col} accuracy \n')
+            # print(f'{col} accuracy \n')
+
+            new_row = pd.DataFrame({'Index': '{:03}'.format(col_idx), 'Emergent Behavior': col}, index=[0])
+            df_report_labels = pd.concat([df_report_labels.loc[:], new_row]).reset_index(drop=True)
 
             # Transform array of probabilities to class: 0 or 1
             y_pred[col_idx][y_pred[col_idx]>=THRESHOLD] = 1
             y_pred[col_idx][y_pred[col_idx]<THRESHOLD] = 0
             f1_score_results.append(f1_score(y_test[col], y_pred[col_idx], average='macro'))
-            print(classification_report(y_test[col], y_pred[col_idx]))
+            # print('col_idx => ', f1_score(y_test[col], y_pred[col_idx], average='macro'))
+            # print(classification_report(y_test[col], y_pred[col_idx]))
 
-        print('Total :', np.sum(f1_score_results))
+            report = classification_report(y_test[col], y_pred[col_idx], output_dict=True)
+            report.update({"accuracy": {"precision": None, "recall": None, "f1-score": report["accuracy"], "support": report['macro avg']['support']}})
+              
+            df = pd.DataFrame(report).transpose()
+
+            report_filepath = os.path.join(report_path, 'report_{:03}.csv'.format(col_idx))
+            # print('saving report: ', report_filepath)
+            df.to_csv(report_filepath)
+
+        report_labels_filepath = os.path.join(report_path, 'summary.csv')
+        df_report_labels.to_csv(report_labels_filepath)
+
+        # print('Total :', np.sum(f1_score_results))
+
+        # print('f1_score_results => ', f1_score_results)
         
         # f, axes = plt.subplots(19, 2, figsize=(10,100))
         # axes = axes.ravel()
-        path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'confusion_matrices', ts))
-        path.mkdir(parents=True, exist_ok=True)
+        fig_path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'confusion_matrices', ts))
+        fig_path.mkdir(parents=True, exist_ok=True)
+
+        df_plot_labels = pd.DataFrame()
 
         for col_idx, col in enumerate(output_columns_binary):
             y_real = y_test[col]
@@ -407,14 +432,19 @@ def processDatabase():
             display = ConfusionMatrixDisplay(confusion_matrix1).plot()
             plt.title(col)
 
-            # fig_path = os.path.join(ROOT_DIR, 'shared', 'confusion_matrices', 'matrix_{:03}.png'.format(col_idx))
-
-            file_path = os.path.join(path, 'matrix_{:03}.png'.format(col_idx))
-            print('writing file: ', file_path)
+            file_path = os.path.join(fig_path, 'matrix_{:03}.png'.format(col_idx))
+            # print('saving plot: ', file_path)
 
             plt.savefig(file_path, bbox_inches='tight')
             plt.close()
 
+            new_row = pd.DataFrame({'Index': '{:03}'.format(col_idx), 'Emergent Behavior': col}, index=[0])
+            df_plot_labels = pd.concat([df_plot_labels.loc[:], new_row]).reset_index(drop=True)
+
+        plot_labels_filepath = os.path.join(fig_path, 'summary.csv')
+        df_report_labels.to_csv(plot_labels_filepath)
+            
+            
             # disp = ConfusionMatrixDisplay(confusion_matrix(y_test[col], y_pred[col_idx]),
             #                             display_labels=[1,0])
             # disp.plot(ax=axes[col_idx], values_format='.4g')
@@ -440,17 +470,23 @@ def processDatabase():
 
 @app.route('/database/saveplot')
 def savePlot():
+    df = pd.DataFrame()
     for i in range(100):
-        y_true = [2, 0, 2, 2, 0, 1]
-        y_pred = [0, 0, 2, 2, 0, 2]
+        new_row = pd.DataFrame({'index': i, 'text': 'Banana'}, index=[0])
+        df = pd.concat([df.loc[:], new_row]).reset_index(drop=True)
+ 
+    df.loc[0] = [999, 'Morango']
+    df.to_csv('test.csv')
+    #     y_true = [2, 0, 2, 2, 0, 1]
+    #     y_pred = [0, 0, 2, 2, 0, 2]
 
-        # print(type(y_true))
-        # print(np.shape(y_true))
-        confusion_matrix1  =confusion_matrix(y_true, y_pred)
-        display = ConfusionMatrixDisplay(confusion_matrix1).plot()
-        plt.savefig("Instant{}.png".format(i))
-        plt.clf()
-    return 'ok'
+    #     # print(type(y_true))
+    #     # print(np.shape(y_true))
+    #     confusion_matrix1  =confusion_matrix(y_true, y_pred)
+    #     display = ConfusionMatrixDisplay(confusion_matrix1).plot()
+    #     plt.savefig("Instant{}.png".format(i))
+    #     plt.clf()
+    # return 'ok'
     # plt.show()
 
 @app.route('/temp')
