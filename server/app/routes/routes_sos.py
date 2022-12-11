@@ -78,7 +78,7 @@ def getConstituentsFromSoS(sos_external_id):
     sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).one()
 
     sos_id=sos.sos_id
-    print('internal ID iS =>>> ', sos_id)
+    # print('internal ID iS =>>> ', sos_id)
     # aux = sos_id[1:-1]
     # arr = aux.split(sep=',')
     # print(arr)

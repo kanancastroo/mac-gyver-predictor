@@ -64,6 +64,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 import pathlib
+from sqlalchemy.ext.serializer import loads, dumps
 
 load_dotenv()
 
@@ -443,7 +444,38 @@ def processDatabase():
 
         plot_labels_filepath = os.path.join(fig_path, 'summary.csv')
         df_report_labels.to_csv(plot_labels_filepath)
-            
+
+
+
+
+        dumps_path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'dumps', ts))
+        dumps_path.mkdir(parents=True, exist_ok=True)
+
+        dump_sos_path = os.path.join(dumps_path, 'dump_sos')
+        dump_constituent_path = os.path.join(dumps_path, 'dump_constituent')
+        dump_dump_basicFeature_path = os.path.join(dumps_path, 'dump_basicFeature')
+        dump_emergentBehavior_path = os.path.join(dumps_path, 'dump_emergentBehavior')
+        dump_sosConstituent_path = os.path.join(dumps_path, 'dump_sosConstituent')
+        dump_constituentBasicFeature_path = os.path.join(dumps_path, 'dump_constituentBasicFeature')
+        dump_basicFeatureEmergentBehavior_path = os.path.join(dumps_path, 'dump_basicFeatureEmergentBehavior')
+        dump_sosEmergentBehavior_path = os.path.join(dumps_path, 'dump_sosEmergentBehavior')
+
+        with open(dump_sos_path, 'wb') as dump_sos:
+            dump_sos.write(dumps(db.session.query(SoS.SoS).all()))
+        with open(dump_constituent_path, 'wb') as dump_constituent:
+            dump_constituent.write(dumps(db.session.query(Constituent.Constituent).all()))
+        with open(dump_dump_basicFeature_path, 'wb') as dump_basicFeature:
+            dump_basicFeature.write(dumps(db.session.query(Basic_Feature.Basic_Feature).all()))
+        with open(dump_emergentBehavior_path, 'wb') as dump_emergentBehavior:
+            dump_emergentBehavior.write(dumps(db.session.query(Emergent_Behavior.Emergent_Behavior).all()))
+        with open(dump_sosConstituent_path, 'wb') as dump_sosConstituent:
+            dump_sosConstituent.write(dumps(db.session.query(SoS_Constituent.SoS_Constituent).all()))
+        with open(dump_constituentBasicFeature_path, 'wb') as dump_constituentBasicFeature:
+            dump_constituentBasicFeature.write(dumps(db.session.query(Constituent_Basic_Feature.Constituent_Basic_Feature).all()))
+        with open(dump_basicFeatureEmergentBehavior_path, 'wb') as dump_basicFeatureEmergentBehavior:
+            dump_basicFeatureEmergentBehavior.write(dumps(db.session.query(Basic_Feature_Emergent_Behavior.Basic_Feature_Emergent_Behavior).all()))
+        with open(dump_sosEmergentBehavior_path, 'wb') as dump_sosEmergentBehavior:
+            dump_sosEmergentBehavior.write(dumps(db.session.query(SoS_Emergent_Behavior.SoS_Emergent_Behavior).all()))            
             
             # disp = ConfusionMatrixDisplay(confusion_matrix(y_test[col], y_pred[col_idx]),
             #                             display_labels=[1,0])
