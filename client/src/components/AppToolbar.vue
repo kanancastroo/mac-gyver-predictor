@@ -16,6 +16,10 @@
         <v-btn>Manager</v-btn>
       </router-link>
 
+      <router-link to="/top-down">
+        <v-btn>Top-Down</v-btn>
+      </router-link>
+
       <router-link to="/admin">
         <v-btn>Admin</v-btn>
       </router-link>
