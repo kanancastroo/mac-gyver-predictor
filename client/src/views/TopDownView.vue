@@ -5,20 +5,12 @@
 </template>
 
 <script>
-import TopDownDashboard from '@/components/TopDownDashboard.vue';
+import TopDownDashboard from "@/components/TopDownDashboard.vue";
 
-  export default {
-    data: () => ({
-      
-    }),
-    components: { TopDownDashboard }
-}
+export default {
+  data: () => ({}),
+  components: { TopDownDashboard },
+};
 </script>
 
-<style>
-.bottom-up{
-  background-color:chartreuse;
-  padding: 10px;
-  margin-block-end: 50px;
-}
-</style>
+<style></style>

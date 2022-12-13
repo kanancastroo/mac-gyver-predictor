@@ -1,24 +1,21 @@
 <template>
   <div class="bottom-up">
-    <BottomUpDashboard></BottomUpDashboard>
+    <BottomUpDashboard />
   </div>
 </template>
 
 <script>
-import BottomUpDashboard from '@/components/BottomUpDashboard.vue';
+import BottomUpDashboard from "@/components/BottomUpDashboard.vue";
 
-  export default {
-    data: () => ({
-      
-    }),
-    components: { BottomUpDashboard }
-}
+export default {
+  components: { BottomUpDashboard },
+};
 </script>
 
 <style>
-.bottom-up{
-  background-color:chartreuse;
+.bottom-up {
+  height: calc(100vh - 160px);
+  background-color: #dfe8cc;
   padding: 10px;
-  margin-block-end: 50px;
 }
 </style>

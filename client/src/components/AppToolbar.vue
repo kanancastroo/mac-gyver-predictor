@@ -1,13 +1,7 @@
 <template>
-  <v-card
-    color="green lighten-5"
-    flat
-    tile
-  >
-    <div><h1>MacGyver Predictor</h1></div>
-    <v-toolbar flat class="d-flex justify-center align-center" color="green lighten-2">
-      <!-- <v-toolbar-title>MacGyver Predictor</v-toolbar-title> -->
-
+  <v-card color="#285430" dark flat tile>
+    <h1>MacGyver Predictor</h1>
+    <v-toolbar flat class="d-flex justify-center align-center" color="#5F8D4E">
       <router-link to="/">
         <v-btn>Bottom-Up</v-btn>
       </router-link>
@@ -23,7 +17,12 @@
       <router-link to="/admin">
         <v-btn>Admin</v-btn>
       </router-link>
-
     </v-toolbar>
   </v-card>
 </template>
+
+<style>
+.v-toolbar__content {
+  gap: 10px;
+}
+</style>
