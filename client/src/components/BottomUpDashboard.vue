@@ -46,11 +46,62 @@
     <div class="bottom-up__panel">
       <div class="bottom-up__title">Emergent Behaviors</div>
       <div class="bottom-up__content">
+        <v-dialog v-model="addSoSDialog" persistent max-width="600px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
+              Save SoS
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">New SoS name</span>
+            </v-card-title>
+            <small>Type a name for the new SoS:</small>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field v-model="sosName" label=""></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="addSoSDialog = false">
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="
+                  addSoSDialog = false;
+                  saveSoS(sosName);
+                "
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="saveDialog" hide-overlay persistent width="300">
+          <v-card color="red" dark>
+            <v-card-text>
+              Saving new SoS...
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
         <div class="bottom-up__group">
           <label class="bottom-up__label">Known:</label>
           <div class="bottom-up__behaviors">
             <v-chip
               class="ma-2"
+              color="#A4BE7B"
               close
               v-for="(behavior, index) in knownBehaviors"
               :key="index"
@@ -68,6 +119,7 @@
           <div class="bottom-up__behaviors">
             <v-chip
               class="ma-2"
+              color="#d3d3d3"
               close
               v-for="(prediction, index) in predictions"
               :key="index"
@@ -106,6 +158,7 @@
           <div class="bottom-up__behaviors">
             <v-chip
               class="ma-2"
+              color="#A4BE7B"
               close
               v-for="(behavior, index) in observedBehaviors"
               :key="index"
@@ -170,56 +223,6 @@
             </v-card>
           </v-dialog>
         </div>
-        <v-dialog v-model="addSoSDialog" persistent max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
-              Save SoS
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">New SoS name</span>
-            </v-card-title>
-            <small>Type a name for the new SoS:</small>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field v-model="sosName" label=""></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="addSoSDialog = false">
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="
-                  addSoSDialog = false;
-                  saveSoS(sosName);
-                "
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="saveDialog" hide-overlay persistent width="300">
-          <v-card color="red" dark>
-            <v-card-text>
-              Saving new SoS...
-              <v-progress-linear
-                indeterminate
-                color="white"
-                class="mb-0"
-              ></v-progress-linear>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
       </div>
     </div>
   </div>
@@ -627,14 +630,13 @@ export default {
 
     & > div {
       flex: 1 0 100%;
-      height: 100%;
-      max-height: 100%;
     }
   }
 
   &__panel {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     #{$self}__title {
       background-color: #373640;
       color: #ffffff;
@@ -677,7 +679,7 @@ export default {
 
     #{$self}__behaviors {
       background-color: #e3e3e3;
-      min-height: 100px;
+      height: clamp(100px, 100px, 150px);
       width: 100%;
       overflow-y: auto;
     }
