@@ -3,22 +3,24 @@
     <div class="bottom-up__panel">
       <div class="bottom-up__title">SoS</div>
       <div class="bottom-up__content">
-        <v-chip
-          color="#A4BE7B"
-          ref="sos"
-          v-for="(sos, index) in sos"
-          :key="index"
-          @click="getConstituents(sos.sos_external_id, $refs.sos[index])"
-        >
-          {{ sos.sos_name }}
-        </v-chip>
-      </div>
-    </div>
-    <div class="bottom-up__panel">
-      <div class="bottom-up__title">Constituents</div>
+        <v-row justify="center">
+                <v-select
+                :items="this.sos"
+                item-text="sos_name"
+                item-value="sos_external_id"
+                label="Pick a SoS"
+                v-model="selectedSoS"
+                ref="sos"
+                @change="getConstituents(selectedSoS.sos_external_id)"
+                dense
+                return-object
+                ></v-select>
+        </v-row>
+
+        <div class="bottom-up__title">{{ this.getConstituentsColumnLabel() }}</div>
       <div class="bottom-up__content">
         <v-chip
-          color="#A4BE7B"
+          color="primary"
           ref="constituents"
           v-for="(constituent, index) in constituents"
           :key="index"
@@ -27,13 +29,27 @@
           {{ constituent.constituent_name }}
         </v-chip>
       </div>
+
+        <!-- <v-chip
+          color="primary"
+          ref="sos"
+          v-for="(sos, index) in sos"
+          :key="index"
+          @click="getConstituents(sos.sos_external_id, $refs.sos[index])"
+        >
+          {{ sos.sos_name }}
+        </v-chip> -->
+      </div>
     </div>
+    <!-- <div class="bottom-up__panel">
+
+    </div> -->
     <div class="bottom-up__panel">
-      <div class="bottom-up__title">Dashboard</div>
+      <div class="bottom-up__title">SoS Modeling Space</div>
       <div class="bottom-up__content">
         <v-chip
           class="d-flex justify-between"
-          color="#A4BE7B"
+          color="primary"
           close
           v-for="(constituent, index) in composedSoS"
           :key="index"
@@ -44,12 +60,12 @@
       </div>
     </div>
     <div class="bottom-up__panel">
-      <div class="bottom-up__title">Emergent Behaviors</div>
+      <div class="bottom-up__title">Emergent Behaviors (from constituents in the SoS Modeling Space)</div>
       <div class="bottom-up__content">
         <v-dialog v-model="addSoSDialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
-              Save SoS
+              Save new SoS
             </v-btn>
           </template>
           <v-card>
@@ -96,7 +112,7 @@
             </v-card-text>
           </v-card>
         </v-dialog>
-        <div class="bottom-up__group">
+        <!-- <div class="bottom-up__group">
           <label class="bottom-up__label">Known:</label>
           <div class="bottom-up__behaviors">
             <v-chip
@@ -113,13 +129,13 @@
           <v-btn color="#A4BE7B" dark @click="showKnownEmergentBehaviors()"
             >Show</v-btn
           >
-        </div>
+        </div> -->
         <div class="bottom-up__group">
           <label class="bottom-up__label">Predicted:</label>
           <div class="bottom-up__behaviors">
             <v-chip
               class="ma-2"
-              color="#d3d3d3"
+              color="primary"
               close
               v-for="(prediction, index) in predictions"
               :key="index"
@@ -158,7 +174,7 @@
           <div class="bottom-up__behaviors">
             <v-chip
               class="ma-2"
-              color="#A4BE7B"
+              color="primary"
               close
               v-for="(behavior, index) in observedBehaviors"
               :key="index"
@@ -235,6 +251,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default {
   data: () => ({
+    selectedSoS: null,
     sos: [],
     constituents: [],
     composedSoS: [],
@@ -276,6 +293,11 @@ export default {
     },
   },
   methods: {
+    getConstituentsColumnLabel(){
+      if (this.selectedSoS != null) 
+        return 'Constituents from ' + this.selectedSoS.sos_name
+      return 'Constituents'
+    },
     addObservedBehavior(selectedBehavior, insertedBehavior) {
       // console.log('selectedBehavior: ', selectedBehavior)
       // console.log('insertedBehavior: ', insertedBehavior)
@@ -484,7 +506,7 @@ export default {
           console.error(error);
         });
     },
-    getConstituents(id, el) {
+    getConstituents(id) {
       this.constituents = [];
       // this.SoSLines.forEach(line => line.remove())
       // this.SoSLines = []
@@ -624,7 +646,7 @@ export default {
   $self: &;
   &__dashboard {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     height: 100%;
 

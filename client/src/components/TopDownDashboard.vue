@@ -1,48 +1,52 @@
 <template>
-    <div class="dashboard">
-        <div class="panel">
-            <div class="title">Avaliable Emergent Behaviors</div>
+    <div class="top-down__dashboard">
+        <div class="top-down__panel">
+            <div class="top-down__title">Avaliable Emergent Behaviors</div>
+                <div class="top-down__content">
+                    <v-select
+                    :items="this.availableEmergentBehaviors"
+                    item-text="description"
+                    item-value="emergent_external_id"
+                    label="Pick an emergent behavior"
+                    v-model="selectedEmergentBehavior"
+                    @change="selectBehavior(selectedEmergentBehavior)"
+                    dense
+                    return-object
+                    ></v-select>
 
-            <v-select
-                :items="this.availableEmergentBehaviors"
-                item-text="description"
-                item-value="emergent_external_id"
-                label="Pick an emergent behavior"
-                v-model="selectedEmergentBehavior"
-                @change="selectBehavior(selectedEmergentBehavior)"
-                dense
-                return-object
-                ></v-select>
-
-                <v-btn
-                elevation="2"
-                @click="addEmergentBehavior()"
-                >Add Behavior</v-btn>
+                    <v-btn
+                    elevation="2"
+                    @click="addEmergentBehavior()"
+                    >Add Behavior</v-btn>
+                </div>
         </div>
-        <div class="panel">
-            <div class="title">Chosen Emergent Behaviors</div>
-            <v-chip
-                close
-                close-icon="mdi-delete"
-                color="orange"
-                v-for="(behavior, index) in chosenEmergentBehaviors" :key="index" :id="behavior.emergent_external_id"
-                @click:close="removeEmergentBehavior(index)"
-            >{{ behavior.description }}</v-chip>
+        <div class="top-down__panel">
+            <div class="top-down__title">Chosen Emergent Behaviors</div>
+                <div class="top-down__content">
+                    <v-chip
+                    close
+                    close-icon="mdi-delete"
+                    color="orange"
+                    v-for="(behavior, index) in chosenEmergentBehaviors" :key="index" :id="behavior.emergent_external_id"
+                    @click:close="removeEmergentBehavior(index)"
+                    >{{ behavior.description }}</v-chip>
+                </div>
         </div>
-        <div class="panel">
-            <div class="title">Necessary Constituents</div>
+        <div class="top-down__panel">
+            <div class="top-down__title">Necessary Constituents</div>
+                <div class="top-down__content">
+                    <v-btn
+                    elevation="2"
+                    @click="getConstituentsFromEmergentBehaviors()"
+                    >Get!</v-btn>
 
-            <v-btn
-                elevation="2"
-                @click="getConstituentsFromEmergentBehaviors()"
-                >Get!</v-btn>
-
-                <v-chip
-                v-for="(constituent, index) in necessaryConstituents" :key="index" :id="constituent.constituent_external_id"
-                color="green"
-                >{{ constituent.constituent_name }}</v-chip>
+                    <v-chip
+                    v-for="(constituent, index) in necessaryConstituents" :key="index" :id="constituent.constituent_external_id"
+                    color="green"
+                    >{{ constituent.constituent_name }}</v-chip>
+                </div>
+            </div>
         </div>
-    </div>
 
 </template>
 
@@ -116,6 +120,91 @@ export default {
 </script>
 
 
+<style lang="scss" scoped>
+.top-down {
+  $self: &;
+  &__dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: 100%;
+
+    & > div {
+      flex: 1 0 100%;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    #{$self}__title {
+      background-color: #373640;
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-block-end: 0.625rem;
+    }
+
+    #{$self}__content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-radius: 6px;
+      height: 100%;
+      padding: 4px 10px;
+      overflow-y: auto;
+    }
+  }
+
+//   &__group {
+//     padding: 10px;
+//     background-color: #eee;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     gap: 10px;
+//     border-radius: 6px;
+
+//     #{$self}__label {
+//       background-color: #bbbbbb;
+//       padding: 4px 10px;
+//       color: #ffffff;
+//       text-align: left;
+//       font-weight: bold;
+//       font-size: 14px;
+//       border-radius: 4px;
+//     }
+
+//     #{$self}__behaviors {
+//       background-color: #e3e3e3;
+//       height: clamp(100px, 100px, 150px);
+//       width: 100%;
+//       overflow-y: auto;
+//     }
+//   }
+}
+
+.v-chip.v-size--default {
+  height: auto !important;
+  min-height: 32px;
+}
+
+.v-chip {
+  white-space: normal !important;
+  text-align: left;
+
+  &__content {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+</style>
+
+
+<!-- 
 <style>
 .dashboard {
     padding: 5px;
@@ -170,4 +259,4 @@ export default {
     border-style: solid;
     border-width: 1px;
 }
-</style>
+</style> -->

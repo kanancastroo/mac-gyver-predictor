@@ -1,7 +1,8 @@
 <template>
-    <div class="dashboard">
-        <div class="panel">
-            <div class="title">SoS</div>
+    <div class="manager__dashboard">
+        <div class="manager__panel">
+            <div class="manager__title">SoS</div>
+            <div class="manager__content">
                 <v-row justify="center">
                     <v-dialog
                     v-model="sosDialog"
@@ -59,6 +60,7 @@
                     </v-card>
                     </v-dialog>
                 </v-row>
+                <v-spacer></v-spacer>
             <v-row justify="center">
                 <v-select
                 :items="this.sos"
@@ -71,6 +73,9 @@
                 dense
                 return-object
                 ></v-select>
+            </v-row> 
+               
+            <v-row justify="center">
                 <v-dialog
                         v-model="editSoSDialog"
                         :retain-focus="false"
@@ -128,7 +133,7 @@
                             </v-btn>
                             </v-card-actions>
                         </v-card>
-                        </v-dialog> 
+                </v-dialog> 
                 
                 <v-btn
                 depressed
@@ -139,7 +144,9 @@
                         {{ icons.mdiDelete }}
                     </v-icon>
                 </v-btn>
-            </v-row>       
+            </v-row>
+            <v-spacer></v-spacer>
+                  
             <v-btn
                 color="primary"
                 elevation="2"
@@ -151,9 +158,11 @@
                 @click="redrawLines()"
             >Redraw lines</v-btn>
         </div>
-        <div class="panel">
-            <div class="title">Constituents</div>
-            <v-row justify="center">
+        </div>
+        <div class="manager__panel">
+            <div class="manager__title">Constituents</div>
+            <div class="manager__content">
+                <v-row justify="center">
                 <v-dialog
                 v-model="constituentDialog"
                 persistent
@@ -224,7 +233,6 @@
                     class="ma-2"
                     :color="selectedConstituents.includes(constituent.constituent_external_id) ? 'error' : 'primary'"
                     close
-                    close-icon="mdi-delete"
                     ref="constituents"
                     v-for="(constituent, index) in constituents" :key="index" :id="constituent.constituent_external_id"
                     @click:close="removeConstituent(constituent, index)" @click="handleColorConstituents(constituent)">
@@ -290,9 +298,11 @@
                             {{ constituent.constituent_name }}
             </v-chip>
         </div>
-        <div class="panel">
-            <div class="title">Basic Features</div>
-            <v-row justify="center">
+        </div>
+        <div class="manager__panel">
+            <div class="manager__title">Basic Features</div>
+            <div class="manager__content">
+                <v-row justify="center">
                 <v-dialog
                 v-model="featureDialog"
                 persistent
@@ -428,9 +438,11 @@
                         {{ feature.description }}
             </v-chip>
         </div>
-        <div class="panel">
-            <div class="title">Emergent Behaviors</div>
-            <v-row justify="center">
+        </div>
+        <div class="manager__panel">
+            <div class="manager__title">Emergent Behaviors</div>
+            <div class="manager__content">
+                <v-row justify="center">
                 <v-dialog
                 v-model="behaviorDialog"
                 persistent
@@ -566,7 +578,7 @@
                         {{ behavior.description }}
             </v-chip>
         </div>
-
+        </div>
         <div class="text-center">
             <v-dialog
             v-model="dialog"
@@ -2055,6 +2067,92 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
 }
 </script>
 
+
+<style lang="scss" scoped>
+.manager {
+  $self: &;
+  &__dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    height: 100%;
+
+    & > div {
+      flex: 1 0 100%;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    #{$self}__title {
+      background-color: #373640;
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-block-end: 0.625rem;
+    }
+
+    #{$self}__content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-radius: 6px;
+      height: 100%;
+      padding: 4px 10px;
+      overflow-y: auto;
+    }
+  }
+
+//   &__group {
+//     padding: 10px;
+//     background-color: #eee;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     gap: 10px;
+//     border-radius: 6px;
+
+//     #{$self}__label {
+//       background-color: #bbbbbb;
+//       padding: 4px 10px;
+//       color: #ffffff;
+//       text-align: left;
+//       font-weight: bold;
+//       font-size: 14px;
+//       border-radius: 4px;
+//     }
+
+//     #{$self}__behaviors {
+//       background-color: #e3e3e3;
+//       height: clamp(100px, 100px, 150px);
+//       width: 100%;
+//       overflow-y: auto;
+//     }
+//   }
+}
+
+.v-chip.v-size--default {
+  height: auto !important;
+  min-height: 32px;
+}
+
+.v-chip {
+  white-space: normal !important;
+  text-align: left;
+
+  &__content {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+</style>
+
+<!-- 
+
 <style>
 .dashboard {
     padding: 5px;
@@ -2109,4 +2207,4 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
     border-style: solid;
     border-width: 1px;
 }
-</style>
+</style> -->
