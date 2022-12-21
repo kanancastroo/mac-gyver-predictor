@@ -1,45 +1,53 @@
 <template>
-  <div class="bottom-up__dashboard">
+  <div class="bottom-up">
     <div class="bottom-up__panel">
       <div class="bottom-up__title">SoS</div>
       <div class="bottom-up__content">
         <v-row justify="center">
-                <v-select
-                :items="this.sos"
-                item-text="sos_name"
-                item-value="sos_external_id"
-                label="Pick a SoS"
-                v-model="selectedSoS"
-                ref="sos"
-                @change="getConstituents(selectedSoS.sos_external_id)"
-                dense
-                return-object
-                ></v-select>
+          <v-select
+            :items="this.sos"
+            item-text="sos_name"
+            item-value="sos_external_id"
+            label="Pick a SoS"
+            v-model="selectedSoS"
+            ref="sos"
+            @change="getConstituents(selectedSoS.sos_external_id)"
+            dense
+            return-object
+          ></v-select>
         </v-row>
 
-        <div class="bottom-up__title">{{ this.getConstituentsColumnLabel() }}</div>
-      <div class="bottom-up__content">
-        <div v-for="(constituent, index) in constituents" :key="index">
-          <v-tooltip right>
+        <div class="bottom-up__title">
+          {{ this.getConstituentsColumnLabel() }}
+        </div>
+        <div class="bottom-up__content">
+          <v-tooltip
+            v-for="(constituent, index) in constituents"
+            :key="index"
+            right
+          >
             <template v-slot:activator="{ on, attrs }">
-                <span v-bind="attrs" v-on="on">
-                  <v-chip
-                    color="primary"
-                    ref="constituents"
-                    @click="addConstituent(constituent)"
-                  >
-                    {{ constituent.constituent_name }}
-                  </v-chip>
-                </span>
+              <span v-bind="attrs" v-on="on">
+                <v-chip
+                  color="#5F8D4E"
+                  dark
+                  ref="constituents"
+                  @click="addConstituent(constituent)"
+                >
+                  {{ constituent.constituent_name }}
+                </v-chip>
+              </span>
             </template>
-            <p v-for="(feature, index) in constituent.basic_features" :key="index">
+            <p
+              v-for="(feature, index) in constituent.basic_features"
+              :key="index"
+            >
               {{ feature.description }}
             </p>
             <!-- <span>{{ constituent.basic_features }}</span> -->
           </v-tooltip>
-        </div>
 
-        <!-- <v-tooltip right>
+          <!-- <v-tooltip right>
           <template v-slot:activator="{ on, attrs }">
             <v-chip
               color="primary"
@@ -55,7 +63,7 @@
           </template>
           <span>Right tooltip</span>
         </v-tooltip> -->
-      </div>
+        </div>
 
         <!-- <v-chip
           color="primary"
@@ -74,22 +82,25 @@
     <div class="bottom-up__panel">
       <div class="bottom-up__title">SoS Modeling Space</div>
       <div class="bottom-up__content">
-
         <div v-for="(constituent, index) in composedSoS" :key="index">
           <v-tooltip right>
             <template v-slot:activator="{ on, attrs }">
-                <span v-bind="attrs" v-on="on">
-                  <v-chip
-                    class="d-flex justify-between"
-                    color="primary"
-                    close
-                    @click:close="removeConstituent(index)"
-                  >
-                    {{ constituent.constituent_name }}
-                  </v-chip>
-                </span>
+              <span v-bind="attrs" v-on="on">
+                <v-chip
+                  class="d-flex justify-between"
+                  color="#5F8D4E"
+                  dark
+                  close
+                  @click:close="removeConstituent(index)"
+                >
+                  {{ constituent.constituent_name }}
+                </v-chip>
+              </span>
             </template>
-            <p v-for="(feature, index) in constituent.basic_features" :key="index">
+            <p
+              v-for="(feature, index) in constituent.basic_features"
+              :key="index"
+            >
               {{ feature.description }}
             </p>
             <!-- <span>{{ constituent.basic_features }}</span> -->
@@ -109,7 +120,9 @@
       </div>
     </div>
     <div class="bottom-up__panel">
-      <div class="bottom-up__title">Emergent Behaviors (from constituents in the SoS Modeling Space)</div>
+      <div class="bottom-up__title">
+        Emergent Behaviors (from constituents in the SoS Modeling Space)
+      </div>
       <div class="bottom-up__content">
         <v-dialog v-model="addSoSDialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
@@ -288,10 +301,7 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog
-            transition="dialog-top-transition"
-            max-width="600"
-          >
+          <v-dialog transition="dialog-top-transition" max-width="600">
             <!-- <template v-slot:activator="{ on, attrs }">
               <v-btn
                 color="#A4BE7B"
@@ -301,18 +311,12 @@
             </template> -->
             <template v-slot:default="errorDialog">
               <v-card>
-                <v-toolbar
-                  color="#A4BE7B"
-                  dark
-                >Error</v-toolbar>
+                <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
                 <v-card-text>
                   <div class="text-h5 pa-12">Sorry, an error occurred!</div>
                 </v-card-text>
                 <v-card-actions class="justify-end">
-                  <v-btn
-                    text
-                    @click="errorDialog.value = false"
-                  >Close</v-btn>
+                  <v-btn text @click="errorDialog.value = false">Close</v-btn>
                 </v-card-actions>
               </v-card>
             </template>
@@ -373,10 +377,10 @@ export default {
     },
   },
   methods: {
-    getConstituentsColumnLabel(){
-      if (this.selectedSoS != null) 
-        return 'Constituents from ' + this.selectedSoS.sos_name
-      return 'Constituents'
+    getConstituentsColumnLabel() {
+      if (this.selectedSoS != null)
+        return "Constituents from " + this.selectedSoS.sos_name;
+      return "Constituents";
     },
     addObservedBehavior(selectedBehavior, insertedBehavior) {
       // console.log('selectedBehavior: ', selectedBehavior)
@@ -392,7 +396,7 @@ export default {
             this.observedBehaviors.push(newBehavior);
           })
           .catch((error) => {
-            this.errorDialog = true
+            this.errorDialog = true;
             console.error(error);
           });
       } else {
@@ -413,7 +417,7 @@ export default {
           this.knownBehaviors = res.data;
         })
         .catch((error) => {
-          this.errorDialog = true
+          this.errorDialog = true;
           console.error("ERROR ON SHOW KNOWN EMERGENT BEHAVIORS =>>> ", error);
         });
     },
@@ -425,7 +429,7 @@ export default {
           this.emergentBehaviors = res.data;
         })
         .catch((error) => {
-          this.errorDialog = true
+          this.errorDialog = true;
           console.error(error);
         });
     },
@@ -461,7 +465,7 @@ export default {
                   );
                 })
                 .catch((error) => {
-                  this.errorDialog = true
+                  this.errorDialog = true;
                   console.error(
                     "ERROR ON ADD RELATION SOS/CONSTITUENT =>>> ",
                     error
@@ -503,7 +507,7 @@ export default {
             });
           });
         })
-        .catch((error) => {          
+        .catch((error) => {
           this.saveDialog = false;
           this.errorDialog = true;
           console.error("ERROR ON ADD SOS =>>> ", error);
@@ -602,29 +606,29 @@ export default {
       const constituents_path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_id}/constituents/get`;
       axios
         .get(constituents_path)
-        .then(async res => {
+        .then(async (res) => {
           this.constituents = res.data;
-          console.log(this.constituents)
+          console.log(this.constituents);
 
-          let promisesArray = []
+          let promisesArray = [];
 
-          for (let i=0; i < this.constituents.length; i++) {
-            let constituent_id = this.constituents[i].constituent_external_id
+          for (let i = 0; i < this.constituents.length; i++) {
+            let constituent_id = this.constituents[i].constituent_external_id;
             const features_path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_id}/basic_features/get`;
             promisesArray.push(
               axios
                 .get(features_path)
                 .then((res) => {
-                  this.constituents[i].basic_features = res.data
+                  this.constituents[i].basic_features = res.data;
                 })
                 .catch((error) => {
                   this.errorDialog = true;
                   console.error(error);
                 })
-            )
+            );
           }
 
-          await Promise.all(promisesArray)
+          await Promise.all(promisesArray);
 
           // console.log(this.$refs.constituents)
           // this.$nextTick(() => {
@@ -734,7 +738,7 @@ export default {
     },
     addConstituent(constituent) {
       this.composedSoS.push(constituent);
-      console.log('composed SoS => ', this.composedSoS);
+      console.log("composed SoS => ", this.composedSoS);
     },
     removeConstituent(index) {
       this.composedSoS.splice(index, 1);
@@ -756,24 +760,25 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .bottom-up {
   $self: &;
-  &__dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    height: 100%;
+  height: calc(100vh - 160px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: #dfe8cc;
+  padding: 10px;
 
-    & > div {
-      flex: 1 0 100%;
-    }
+  & > div {
+    flex: 1 0 100%;
   }
 
   &__panel {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
     #{$self}__title {
       background-color: #373640;
       color: #ffffff;
@@ -792,6 +797,7 @@ export default {
       height: 100%;
       padding: 4px 10px;
       overflow-y: auto;
+      overflow-x: hidden;
     }
   }
 
@@ -829,6 +835,7 @@ export default {
 }
 
 .v-chip {
+  width: 100%;
   white-space: normal !important;
   text-align: left;
 

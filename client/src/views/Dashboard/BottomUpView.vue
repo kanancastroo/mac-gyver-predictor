@@ -1,11 +1,9 @@
 <template>
-  <div class="bottom-up">
-    <BottomUpDashboard />
-  </div>
+  <BottomUpDashboard />
 </template>
 
 <script>
-import BottomUpDashboard from "@/components/BottomUpDashboard.vue";
+import BottomUpDashboard from "@/components/pages/modules/dashboard/BottomUp.vue";
 
 export default {
   components: { BottomUpDashboard },
