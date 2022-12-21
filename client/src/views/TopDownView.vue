@@ -1,17 +1,17 @@
 <template>
-  <div class="bottom-up">
-    <ManagerDashboard></ManagerDashboard>
+  <div class="top-down">
+    <TopDownDashboard></TopDownDashboard>
   </div>
 </template>
 
 <script>
-import ManagerDashboard from '@/components/ManagerDashboard.vue';
+import TopDownDashboard from '@/components/TopDownDashboard.vue';
 
   export default {
     data: () => ({
       
     }),
-    components: { ManagerDashboard }
+    components: { TopDownDashboard }
 }
 </script>
 

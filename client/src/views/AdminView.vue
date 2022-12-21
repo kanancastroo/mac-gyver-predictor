@@ -1,5 +1,24 @@
 <template>
   <div class="admin">
-    <h1>This is Admin page</h1>
+    <AdminDashboard></AdminDashboard>
   </div>
 </template>
+
+<script>
+import AdminDashboard from '@/components/AdminDashboard.vue';
+
+  export default {
+    data: () => ({
+      
+    }),
+    components: { AdminDashboard }
+}
+</script>
+
+<style>
+.admin{
+  background-color:chartreuse;
+  padding: 10px;
+  margin-block-end: 50px;
+}
+</style>
