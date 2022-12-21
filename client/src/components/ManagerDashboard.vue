@@ -133,7 +133,37 @@
                             </v-btn>
                             </v-card-actions>
                         </v-card>
-                </v-dialog> 
+                </v-dialog>
+                
+                <v-dialog
+                    transition="dialog-top-transition"
+                    max-width="600"
+                >
+                    <!-- <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="#A4BE7B"
+                        v-bind="attrs"
+                        v-on="on"
+                    >Error Dialog</v-btn>
+                    </template> -->
+                    <template v-slot:default="errorDialog">
+                    <v-card>
+                        <v-toolbar
+                        color="#A4BE7B"
+                        dark
+                        >Error</v-toolbar>
+                        <v-card-text>
+                        <div class="text-h5 pa-12">Sorry, an error occurred!</div>
+                        </v-card-text>
+                        <v-card-actions class="justify-end">
+                        <v-btn
+                            text
+                            @click="errorDialog.value = false"
+                        >Close</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    </template>
+                </v-dialog>
                 
                 <v-btn
                 depressed
@@ -688,6 +718,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
         featureDialog: false,
         behaviorDialog: false,
         saveDialog: false,
+        errorDialog: false,
 
         editConstituentDialog: false,
         editBasicFeatureDialog: false,
@@ -711,6 +742,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     .catch((error) => {
                         console.error(error);
                         this.saveDialog = false
+                        this.errorDialog = true;
                     });
             })
         },
@@ -1455,6 +1487,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1469,6 +1502,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1483,6 +1517,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1497,6 +1532,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1511,6 +1547,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1525,6 +1562,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1539,6 +1577,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1553,6 +1592,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1567,6 +1607,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1581,6 +1622,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1595,6 +1637,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1609,6 +1652,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1623,6 +1667,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1637,6 +1682,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1651,6 +1697,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1665,6 +1712,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1679,6 +1727,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1693,6 +1742,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1707,6 +1757,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1721,6 +1772,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1736,6 +1788,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     })
                 })
                 .catch((error) => {
+                    this.errorDialog = true;
                     console.error(error);
                 });
         },
@@ -1746,6 +1799,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     this.availableConstituents = res.data;
                 })
                 .catch((error) => {
+                    this.errorDialog = true;
                     console.error(error);
                 });
         },
@@ -1756,6 +1810,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     this.availableBasicFeatures = res.data;
                 })
                 .catch((error) => {
+                    this.errorDialog = true;
                     console.error(error);
                 });
         },
@@ -1766,6 +1821,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                     this.availableEmergentBehaviors = res.data;
                 })
                 .catch((error) => {
+                    this.errorDialog = true;
                     console.error(error);
                 });
         },
@@ -1788,6 +1844,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         resolve()
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1813,6 +1870,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         })                       
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1838,6 +1896,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         })    
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.error(error);
                     });
                 })
@@ -1884,6 +1943,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         })                       
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.log('ERROR ON ADD RELATION CONSTITUENTS/BASIC FEATURES =>>> ', error);
                     });
             })
@@ -1931,6 +1991,7 @@ import { mdiPencil, mdiDelete } from '@mdi/js'
                         })                       
                     })
                     .catch((error) => {
+                        this.errorDialog = true;
                         console.log('ERROR ON ADD RELATION CONSTITUENTS/BASIC FEATURES =>>> ', error);
                     });
             })

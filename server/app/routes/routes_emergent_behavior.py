@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from models import Emergent_Behavior, Basic_Feature_Emergent_Behavior, Basic_Feature, Constituent_Basic_Feature, Constituent
 import jsons
 import numpy as np
@@ -12,7 +12,10 @@ def getEmergentBehaviors():
         return  jsonify([e.serialize() for e in emergent_behavior])
         #return jsonify('HELL YEAH!')
     except Exception as e:
-	    return(str(e))
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )
 
 @app.route("/emergent_behaviors/add")
 def addEmergentBehavior():
@@ -27,7 +30,10 @@ def addEmergentBehavior():
         db.session.commit()
         return "Emergent Behavior added. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    
 
 @app.route("/emergent_behaviors/<emergent_id>/get")
 def getEmergentBehavior(emergent_id):
@@ -36,7 +42,10 @@ def getEmergentBehavior(emergent_id):
         emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=emergent_external_id).first()
         return jsonify(emergent_behavior.description)
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    
 
 @app.route("/emergent_behaviors/<emergent_id>/update")
 def updateEmergentBehavior(emergent_id):
@@ -48,7 +57,10 @@ def updateEmergentBehavior(emergent_id):
         db.session.commit()
         return "Emergent Behavior updated. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
     except Exception as e:
-	    return(str(e))     
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )     
 
 @app.route("/emergent_behaviors/<emergent_id>/delete")
 def deleteEmergentBehavior(emergent_id):
@@ -59,7 +71,10 @@ def deleteEmergentBehavior(emergent_id):
         db.session.commit()
         return "Emergent Behavior id={} was deleted sucessfully.".format(emergent_external_id)
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    
 
 
 @app.route("/emergent_behaviors/basic_features/constituents/post", methods=['POST'])
@@ -111,4 +126,7 @@ def getConstituentsFromEmergentBehaviors():
         return jsonify([e.toJSON() for e in new_list])
 
     except Exception as e:
-	    return(str(e))          
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )          

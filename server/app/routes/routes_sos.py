@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from models import SoS, SoS_Constituent, Constituent, Constituent_Basic_Feature, Basic_Feature, SoS_Emergent_Behavior, Emergent_Behavior
 from sqlalchemy import update
 import jsons
@@ -13,7 +13,10 @@ def getAllSoS():
         sos=SoS.SoS.query.all()
         return  jsonify([e.serialize() for e in sos])
     except Exception as e:
-	    return(str(e))   
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )   
 
 @app.route("/sos/add")
 def addSoS():
@@ -28,7 +31,10 @@ def addSoS():
         db.session.commit()
         return "SoS added. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
-	    return(str(e))  
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )  
 
 @app.route("/sos/<sos_id>/get")
 def getSoS(sos_id):
@@ -37,7 +43,10 @@ def getSoS(sos_id):
         sos = SoS.SoS.query.filter_by(sos_external_id=sos_external_id).first()
         return jsonify(sos.sos_name)
     except Exception as e:
-	    return(str(e))                
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )                
 
 @app.route("/sos/<sos_id>/update")
 def updateSoS(sos_id):
@@ -49,7 +58,10 @@ def updateSoS(sos_id):
         db.session.commit()
         return "SoS updated. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
-	    return(str(e))                       
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )                       
 
 @app.route("/sos/<sos_id>/delete")
 def deleteSoS(sos_id):
@@ -60,7 +72,10 @@ def deleteSoS(sos_id):
         db.session.commit()
         return "SoS id={} was deleted sucessfully.".format(sos_external_id)
     except Exception as e:
-	    return(str(e))       
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )       
 
 
 @app.route("/sos/<sos_external_id>/constituents/get")
@@ -104,7 +119,10 @@ def getConstituentsFromSoS(sos_external_id):
             #print(array_constituents)
         return jsonify([e.toJSON() for e in array_constituents])
     except Exception as e:
-	    return(str(e))           
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )           
 
 
 @app.route("/sos/<sos_external_id>/constituents/basic_features/get")
@@ -152,7 +170,10 @@ def getBasicFeaturesFromSoS(sos_external_id):
 
         return jsonify([e.toJSON() for e in new_list])
     except Exception as e:
-	    return(str(e))      
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )      
 
 
 @app.route("/sos/<sos_external_id>/constituents/basic_features/emergent_behaviors/get")
@@ -199,4 +220,7 @@ def getEmergentBehaviorsFromSoS(sos_external_id):
 
         return jsonify([e.toJSON() for e in array_emergent_behaviors])
     except Exception as e:
-	    return(str(e))      
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )      

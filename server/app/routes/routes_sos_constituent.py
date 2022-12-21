@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 import numpy as np
 import jsons
 from models import SoS, Constituent, SoS_Constituent
@@ -22,7 +22,10 @@ def addRelationSoSConstituent():
         # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
         return "Relation SoS/Constituent added successfully."
     except Exception as e:
-	    return(str(e))           
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )          
 
 @app.route("/relation/sos_constituent/delete")
 def deleteRelationSoSConstituent():
@@ -42,7 +45,10 @@ def deleteRelationSoSConstituent():
         db.session.commit()
         return "Relation SoS/Constituent deleted successfully."
     except Exception as e:
-	    return(str(e))   
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )   
 
 @app.route("/relation/sos_constituent/get")
 def getRelationsSoSConstituent():
@@ -89,4 +95,7 @@ def getRelationsSoSConstituent():
 
         return jsonify([e.toJSON() for e in sos_constituent_relations])
     except Exception as e:
-	    return(str(e))   
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )  

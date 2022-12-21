@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 import numpy as np
 import jsons
 from models import Basic_Feature_Emergent_Behavior, Basic_Feature, Emergent_Behavior
@@ -40,7 +40,10 @@ def addRelationBasicFeatureEmergentBehavior():
         
             return "Relations Basic Feature/Emergent Behavior added successfully."
         except Exception as e:
-            return(str(e))  
+            return Response(
+                "Internal Server Error",
+                status=500,
+            )
 
     else:
         feature_external_id=request.args.get('feature_external_id')
@@ -59,7 +62,10 @@ def addRelationBasicFeatureEmergentBehavior():
             # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
             return "Relation Basic Feature/Emergent Behavior added successfully."
         except Exception as e:
-            return(str(e))        
+            return Response(
+                "Internal Server Error",
+                status=500,
+            )        
 
 
 @app.route("/relation/basic_feature_emergent_behavior/delete")
@@ -80,7 +86,10 @@ def deleteRelationBasicFeatureEmergentBehavior():
         db.session.commit()
         return "Relation Basic Feature/Emergent Behavior deleted successfully."
     except Exception as e:
-	    return(str(e))        
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )        
 
 @app.route("/relation/basic_feature_emergent_behavior/post", methods=['POST'])
 def getRelationsBasicFeatureEmergentBehavior():
@@ -133,4 +142,7 @@ def getRelationsBasicFeatureEmergentBehavior():
 
         return jsonify([e.toJSON() for e in basic_features_emergent_behaviors_relations])
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    

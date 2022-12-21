@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy import text
@@ -497,7 +497,10 @@ def processDatabase():
         return jsonify('Database processed and model trained succesfully!')  
     except Exception as e:
         # db.session.rollback()
-        return(str(e))     
+        return Response(
+                "Internal Server Error",
+                status=500,
+            )     
 
 
 @app.route('/database/saveplot')
@@ -724,7 +727,10 @@ def predict():
         
         return jsonify([e.toJSON() for e in arr_prediction_obj])
     except Exception as e:
-        return(str(e))
+        return Response(
+                "Internal Server Error",
+                status=500,
+            )
 
 
 

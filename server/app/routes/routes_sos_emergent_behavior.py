@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 import numpy as np
 import jsons
 from models import SoS_Emergent_Behavior, SoS, Emergent_Behavior
@@ -55,7 +55,10 @@ def addRelationSoSEmergentBehavior():
             # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
             return "Relation SoS/Emergent Behavior added successfully."
         except Exception as e:
-            return(str(e))        
+            return Response(
+                "Internal Server Error",
+                status=500,
+            )        
 
 
 @app.route("/relation/sos_emergent_behavior/delete")
@@ -76,7 +79,10 @@ def deleteRelationSoSEmergentBehavior():
         db.session.commit()
         return "Relation SoS/Emergent Behavior deleted successfully."
     except Exception as e:
-	    return(str(e))        
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )        
 
 @app.route("/relation/sos_emergent_behavior/get")
 def getRelationsSoSEmergentBehavior():
@@ -125,4 +131,7 @@ def getRelationsSoSEmergentBehavior():
 
         return jsonify([e.toJSON() for e in sos_emergent_behaviors_relations])
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )   

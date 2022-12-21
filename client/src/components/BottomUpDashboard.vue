@@ -19,15 +19,42 @@
 
         <div class="bottom-up__title">{{ this.getConstituentsColumnLabel() }}</div>
       <div class="bottom-up__content">
-        <v-chip
-          color="primary"
-          ref="constituents"
-          v-for="(constituent, index) in constituents"
-          :key="index"
-          @click="addConstituent(constituent)"
-        >
-          {{ constituent.constituent_name }}
-        </v-chip>
+        <div v-for="(constituent, index) in constituents" :key="index">
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <v-chip
+                    color="primary"
+                    ref="constituents"
+                    @click="addConstituent(constituent)"
+                  >
+                    {{ constituent.constituent_name }}
+                  </v-chip>
+                </span>
+            </template>
+            <p v-for="(feature, index) in constituent.basic_features" :key="index">
+              {{ feature.description }}
+            </p>
+            <!-- <span>{{ constituent.basic_features }}</span> -->
+          </v-tooltip>
+        </div>
+
+        <!-- <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+            <v-chip
+              color="primary"
+              ref="constituents"
+              v-bind="attrs"
+              v-on="on"
+              v-for="(constituent, index) in constituents"
+              :key="index"
+              @click="addConstituent(constituent)"
+            >
+              {{ constituent.constituent_name }}
+            </v-chip>
+          </template>
+          <span>Right tooltip</span>
+        </v-tooltip> -->
       </div>
 
         <!-- <v-chip
@@ -47,7 +74,29 @@
     <div class="bottom-up__panel">
       <div class="bottom-up__title">SoS Modeling Space</div>
       <div class="bottom-up__content">
-        <v-chip
+
+        <div v-for="(constituent, index) in composedSoS" :key="index">
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <v-chip
+                    class="d-flex justify-between"
+                    color="primary"
+                    close
+                    @click:close="removeConstituent(index)"
+                  >
+                    {{ constituent.constituent_name }}
+                  </v-chip>
+                </span>
+            </template>
+            <p v-for="(feature, index) in constituent.basic_features" :key="index">
+              {{ feature.description }}
+            </p>
+            <!-- <span>{{ constituent.basic_features }}</span> -->
+          </v-tooltip>
+        </div>
+
+        <!-- <v-chip
           class="d-flex justify-between"
           color="primary"
           close
@@ -56,7 +105,7 @@
           @click:close="removeConstituent(index)"
         >
           {{ constituent.constituent_name }}
-        </v-chip>
+        </v-chip> -->
       </div>
     </div>
     <div class="bottom-up__panel">
@@ -238,6 +287,36 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <v-dialog
+            transition="dialog-top-transition"
+            max-width="600"
+          >
+            <!-- <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="#A4BE7B"
+                v-bind="attrs"
+                v-on="on"
+              >Error Dialog</v-btn>
+            </template> -->
+            <template v-slot:default="errorDialog">
+              <v-card>
+                <v-toolbar
+                  color="#A4BE7B"
+                  dark
+                >Error</v-toolbar>
+                <v-card-text>
+                  <div class="text-h5 pa-12">Sorry, an error occurred!</div>
+                </v-card-text>
+                <v-card-actions class="justify-end">
+                  <v-btn
+                    text
+                    @click="errorDialog.value = false"
+                  >Close</v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
         </div>
       </div>
     </div>
@@ -268,6 +347,7 @@ export default {
     saveDialog: false,
     behaviorDialog: false,
     addSoSDialog: false,
+    errorDialog: false,
     sosName: "Unnamed SoS",
   }),
   watch: {
@@ -312,6 +392,7 @@ export default {
             this.observedBehaviors.push(newBehavior);
           })
           .catch((error) => {
+            this.errorDialog = true
             console.error(error);
           });
       } else {
@@ -332,6 +413,7 @@ export default {
           this.knownBehaviors = res.data;
         })
         .catch((error) => {
+          this.errorDialog = true
           console.error("ERROR ON SHOW KNOWN EMERGENT BEHAVIORS =>>> ", error);
         });
     },
@@ -343,6 +425,7 @@ export default {
           this.emergentBehaviors = res.data;
         })
         .catch((error) => {
+          this.errorDialog = true
           console.error(error);
         });
     },
@@ -378,6 +461,7 @@ export default {
                   );
                 })
                 .catch((error) => {
+                  this.errorDialog = true
                   console.error(
                     "ERROR ON ADD RELATION SOS/CONSTITUENT =>>> ",
                     error
@@ -419,8 +503,9 @@ export default {
             });
           });
         })
-        .catch((error) => {
+        .catch((error) => {          
           this.saveDialog = false;
+          this.errorDialog = true;
           console.error("ERROR ON ADD SOS =>>> ", error);
         });
     },
@@ -437,6 +522,7 @@ export default {
           .catch((error) => {
             console.error(error);
             this.saveDialog = false;
+            this.errorDialog = true;
           });
       });
     },
@@ -479,6 +565,7 @@ export default {
                 // your action on error success
                 console.log("ERROR ON ADD RELATION SoS/BEHAVIORS =>>> ", error);
                 this.saveDialog = false;
+                this.errorDialog = true;
               });
           })
           .catch((error) => {
@@ -488,6 +575,7 @@ export default {
               error
             );
             this.saveDialog = false;
+            this.errorDialog = true;
           });
       });
     },
@@ -503,18 +591,41 @@ export default {
           this.sos = res.data;
         })
         .catch((error) => {
+          this.errorDialog = true;
           console.error(error);
         });
     },
-    getConstituents(id) {
+    getConstituents(sos_id) {
       this.constituents = [];
       // this.SoSLines.forEach(line => line.remove())
       // this.SoSLines = []
-      const path = `${process.env.VUE_APP_BASE_URL}/sos/${id}/constituents/get`;
+      const constituents_path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_id}/constituents/get`;
       axios
-        .get(path)
-        .then((res) => {
+        .get(constituents_path)
+        .then(async res => {
           this.constituents = res.data;
+          console.log(this.constituents)
+
+          let promisesArray = []
+
+          for (let i=0; i < this.constituents.length; i++) {
+            let constituent_id = this.constituents[i].constituent_external_id
+            const features_path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_id}/basic_features/get`;
+            promisesArray.push(
+              axios
+                .get(features_path)
+                .then((res) => {
+                  this.constituents[i].basic_features = res.data
+                })
+                .catch((error) => {
+                  this.errorDialog = true;
+                  console.error(error);
+                })
+            )
+          }
+
+          await Promise.all(promisesArray)
+
           // console.log(this.$refs.constituents)
           // this.$nextTick(() => {
           //     this.$refs.constituents.forEach(constituent => {
@@ -554,6 +665,7 @@ export default {
           //     });
         })
         .catch((error) => {
+          this.errorDialog = true;
           console.error(error);
         });
     },
@@ -565,6 +677,7 @@ export default {
           this.message = res.data;
         })
         .catch((error) => {
+          this.errorDialog = true;
           console.error(error);
         });
     },
@@ -609,17 +722,19 @@ export default {
             .catch((error) => {
               // your action on error success
               this.predictDialog = false;
+              this.errorDialog = true;
               console.log(error);
             });
         })
         .catch((error) => {
+          this.errorDialog = true;
           // your action on error success
           console.log(error);
         });
     },
     addConstituent(constituent) {
       this.composedSoS.push(constituent);
-      console.log(this.composedSoS);
+      console.log('composed SoS => ', this.composedSoS);
     },
     removeConstituent(index) {
       this.composedSoS.splice(index, 1);
