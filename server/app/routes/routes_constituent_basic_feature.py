@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 import numpy as np
 import jsons
 from models import Constituent_Basic_Feature, Constituent, Basic_Feature
@@ -22,7 +22,10 @@ def addRelationConstituentBasicFeature():
         # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
         return "Relation Constituent/Basic Feature added successfully."
     except Exception as e:
-	    return(str(e))          
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )          
 
 @app.route("/relation/constituent_basic_feature/delete")
 def deleteRelationConstituentBasicFeature():
@@ -42,7 +45,10 @@ def deleteRelationConstituentBasicFeature():
         db.session.commit()
         return "Relation Constituent/Basic Feature deleted successfully."
     except Exception as e:
-	    return(str(e))        
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )        
 
 @app.route("/relation/constituent_basic_feature/post", methods=['POST'])
 def getRelationsConstituentBasicFeature():
@@ -100,4 +106,7 @@ def getRelationsConstituentBasicFeature():
 
         return jsonify([e.toJSON() for e in constituent_basic_features_relations])
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    

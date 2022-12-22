@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from models import Basic_Feature
 import jsons
 import numpy as np
@@ -12,7 +12,10 @@ def getBasicFeatures():
         return  jsonify([e.serialize() for e in basic_feature])
         #return jsonify('HELL YEAH!')
     except Exception as e:
-	    return(str(e))  
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )  
 
 @app.route("/basic_features/add")
 def addBasicFeatures():
@@ -27,7 +30,10 @@ def addBasicFeatures():
         db.session.commit()
         return "Basic Feature added. feature_external_id={}.".format(basic_feature.feature_external_id)
     except Exception as e:
-	    return(str(e))           
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )           
 
 @app.route("/basic_features/<feature_id>/get")
 def getBasicFeature(feature_id):
@@ -36,7 +42,10 @@ def getBasicFeature(feature_id):
         basic_feature = Basic_Feature.Basic_Feature.query.filter_by(feature_external_id=feature_external_id).first()
         return jsonify(basic_feature.description)
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    
 
 @app.route("/basic_features/<feature_id>/update")
 def updateBasicFeature(feature_id):
@@ -48,7 +57,10 @@ def updateBasicFeature(feature_id):
         db.session.commit()
         return "Basic Feature updated. feature_external_id={}.".format(basic_feature.feature_external_id)
     except Exception as e:
-	    return(str(e))     
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )     
 
 @app.route("/basic_features/<feature_id>/delete")
 def deleteBasicFeature(feature_id):
@@ -59,4 +71,7 @@ def deleteBasicFeature(feature_id):
         db.session.commit()
         return "Basic Feature id={} was deleted sucessfully.".format(feature_external_id)
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    

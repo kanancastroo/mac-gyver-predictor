@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy import text
@@ -128,7 +128,10 @@ def dumpDatabase():
                      as_attachment=True)
     
     except Exception as e:
-        return (str(e))     
+        return Response(
+                "Internal Server Error",
+                status=500,
+            )    
 
 
 @app.route('/database/restore', methods=['POST'])
@@ -149,7 +152,10 @@ def restoreDatabase():
         return 'Database restored successfully!'
     
     except Exception as e:
-        return (str(e))  
+        return Response(
+                "Internal Server Error",
+                status=500,
+            )  
 
 
 @app.route('/database/drop')
@@ -168,4 +174,7 @@ def dropDatabase():
         return 'Database dropped successfully!'
     
     except Exception as e:
-        return (str(e))  
+        return Response(
+                "Internal Server Error",
+                status=500,
+            )  

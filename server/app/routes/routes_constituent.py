@@ -1,5 +1,5 @@
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from models import Constituent, Constituent_Basic_Feature, Basic_Feature, Basic_Feature_Emergent_Behavior, Emergent_Behavior
 import jsons
 import numpy as np
@@ -12,7 +12,10 @@ def getConstituents():
         return  jsonify([e.serialize() for e in constituent])
         #return jsonify('HELL YEAH!')
     except Exception as e:
-	    return(str(e))   
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )   
 
 @app.route("/constituents/add")
 def addConstituent():
@@ -27,7 +30,10 @@ def addConstituent():
         db.session.commit()
         return "Constituent added. constituent_external_id={}.".format(constituent.constituent_external_id)
     except Exception as e:
-	    return(str(e))  
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )  
 
 @app.route("/constituents/<constituent_id>/get")
 def getConstituent(constituent_id):
@@ -36,7 +42,10 @@ def getConstituent(constituent_id):
         constituent = Constituent.Constituent.query.filter_by(constituent_external_id=constituent_external_id).first()
         return jsonify(constituent.constituent_name)
     except Exception as e:
-	    return(str(e))    
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )    
 
 @app.route("/constituents/<constituent_id>/update")
 def updateConstituent(constituent_id):
@@ -48,7 +57,10 @@ def updateConstituent(constituent_id):
         db.session.commit()
         return "Constituent updated. constituent_external_id={}.".format(constituent.constituent_external_id)
     except Exception as e:
-	    return(str(e))     
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )     
 
 @app.route("/constituents/<constituent_id>/delete")
 def deleteConstituent(constituent_id):
@@ -59,7 +71,46 @@ def deleteConstituent(constituent_id):
         db.session.commit()
         return "Constituent id={} was deleted sucessfully.".format(constituent_external_id)
     except Exception as e:
-	    return(str(e))   
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )   
+
+@app.route("/constituents/<constituent_id>/basic_features/get")
+def getBasicFeaturesFromConstituent(constituent_id):
+    class BasicFeature():
+        def __init__(self, feature_external_id, description):
+            self.feature_external_id = feature_external_id
+            self.description = description
+
+        def toJSON(self):
+            return jsons.dump(self)
+
+    constituent_external_id=str(constituent_id)
+    constituent = Constituent.Constituent.query.filter_by(constituent_external_id=constituent_external_id).one()
+    constituent_id = constituent.constituent_id
+
+    try:
+        results = db.session.query(Constituent.Constituent, Constituent_Basic_Feature.Constituent_Basic_Feature, \
+        Basic_Feature.Basic_Feature) \
+        .select_from(Constituent.Constituent) \
+        .join(Constituent_Basic_Feature.Constituent_Basic_Feature, Constituent.Constituent.constituent_id == Constituent_Basic_Feature.Constituent_Basic_Feature.constituent_id) \
+        .join(Basic_Feature.Basic_Feature, Constituent_Basic_Feature.Constituent_Basic_Feature.basic_feature_id == Basic_Feature.Basic_Feature.feature_id) \
+        .filter(Constituent.Constituent.constituent_id == constituent_id).all()
+    
+        array_basic_features = []
+
+        for constituent_id, relation_id, feature_id in results:
+            feature = BasicFeature(feature_external_id=feature_id.feature_external_id, description=feature_id.description)
+            array_basic_features.append(feature)
+        
+        return jsonify([e.toJSON() for e in array_basic_features])
+    except Exception as e:
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            ) 
+
 
 @app.route("/constituents/basic_features/post", methods=['POST'])
 def getBasicFeaturesFromConstituents():
@@ -103,7 +154,10 @@ def getBasicFeaturesFromConstituents():
 
         return jsonify([e.toJSON() for e in new_list])
     except Exception as e:
-	    return(str(e))  
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )  
 
 @app.route("/constituents/basic_features/emergent_behaviors/post", methods=['POST'])
 def getEmergentBehaviorsFromConstituents():
@@ -134,7 +188,6 @@ def getEmergentBehaviorsFromConstituents():
         .distinct().all()
 
         array_emergent_behaviors = []
-        print('RESULTS =>>> ', results)
 
         for constituent_id, relation_id, feature_id, relation_id, emergent_id in results:
             emergent_behavior = EmergentBehavior(emergent_external_id=emergent_id.emergent_external_id, description=emergent_id.description)
@@ -149,8 +202,9 @@ def getEmergentBehaviorsFromConstituents():
                 new_list.append(obj)
                 seen_ids.add(obj.emergent_external_id)
 
-        print('new_list =>>> ', new_list)
-
         return jsonify([e.toJSON() for e in new_list])
     except Exception as e:
-	    return(str(e))  
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )  
