@@ -1,9 +1,9 @@
 <template>
-  <div class="manager">
+  <div class="manager" @scroll="console.log('scrolled!')">
     <div class="manager__panel h-100">
       <div class="manager__title">SoS</div>
       <div class="manager__content">
-        <v-dialog v-model="sosDialog" persistent max-width="600px">
+        <v-dialog v-model="sosDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark v-bind="attrs" v-on="on">
               Create
@@ -25,7 +25,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="sosDialog = false">
                 Cancel
               </v-btn>
@@ -42,7 +41,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-spacer></v-spacer>
         <v-select
           :items="this.sos"
           item-text="sos_name"
@@ -83,7 +81,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="editSoSDialog = false">
                 Cancel
               </v-btn>
@@ -127,7 +124,6 @@
             {{ icons.mdiDelete }}
           </v-icon>
         </v-btn>
-        <v-spacer></v-spacer>
 
         <v-btn color="primary" elevation="2" @click="saveSoS()"
           >Save Changes</v-btn
@@ -181,7 +177,7 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
+              
               <v-btn
                 color="blue darken-1"
                 text
@@ -252,7 +248,7 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                <v-spacer></v-spacer>
+                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -280,7 +276,7 @@
     <div class="manager__panel">
       <div class="manager__title">Basic Features</div>
       <div class="manager__content">
-        <v-dialog v-model="featureDialog" persistent max-width="600px">
+        <v-dialog v-model="featureDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
@@ -321,7 +317,7 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
+              
               <v-btn color="blue darken-1" text @click="featureDialog = false">
                 Cancel
               </v-btn>
@@ -388,7 +384,7 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                <v-spacer></v-spacer>
+                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -416,7 +412,7 @@
     <div class="manager__panel">
       <div class="manager__title">Emergent Behaviors</div>
       <div class="manager__content">
-        <v-dialog v-model="behaviorDialog" persistent max-width="600px">
+        <v-dialog v-model="behaviorDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
@@ -457,7 +453,7 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
+              
               <v-btn color="blue darken-1" text @click="behaviorDialog = false">
                 Cancel
               </v-btn>
@@ -524,7 +520,7 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                <v-spacer></v-spacer>
+                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -561,7 +557,7 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-spacer></v-spacer>
+            
             <v-btn color="primary" text @click="dialog = false"> OK </v-btn>
           </v-card-actions>
         </v-card>
@@ -2415,7 +2411,7 @@ export default {
 <style lang="scss">
 .manager {
   $self: &;
-  height: calc(100vh - 160px);
+  // height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -2470,5 +2466,9 @@ export default {
     justify-content: space-between;
     width: 100%;
   }
+}
+
+.v-application {
+    background-color: #dfe8cc !important;
 }
 </style>

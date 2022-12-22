@@ -11,7 +11,7 @@
             label="Pick a SoS"
             v-model="selectedSoS"
             ref="sos"
-            @change="getConstituents(selectedSoS.sos_external_id)"
+            @change="getConstituentsWithFeatures(selectedSoS.sos_external_id)"
             dense
             return-object
           ></v-select>
@@ -604,31 +604,54 @@ export default {
       // this.SoSLines.forEach(line => line.remove())
       // this.SoSLines = []
       const constituents_path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_id}/constituents/get`;
-      axios
+      return new Promise((resolve, reject) => {
+        axios
         .get(constituents_path)
-        .then(async (res) => {
+        .then((res) => {
           this.constituents = res.data;
           console.log(this.constituents);
+          this.$nextTick(() => {
+            resolve();
+          });
+        })
+        .catch((error) => {
+          this.errorDialog = true;
+          console.error(error);
+        });
+      })
+    },
+    async getFeaturesForConstituents() {
+      let promisesArray = [];
 
-          let promisesArray = [];
+      for (let i = 0; i < this.constituents.length; i++) {
+        let constituent_id = this.constituents[i].constituent_external_id;
+        const features_path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_id}/basic_features/get`;
+        promisesArray.push(
+          axios
+            .get(features_path)
+            .then((res) => {
+              this.constituents[i].basic_features = res.data;
+            })
+            .catch((error) => {
+              this.errorDialog = true;
+              console.error(error);
+            })
+        );
+      }
 
-          for (let i = 0; i < this.constituents.length; i++) {
-            let constituent_id = this.constituents[i].constituent_external_id;
-            const features_path = `${process.env.VUE_APP_BASE_URL}/constituents/${constituent_id}/basic_features/get`;
-            promisesArray.push(
-              axios
-                .get(features_path)
-                .then((res) => {
-                  this.constituents[i].basic_features = res.data;
-                })
-                .catch((error) => {
-                  this.errorDialog = true;
-                  console.error(error);
-                })
-            );
-          }
+      await Promise.all(promisesArray);
+    },
+    getConstituentsWithFeatures(sos_id) {
+      this.getConstituents(sos_id).then(result => {
+        console.log('Got constituents!')
+        this.getFeaturesForConstituents().then(result => {
+          console.log('Got features for constituents!')
+          this.$nextTick(() => {
+            console.log('Resolving after $nextTick')
+          });
+        })
+      })
 
-          await Promise.all(promisesArray);
 
           // console.log(this.$refs.constituents)
           // this.$nextTick(() => {
@@ -667,11 +690,6 @@ export default {
           //     .catch((error) => {
           //         console.error(error);
           //     });
-        })
-        .catch((error) => {
-          this.errorDialog = true;
-          console.error(error);
-        });
     },
     preProcessDatabase() {
       const path = `${process.env.VUE_APP_BASE_URL}/database/process`;

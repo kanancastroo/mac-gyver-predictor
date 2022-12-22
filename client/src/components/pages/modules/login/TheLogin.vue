@@ -13,29 +13,39 @@
         <div class="field">
           <label class="label is-large" for="email">Email:</label>
           <div class="control">
-            <input
-              type="email"
+            <v-text-field
+            type="email"
               class="input is-large"
               id="email"
               v-model="email"
-            />
+              solo
+            ></v-text-field>
           </div>
         </div>
         <div class="field">
           <label class="label is-large" for="password">Password:</label>
           <div class="control">
-            <input
+            <v-text-field
+              solo
               type="password"
               class="input is-large"
               id="password"
               v-model="password"
-            />
+            ></v-text-field>
           </div>
         </div>
 
         <div class="control">
-          <a class="button is-large is-primary" @click="authenticate">Login</a>
-          <a class="button is-large is-success" @click="register">Register</a>
+          <v-btn
+            elevation="2"
+            @click="authenticate"
+          >Login</v-btn>
+          <v-btn
+            elevation="2"
+            @click="register"
+          >Register</v-btn>
+          <!-- <a class="button is-large is-primary" @click="authenticate">Login</a>
+          <a class="button is-large is-success" @click="register">Register</a> -->
         </div>
       </div>
     </section>
@@ -57,14 +67,12 @@ export default {
     authenticate() {
       this.$store
         .dispatch("login", { email: this.email, password: this.password })
-        .then(() => this.$router.push("/bottom-up"))
-        .catch((e) => e);
+        .then(() => this.$router.push("/dashboard/bottom-up"))
     },
     register() {
       this.$store
         .dispatch("register", { email: this.email, password: this.password })
-        .then(() => this.$router.push("/bottom-up"))
-        .catch((e) => e);
+        .then(() => this.$router.push("/dashboard/bottom-up"))
     },
   },
   mounted() {
@@ -81,3 +89,9 @@ export default {
   },
 };
 </script>
+
+
+<style>
+
+
+</style>

@@ -47,7 +47,7 @@ const mutations = {
   // isolated data mutations
 
   setUserData (state, payload) {
-    console.log('setUserData payload = ', payload)
+    // console.log('setUserData payload = ', payload)
     state.userData = payload.userData
   },
   setJwtToken (state, payload) {
