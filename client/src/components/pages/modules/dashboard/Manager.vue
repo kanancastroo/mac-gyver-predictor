@@ -42,6 +42,7 @@
           </v-card>
         </v-dialog>
         <v-select
+          style="max-height: 35px"
           :items="this.sos"
           item-text="sos_name"
           item-value="sos_external_id"
@@ -177,7 +178,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              
               <v-btn
                 color="blue darken-1"
                 text
@@ -248,7 +248,6 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -317,7 +316,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              
               <v-btn color="blue darken-1" text @click="featureDialog = false">
                 Cancel
               </v-btn>
@@ -384,7 +382,6 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -453,7 +450,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              
               <v-btn color="blue darken-1" text @click="behaviorDialog = false">
                 Cancel
               </v-btn>
@@ -520,7 +516,6 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -557,7 +552,6 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            
             <v-btn color="primary" text @click="dialog = false"> OK </v-btn>
           </v-card-actions>
         </v-card>
@@ -2411,7 +2405,7 @@ export default {
 <style lang="scss">
 .manager {
   $self: &;
-  // height: calc(100vh - 160px);
+  height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -2423,9 +2417,9 @@ export default {
   }
 
   &__panel {
+    max-height: calc(100vh - 180px);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 
     #{$self}__title {
       background-color: #373640;
@@ -2442,9 +2436,8 @@ export default {
       flex-direction: column;
       gap: 10px;
       border-radius: 6px;
-      height: 100%;
       padding: 4px 10px;
-      overflow-y: auto;
+      overflow: auto;
     }
   }
 
@@ -2455,12 +2448,12 @@ export default {
 
 .v-chip.v-size--default {
   height: auto !important;
-  min-height: 32px;
 }
 
 .v-chip {
   white-space: normal !important;
   text-align: left;
+  overflow: initial;
 
   &__content {
     justify-content: space-between;
@@ -2469,6 +2462,6 @@ export default {
 }
 
 .v-application {
-    background-color: #dfe8cc !important;
+  background-color: #dfe8cc !important;
 }
 </style>

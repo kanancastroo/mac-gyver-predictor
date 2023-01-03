@@ -606,19 +606,19 @@ export default {
       const constituents_path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_id}/constituents/get`;
       return new Promise((resolve, reject) => {
         axios
-        .get(constituents_path)
-        .then((res) => {
-          this.constituents = res.data;
-          console.log(this.constituents);
-          this.$nextTick(() => {
-            resolve();
+          .get(constituents_path)
+          .then((res) => {
+            this.constituents = res.data;
+            console.log(this.constituents);
+            this.$nextTick(() => {
+              resolve();
+            });
+          })
+          .catch((error) => {
+            this.errorDialog = true;
+            console.error(error);
           });
-        })
-        .catch((error) => {
-          this.errorDialog = true;
-          console.error(error);
-        });
-      })
+      });
     },
     async getFeaturesForConstituents() {
       let promisesArray = [];
@@ -642,57 +642,56 @@ export default {
       await Promise.all(promisesArray);
     },
     getConstituentsWithFeatures(sos_id) {
-      this.getConstituents(sos_id).then(result => {
-        console.log('Got constituents!')
-        this.getFeaturesForConstituents().then(result => {
-          console.log('Got features for constituents!')
+      this.getConstituents(sos_id).then((result) => {
+        console.log("Got constituents!");
+        this.getFeaturesForConstituents().then((result) => {
+          console.log("Got features for constituents!");
           this.$nextTick(() => {
-            let auxConstituents = this.constituents
-            this.constituents = []
-            this.constituents = auxConstituents
-            console.log('Resolving after $nextTick')
+            let auxConstituents = this.constituents;
+            this.constituents = [];
+            this.constituents = auxConstituents;
+            console.log("Resolving after $nextTick");
           });
-        })
-      })
+        });
+      });
 
+      // console.log(this.$refs.constituents)
+      // this.$nextTick(() => {
+      //     this.$refs.constituents.forEach(constituent => {
+      //     // var startElement = document.getElementById(sos);
+      //     // var endElement = document.getElementById(constituent);
+      //     console.log(el, constituent)
+      //     const line = new LeaderLine(el.$el, constituent.$el, {
+      //         color: 'red',
+      //         size: 3,
+      //         startPlug: 'disc',
+      //         endPlug: 'disc',
+      //     });
 
-          // console.log(this.$refs.constituents)
-          // this.$nextTick(() => {
-          //     this.$refs.constituents.forEach(constituent => {
-          //     // var startElement = document.getElementById(sos);
-          //     // var endElement = document.getElementById(constituent);
-          //     console.log(el, constituent)
-          //     const line = new LeaderLine(el.$el, constituent.$el, {
-          //         color: 'red',
-          //         size: 3,
-          //         startPlug: 'disc',
-          //         endPlug: 'disc',
-          //     });
+      //     this.SoSLines.push(line)
+      // })
+      // })
 
-          //     this.SoSLines.push(line)
-          // })
-          // })
+      // let sos_list = []
+      // sos_list.push(sos)
 
-          // let sos_list = []
-          // sos_list.push(sos)
+      // let constituent_list = []
+      // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
 
-          // let constituent_list = []
-          // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
+      // console.log(sos_list)
+      // console.log(constituent_list)
 
-          // console.log(sos_list)
-          // console.log(constituent_list)
-
-          // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
-          // axios.get(relations_path, {params: {
-          //     sos_list: sos_list.reduce((f, s) => `${f},${s}`),
-          //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
-          //     }})
-          //     .then((res) => {
-          //         console.log(res.data)
-          //     })
-          //     .catch((error) => {
-          //         console.error(error);
-          //     });
+      // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
+      // axios.get(relations_path, {params: {
+      //     sos_list: sos_list.reduce((f, s) => `${f},${s}`),
+      //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
+      //     }})
+      //     .then((res) => {
+      //         console.log(res.data)
+      //     })
+      //     .catch((error) => {
+      //         console.error(error);
+      //     });
     },
     preProcessDatabase() {
       const path = `${process.env.VUE_APP_BASE_URL}/database/process`;
@@ -798,7 +797,6 @@ export default {
   &__panel {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 
     #{$self}__title {
       background-color: #373640;
@@ -818,7 +816,6 @@ export default {
       height: 100%;
       padding: 4px 10px;
       overflow-y: auto;
-      overflow-x: hidden;
     }
   }
 
@@ -852,13 +849,13 @@ export default {
 
 .v-chip.v-size--default {
   height: auto !important;
-  min-height: 32px;
 }
 
 .v-chip {
   width: 100%;
   white-space: normal !important;
   text-align: left;
+  overflow: initial;
 
   &__content {
     justify-content: space-between;
