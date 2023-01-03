@@ -640,6 +640,9 @@ export default {
     this.clearAll();
     this.getSoS();
   },
+  beforeDestroy() {
+    this.clearAll();
+  },
   methods: {
     updateModel() {
       const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
@@ -2410,7 +2413,8 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   background-color: #dfe8cc;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-block: 10px 60px;
 
   & > div {
     flex: 1 0 100%;
@@ -2418,7 +2422,6 @@ export default {
 
   &__panel {
     // max-height: calc(100vh - 180px);
-    padding-block-end: 100px;
     display: flex;
     flex-direction: column;
 
