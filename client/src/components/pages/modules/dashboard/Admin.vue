@@ -221,7 +221,7 @@ export default {
 <style lang="scss" scoped>
 .admin {
   $self: &;
-  height: calc(100vh - 160px);
+  // height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="manager" @scroll="console.log('scrolled!')">
+  <div class="manager">
     <div class="manager__panel h-100">
       <div class="manager__title">SoS</div>
       <div class="manager__content">
@@ -136,7 +136,7 @@
     </div>
     <div class="manager__panel">
       <div class="manager__title">Constituents</div>
-      <div class="manager__content" @scroll="redrawLines">
+      <div class="manager__content">
         <v-dialog v-model="constituentDialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -274,7 +274,7 @@
     </div>
     <div class="manager__panel">
       <div class="manager__title">Basic Features</div>
-      <div class="manager__content" @scroll="redrawLines">
+      <div class="manager__content">
         <v-dialog v-model="featureDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -408,7 +408,7 @@
     </div>
     <div class="manager__panel">
       <div class="manager__title">Emergent Behaviors</div>
-      <div class="manager__content" @scroll="redrawLines">
+      <div class="manager__content">
         <v-dialog v-model="behaviorDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -2405,7 +2405,7 @@ export default {
 <style lang="scss">
 .manager {
   $self: &;
-  height: calc(100vh - 160px);
+  // height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -2417,7 +2417,8 @@ export default {
   }
 
   &__panel {
-    max-height: calc(100vh - 180px);
+    // max-height: calc(100vh - 180px);
+    padding-block-end: 100px;
     display: flex;
     flex-direction: column;
 
@@ -2437,13 +2438,13 @@ export default {
       gap: 10px;
       border-radius: 6px;
       padding: 4px 10px;
-      overflow: auto;
+      // overflow: auto;
     }
   }
 
-  .h-100 {
-    height: 100%;
-  }
+  // .h-100 {
+  //   height: 100%;
+  // }
 }
 
 .v-chip.v-size--default {

@@ -783,7 +783,7 @@ export default {
 <style lang="scss">
 .bottom-up {
   $self: &;
-  height: calc(100vh - 160px);
+  // height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
