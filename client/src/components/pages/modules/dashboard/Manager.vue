@@ -2453,7 +2453,7 @@ export default {
 .v-chip {
   white-space: normal !important;
   text-align: left;
-  overflow: initial;
+  overflow: initial !important;
 
   &__content {
     justify-content: space-between;

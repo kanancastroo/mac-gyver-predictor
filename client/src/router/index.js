@@ -11,10 +11,10 @@ import store from "@/store";
 Vue.use(VueRouter);
 
 const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    return next();
-  }
-  return next("/login");
+  // if (store.getters.isAuthenticated) {
+  return next();
+  // }
+  // return next("/login");
 };
 
 const routes = [

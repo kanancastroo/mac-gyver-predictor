@@ -855,7 +855,7 @@ export default {
   width: 100%;
   white-space: normal !important;
   text-align: left;
-  overflow: initial;
+  overflow: initial !important;
 
   &__content {
     justify-content: space-between;
