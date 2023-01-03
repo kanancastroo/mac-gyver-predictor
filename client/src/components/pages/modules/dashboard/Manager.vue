@@ -126,17 +126,17 @@
           </v-icon>
         </v-btn>
 
-        <v-btn color="primary" elevation="2" @click="saveSoS()"
+        <v-btn color="primary" elevation="2" @click="saveSoS"
           >Save Changes</v-btn
         >
-        <v-btn color="primary" elevation="2" @click="redrawLines()"
+        <v-btn color="primary" elevation="2" @click="redrawLines"
           >Redraw lines</v-btn
         >
       </div>
     </div>
     <div class="manager__panel">
       <div class="manager__title">Constituents</div>
-      <div class="manager__content">
+      <div class="manager__content" @scroll="redrawLines">
         <v-dialog v-model="constituentDialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -274,7 +274,7 @@
     </div>
     <div class="manager__panel">
       <div class="manager__title">Basic Features</div>
-      <div class="manager__content">
+      <div class="manager__content" @scroll="redrawLines">
         <v-dialog v-model="featureDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -408,7 +408,7 @@
     </div>
     <div class="manager__panel">
       <div class="manager__title">Emergent Behaviors</div>
-      <div class="manager__content">
+      <div class="manager__content" @scroll="redrawLines">
         <v-dialog v-model="behaviorDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
