@@ -647,6 +647,9 @@ export default {
         this.getFeaturesForConstituents().then(result => {
           console.log('Got features for constituents!')
           this.$nextTick(() => {
+            let auxConstituents = this.constituents
+            this.constituents = []
+            this.constituents = auxConstituents
             console.log('Resolving after $nextTick')
           });
         })
