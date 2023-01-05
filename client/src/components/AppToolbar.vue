@@ -17,6 +17,10 @@
       <router-link to="/dashboard/admin">
         <v-btn>Admin</v-btn>
       </router-link>
+
+      <router-link to="/dashboard/logout">
+        <v-btn color="red">Logout</v-btn>
+      </router-link>
     </v-toolbar>
   </v-card>
 </template>

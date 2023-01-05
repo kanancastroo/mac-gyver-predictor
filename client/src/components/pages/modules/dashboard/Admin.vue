@@ -1,56 +1,109 @@
 <template>
   <div class="admin">
-    <div class="admin__group">
-      <label class="admin__label">Exportar Base de Dados</label>
-      <div class="admin__behaviors">
-        <v-btn color="#A4BE7B" dark @click="dumpDatabase()"
-          >Dump Database</v-btn
-        >
-      </div>
-    </div>
-    <div class="admin__group">
-      <label class="admin__label">Restaurar Base de Dados</label>
-      <div class="admin__behaviors d-flex">
-        <v-file-input
-          multiple
-          hide-input
-          truncate-length="15"
-          v-model="files"
-          @change="setInputFiles(files)"
-          style="padding-top: 0; margin-top: 0"
-        />
-        <v-btn color="#A4BE7B" dark @click="restoreDatabase()">
-          Restore Database
-        </v-btn>
-      </div>
-    </div>
-    <div class="admin__group">
-      <label class="admin__label">Remover Base de Dados</label>
-      <div class="admin__behaviors">
-        <v-btn color="#A4BE7B" dark @click="dropDatabase()">
-          Drop Database
-        </v-btn>
-      </div>
-    </div>
-    <div class="admin__group">
-      <label class="admin__label">Resetar Plataforma</label>
-      <div class="admin__behaviors">
-        <v-btn
-          :disabled="dialog"
-          :loading="dialog"
-          color="#A4BE7B"
-          dark
-          @click="
-            dialog = true;
-            resetPlatform();
-          "
-        >
-          Reset Platform
-        </v-btn>
-      </div>
-    </div>
+    <v-container>
+      <v-row>
+        <v-col>
+          <div class="admin__group">
+            <label class="admin__label">Exportar Base de Dados</label>
+            <div class="admin__behaviors">
+              <v-btn color="#A4BE7B" dark @click="dumpDatabase()"
+                >Dump Database</v-btn
+              >
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <div class="admin__group">
+            <label class="admin__label">Restaurar Base de Dados</label>
+            <div class="admin__behaviors d-flex">
+              <v-file-input
+                multiple
+                hide-input
+                truncate-length="15"
+                v-model="files"
+                @change="setInputFiles(files)"
+                style="padding-top: 0; margin-top: 0"
+              />
+              <v-btn color="#A4BE7B" dark @click="restoreDatabase()">
+                Restore Database
+              </v-btn>
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <div class="admin__group">
+            <label class="admin__label">Remover Base de Dados</label>
+            <div class="admin__behaviors">
+              <v-btn color="#A4BE7B" dark @click="dropDatabase()">
+                Drop Database
+              </v-btn>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div class="admin__group">
+            <label class="admin__label">Treinar Modelo</label>
+            <div class="admin__behaviors">
+              <v-btn
+                :disabled="dialog"
+                :loading="dialog"
+                color="#A4BE7B"
+                dark
+                @click="
+                  dialog = true;
+                  resetPlatform();
+                "
+              >
+                Train Model
+              </v-btn>
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <div class="admin__group">
+            <label class="admin__label">Salvar Diretório de Dados</label>
+            <div class="admin__behaviors">
+              <v-btn
+                :disabled="dialog"
+                :loading="dialog"
+                color="#A4BE7B"
+                dark
+                @click="
+                  dialog = true;
+                  resetPlatform();
+                "
+              >
+                Save Directory
+              </v-btn>
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <div class="admin__group">
+            <label class="admin__label">Resetar Plataforma</label>
+            <div class="admin__behaviors">
+              <v-btn
+                :disabled="dialog"
+                :loading="dialog"
+                color="#A4BE7B"
+                dark
+                @click="
+                  dialog = true;
+                  resetPlatform();
+                "
+              >
+                Reset Platform
+              </v-btn>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <v-dialog v-model="dialog" hide-overlay persistent width="300">
-      <v-card color="primary" dark>
+      <v-card color="#A4BE7B" dark>
         <v-card-text>
           Reseting platform...
           <v-progress-linear
@@ -223,7 +276,7 @@ export default {
   $self: &;
   // height: calc(100vh - 160px);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  // grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   background-color: #dfe8cc;
   padding: 10px;

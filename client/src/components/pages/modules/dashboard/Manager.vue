@@ -5,7 +5,7 @@
       <div class="manager__content">
         <v-dialog v-model="sosDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on">
+            <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
               Create
             </v-btn>
           </template>
@@ -60,7 +60,7 @@
           max-width="600px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on">
+            <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
               <v-icon>
                 {{ icons.mdiPencil }}
               </v-icon>
@@ -120,16 +120,16 @@
           </template>
         </v-dialog>
 
-        <v-btn depressed color="primary" @click="removeSoS()">
+        <v-btn dark color="#A4BE7B" @click="removeSoS()">
           <v-icon>
             {{ icons.mdiDelete }}
           </v-icon>
         </v-btn>
 
-        <v-btn color="primary" elevation="2" @click="saveSoS"
+        <v-btn color="#A4BE7B" dark elevation="2" @click="saveSoS"
           >Save Changes</v-btn
         >
-        <v-btn color="primary" elevation="2" @click="redrawLines"
+        <v-btn color="#A4BE7B" dark elevation="2" @click="redrawLines"
           >Redraw lines</v-btn
         >
       </div>
@@ -140,7 +140,7 @@
         <v-dialog v-model="constituentDialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#A4BE7B"
               dark
               v-bind="attrs"
               v-on="on"
@@ -278,7 +278,7 @@
         <v-dialog v-model="featureDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#A4BE7B"
               dark
               v-bind="attrs"
               v-on="on"
@@ -412,7 +412,7 @@
         <v-dialog v-model="behaviorDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#A4BE7B"
               dark
               v-bind="attrs"
               v-on="on"
@@ -2452,9 +2452,17 @@ export default {
 
 .v-chip.v-size--default {
   height: auto !important;
+  max-width: 100%;
+}
+
+.v-chip .v-chip__content {
+  height: auto;
+  min-height: 32px;
+  white-space: pre-wrap;
 }
 
 .v-chip {
+  width: 100%;
   white-space: normal !important;
   text-align: left;
   overflow: initial !important;

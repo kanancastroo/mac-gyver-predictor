@@ -3,19 +3,17 @@
     <div class="bottom-up__panel">
       <div class="bottom-up__title">SoS</div>
       <div class="bottom-up__content">
-        <v-row justify="center">
-          <v-select
-            :items="this.sos"
-            item-text="sos_name"
-            item-value="sos_external_id"
-            label="Pick a SoS"
-            v-model="selectedSoS"
-            ref="sos"
-            @change="getConstituentsWithFeatures(selectedSoS.sos_external_id)"
-            dense
-            return-object
-          ></v-select>
-        </v-row>
+        <v-select
+          :items="this.sos"
+          item-text="sos_name"
+          item-value="sos_external_id"
+          label="Pick a SoS"
+          v-model="selectedSoS"
+          ref="sos"
+          @change="getConstituentsWithFeatures(selectedSoS.sos_external_id)"
+          dense
+          return-object
+        ></v-select>
 
         <div class="bottom-up__title">
           {{ this.getConstituentsColumnLabel() }}
@@ -29,7 +27,7 @@
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">
                 <v-chip
-                  color="#5F8D4E"
+                  color="primary"
                   dark
                   ref="constituents"
                   @click="addConstituent(constituent)"
@@ -88,7 +86,7 @@
               <span v-bind="attrs" v-on="on">
                 <v-chip
                   class="d-flex justify-between"
-                  color="#5F8D4E"
+                  color="primary"
                   dark
                   close
                   @click:close="removeConstituent(index)"
@@ -163,9 +161,9 @@
           </v-card>
         </v-dialog>
         <v-dialog v-model="saveDialog" hide-overlay persistent width="300">
-          <v-card color="red" dark>
+          <v-card color="#A4BE7B" dark>
             <v-card-text>
-              Saving new SoS...
+              Saving new SoS and updating model...
               <v-progress-linear
                 indeterminate
                 color="white"
@@ -219,7 +217,7 @@
             Predict
           </v-btn>
           <v-dialog v-model="predictDialog" hide-overlay persistent width="300">
-            <v-card color="primary" dark>
+            <v-card color="#A4BE7B" dark>
               <v-card-text>
                 Processing predictions...
                 <v-progress-linear
@@ -814,7 +812,9 @@ export default {
       gap: 10px;
       border-radius: 6px;
       height: 100%;
-      padding: 4px 10px;
+      width: 100%;
+      padding: 15px 10px;
+      margin: auto;
       overflow-y: auto;
     }
   }
@@ -849,6 +849,13 @@ export default {
 
 .v-chip.v-size--default {
   height: auto !important;
+  max-width: 95%;
+}
+
+.v-chip .v-chip__content {
+  height: auto;
+  min-height: 32px;
+  white-space: pre-wrap;
 }
 
 .v-chip {

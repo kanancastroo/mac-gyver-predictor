@@ -14,7 +14,9 @@
           return-object
         ></v-select>
 
-        <v-btn elevation="2" @click="addEmergentBehavior()">Add Behavior</v-btn>
+        <v-btn elevation="2" dark @click="addEmergentBehavior()" color="#A4BE7B"
+          >Add Behavior</v-btn
+        >
       </div>
     </div>
     <div class="top-down__panel">
@@ -22,8 +24,7 @@
       <div class="top-down__content">
         <v-chip
           close
-          close-icon="mdi-delete"
-          color="orange"
+          color="primary"
           v-for="(behavior, index) in chosenEmergentBehaviors"
           :key="index"
           :id="behavior.emergent_external_id"
@@ -35,7 +36,11 @@
     <div class="top-down__panel">
       <div class="top-down__title">Necessary Constituents</div>
       <div class="top-down__content">
-        <v-btn elevation="2" @click="getConstituentsFromEmergentBehaviors()"
+        <v-btn
+          elevation="2"
+          @click="getConstituentsFromEmergentBehaviors()"
+          color="#A4BE7B"
+          dark
           >Get!</v-btn
         >
 
@@ -43,7 +48,7 @@
           v-for="(constituent, index) in necessaryConstituents"
           :key="index"
           :id="constituent.constituent_external_id"
-          color="green"
+          color="primary"
           >{{ constituent.constituent_name }}</v-chip
         >
       </div>
@@ -161,7 +166,8 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   background-color: #dfe8cc;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-block: 10px 60px;
 
   & > div {
     flex: 1 0 100%;
@@ -171,6 +177,7 @@ export default {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
     #{$self}__title {
       background-color: #373640;
       color: #ffffff;
@@ -186,18 +193,24 @@ export default {
       flex-direction: column;
       gap: 10px;
       border-radius: 6px;
-      height: 100%;
-      padding: 4px 10px;
-      overflow-y: auto;
+      padding: 15px 10px;
     }
   }
 }
 
 .v-chip.v-size--default {
   height: auto !important;
+  max-width: 100%;
+}
+
+.v-chip .v-chip__content {
+  height: auto;
+  min-height: 32px;
+  white-space: pre-wrap;
 }
 
 .v-chip {
+  width: 100%;
   white-space: normal !important;
   text-align: left;
   overflow: initial !important;
