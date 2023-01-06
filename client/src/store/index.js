@@ -40,6 +40,10 @@ const actions = {
         console.log('Error Registering: ', error)
         EventBus.$emit('failedRegistering: ', error)
       })
+  },
+  logout (context) {
+    console.log('log out from context')
+    context.commit('authLogout')
   }
 }
 
@@ -54,6 +58,10 @@ const mutations = {
     console.log('setJwtToken payload = ', payload)
     localStorage.token = payload.jwt.token
     state.jwt = payload.jwt
+  },
+  authLogout (state) {
+    state.user = {},
+    state.jwt = ''
   }
 }
 
@@ -61,6 +69,9 @@ const getters = {
   // reusable data accessors
   isAuthenticated (state) {
     return isValidJwt(state.jwt.token)
+  },
+  getJwt (state) {
+    return state.jwt
   }
 }
 
