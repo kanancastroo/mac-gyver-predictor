@@ -24,7 +24,14 @@
                 @change="setInputFiles(files)"
                 style="padding-top: 0; margin-top: 0"
               />
-              <v-btn color="#A4BE7B" dark @click="restoreDatabase()">
+              <v-btn
+                color="#A4BE7B"
+                dark
+                @click="
+                  dialog = true;
+                  restoreDatabase();
+                "
+              >
                 Restore Database
               </v-btn>
             </div>
@@ -34,7 +41,14 @@
           <div class="admin__group">
             <label class="admin__label">Remover Base de Dados</label>
             <div class="admin__behaviors">
-              <v-btn color="#A4BE7B" dark @click="dropDatabase()">
+              <v-btn
+                color="#A4BE7B"
+                dark
+                @click="
+                  dialog = true;
+                  dropDatabase();
+                "
+              >
                 Drop Database
               </v-btn>
             </div>
@@ -52,8 +66,8 @@
                 color="#A4BE7B"
                 dark
                 @click="
-                  dialog = true;
-                  resetPlatform();
+                  // dialog = true;
+                  trainModel()
                 "
               >
                 Train Model
@@ -72,7 +86,7 @@
                 dark
                 @click="
                   dialog = true;
-                  resetPlatform();
+                  saveEntireDirectory();
                 "
               >
                 Save Directory
@@ -105,7 +119,7 @@
     <v-dialog v-model="dialog" hide-overlay persistent width="300">
       <v-card color="#A4BE7B" dark>
         <v-card-text>
-          Reseting platform...
+          Processing request...
           <v-progress-linear
             indeterminate
             color="white"
@@ -134,6 +148,7 @@
 <script>
 import axios from "axios";
 import { saveAs } from "file-saver";
+import store from "@/store";
 
 export default {
   data: () => ({
@@ -149,8 +164,15 @@ export default {
       axios
         .get(path_reset)
         .then((res) => {
-          axios
-            .get(path_processing)
+          let payload = {
+            token: store.getters.getJwt.token,
+          };
+          console.log("PAYLOAD => ", payload);
+          axios({
+            url: path_processing,
+            method: "post",
+            data: payload,
+          })
             .then((res) => {
               console.log("Plataform reseted successfully!");
               this.dialog = false;
@@ -167,6 +189,27 @@ export default {
           this.errorDialog = true;
         });
     },
+    trainModel() {
+      const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
+      let payload = {
+        token: store.getters.getJwt.token,
+      };
+      console.log("PAYLOAD => ", payload);
+      axios({
+        url: path_processing,
+        method: "post",
+        data: payload,
+      })
+        .then((res) => {
+          console.log("Model trained successfully!");
+          this.dialog = false;
+        })
+        .catch((error) => {
+          console.error(error);
+          this.dialog = false;
+          this.errorDialog = true;
+        });
+    },
     str2bytes(str) {
       var bytes = new Uint8Array(str.length);
       for (var i = 0; i < str.length; i++) {
@@ -175,13 +218,13 @@ export default {
       return bytes;
     },
     dumpDatabase() {
-      const path_reset = `${process.env.VUE_APP_BASE_URL}/database/dump`;
+      const path_dump = `${process.env.VUE_APP_BASE_URL}/database/dump`;
       axios
-        .post(path_reset)
+        .post(path_dump)
         .then((res) => {
           // console.log(res);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", path_reset, true);
+          xhr.open("POST", path_dump, true);
           xhr.responseType = "blob";
           xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
@@ -190,6 +233,29 @@ export default {
             }
           };
           xhr.send();
+        })
+        .catch((error) => {
+          this.errorDialog = true;
+          console.error(error);
+        });
+    },
+    saveEntireDirectory() {
+      const path_save = `${process.env.VUE_APP_BASE_URL}/database/saveall`;
+      axios
+        .post(path_save)
+        .then((res) => {
+          // console.log(res);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", path_save, true);
+          xhr.responseType = "blob";
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              var blob = xhr.response;
+              saveAs(blob, "shared_folder.zip");
+            }
+          };
+          xhr.send();
+          this.dialog = false;
         })
         .catch((error) => {
           this.errorDialog = true;
@@ -221,6 +287,7 @@ export default {
         .then((response) => {
           console.log("File upload successful!");
           console.log(response);
+          this.dialog = false;
         })
         .catch((error) => {
           this.errorDialog = true;
@@ -256,11 +323,12 @@ export default {
       });
     },
     dropDatabase() {
-      const path_reset = `${process.env.VUE_APP_BASE_URL}/database/drop`;
+      const path_drop = `${process.env.VUE_APP_BASE_URL}/database/drop`;
       axios
-        .get(path_reset)
+        .get(path_drop)
         .then((res) => {
           console.log("Database droped successfully!");
+          this.dialog = false;
         })
         .catch((error) => {
           this.errorDialog = true;

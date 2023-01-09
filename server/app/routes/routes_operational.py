@@ -178,3 +178,21 @@ def dropDatabase():
                 "Internal Server Error",
                 status=500,
             )  
+
+@app.route('/database/saveall', methods=['POST'])
+def saveEntireDirectory():            
+    ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+    shared_folder = pathlib.Path(os.path.join(ROOT_DIR, 'shared'))
+
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    fileName = "shared_folder_{}.zip".format(timestr)
+    memory_file = BytesIO()
+
+    with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(shared_folder):
+            for file in files:
+                zipf.write(os.path.join(root, file))
+    memory_file.seek(0)
+    return send_file(memory_file,
+                     attachment_filename=fileName,
+                     as_attachment=True)    

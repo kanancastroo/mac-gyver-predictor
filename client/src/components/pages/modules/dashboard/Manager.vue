@@ -647,8 +647,15 @@ export default {
     updateModel() {
       const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
       return new Promise((resolve, reject) => {
-        axios
-          .get(path_processing)
+        let payload = {
+          token: store.getters.getJwt.token,
+        };
+        console.log("PAYLOAD => ", payload);
+        axios({
+          url: path_processing,
+          method: "post",
+          data: payload,
+        })
           .then((res) => {
             console.log("Model updated successfully!");
             this.saveDialog = false;

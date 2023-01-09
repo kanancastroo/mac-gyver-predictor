@@ -193,16 +193,26 @@
         <div class="bottom-up__group">
           <label class="bottom-up__label">Predicted:</label>
           <div class="bottom-up__behaviors">
-            <v-chip
-              class="ma-2"
-              color="primary"
-              close
+            <v-tooltip
               v-for="(prediction, index) in predictions"
               :key="index"
-              @click:close="removePrediction(index)"
+              left
             >
-              {{ prediction.description }}
-            </v-chip>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">
+                  <v-chip
+                    class="ma-2"
+                    color="primary"
+                    close
+                    @click:close="removePrediction(index)"
+                  >
+                    {{ prediction.description }}
+                  </v-chip>
+                </span>
+              </template>
+              Probability: {{ prediction.probability }} %
+              <!-- <span>{{ constituent.basic_features }}</span> -->
+            </v-tooltip>
           </div>
           <v-btn
             :disabled="predictDialog"
@@ -514,8 +524,15 @@ export default {
     updateModel() {
       const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
       return new Promise((resolve, reject) => {
-        axios
-          .get(path_processing)
+        let payload = {
+          token: store.getters.getJwt.token,
+        };
+        console.log("PAYLOAD => ", payload);
+        axios({
+          url: path_processing,
+          method: "post",
+          data: payload,
+        })
           .then((res) => {
             console.log("Model updated successfully!");
             this.saveDialog = false;
@@ -693,8 +710,15 @@ export default {
     },
     preProcessDatabase() {
       const path = `${process.env.VUE_APP_BASE_URL}/database/process`;
-      axios
-        .get(path)
+      let payload = {
+        token: store.getters.getJwt.token,
+      };
+      console.log("PAYLOAD => ", payload);
+      axios({
+        url: path,
+        method: "post",
+        data: payload,
+      })
         .then((res) => {
           this.message = res.data;
         })
@@ -725,6 +749,7 @@ export default {
         .then((res) => {
           // your action after success
           this.predictions = res.data;
+          console.log("PREDICTIONS => ", this.predictions);
           // this.dialog = false
           console.log(this.predictions);
 
