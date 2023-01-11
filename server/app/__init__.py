@@ -7,7 +7,7 @@ import os
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='../frontend_build/',    static_url_path='/')
+app = Flask(__name__, static_folder='../dist/',    static_url_path='/')
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
