@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 
 const ifAuthenticated = (to, from, next) => {
   if (store.getters.isAuthenticated) {
-    return next();
+  return next();
   }
   return next("/login");
 };
@@ -48,6 +48,11 @@ const routes = [
         name: "DashboardAdmin",
         component: AdminView,
         beforeEnter: (to, from, next) => ifAuthenticated(to, from, next),
+      },
+      {
+        path: "/dashboard/logout",
+        name: "DashboardLogout",
+        redirect: "/login",
       },
     ],
   },

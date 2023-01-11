@@ -12,7 +12,7 @@ export default {
 
 <style>
 .bottom-up {
-  height: calc(100vh - 160px);
+  /* height: calc(100vh - 160px); */
   background-color: #dfe8cc;
   padding: 10px;
 }

@@ -14,7 +14,9 @@
           return-object
         ></v-select>
 
-        <v-btn elevation="2" @click="addEmergentBehavior()">Add Behavior</v-btn>
+        <v-btn elevation="2" dark @click="addEmergentBehavior()" color="#A4BE7B"
+          >Add Behavior</v-btn
+        >
       </div>
     </div>
     <div class="top-down__panel">
@@ -22,8 +24,7 @@
       <div class="top-down__content">
         <v-chip
           close
-          close-icon="mdi-delete"
-          color="orange"
+          color="primary"
           v-for="(behavior, index) in chosenEmergentBehaviors"
           :key="index"
           :id="behavior.emergent_external_id"
@@ -35,7 +36,11 @@
     <div class="top-down__panel">
       <div class="top-down__title">Necessary Constituents</div>
       <div class="top-down__content">
-        <v-btn elevation="2" @click="getConstituentsFromEmergentBehaviors()"
+        <v-btn
+          elevation="2"
+          @click="getConstituentsFromEmergentBehaviors()"
+          color="#A4BE7B"
+          dark
           >Get!</v-btn
         >
 
@@ -43,7 +48,7 @@
           v-for="(constituent, index) in necessaryConstituents"
           :key="index"
           :id="constituent.constituent_external_id"
-          color="green"
+          color="primary"
           >{{ constituent.constituent_name }}</v-chip
         >
       </div>
@@ -156,12 +161,13 @@ export default {
 <style lang="scss" scoped>
 .top-down {
   $self: &;
-  height: calc(100vh - 160px);
+  // height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   background-color: #dfe8cc;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-block: 10px 60px;
 
   & > div {
     flex: 1 0 100%;
@@ -171,6 +177,7 @@ export default {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
     #{$self}__title {
       background-color: #373640;
       color: #ffffff;
@@ -186,48 +193,27 @@ export default {
       flex-direction: column;
       gap: 10px;
       border-radius: 6px;
-      height: 100%;
-      padding: 4px 10px;
-      overflow-y: auto;
+      padding: 15px 10px;
     }
   }
-
-  //   &__group {
-  //     padding: 10px;
-  //     background-color: #eee;
-  //     display: flex;
-  //     flex-direction: column;
-  //     align-items: flex-start;
-  //     gap: 10px;
-  //     border-radius: 6px;
-
-  //     #{$self}__label {
-  //       background-color: #bbbbbb;
-  //       padding: 4px 10px;
-  //       color: #ffffff;
-  //       text-align: left;
-  //       font-weight: bold;
-  //       font-size: 14px;
-  //       border-radius: 4px;
-  //     }
-
-  //     #{$self}__behaviors {
-  //       background-color: #e3e3e3;
-  //       height: clamp(100px, 100px, 150px);
-  //       width: 100%;
-  //       overflow-y: auto;
-  //     }
-  //   }
 }
 
 .v-chip.v-size--default {
   height: auto !important;
+  max-width: 100%;
+}
+
+.v-chip .v-chip__content {
+  height: auto;
   min-height: 32px;
+  white-space: pre-wrap;
 }
 
 .v-chip {
+  width: 100%;
   white-space: normal !important;
   text-align: left;
+  overflow: initial !important;
 
   &__content {
     justify-content: space-between;
@@ -235,60 +221,3 @@ export default {
   }
 }
 </style>
-
-<!-- 
-<style>
-.dashboard {
-    padding: 5px;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(25%, 1fr));
-    gap: 5px;
-}
-
-.dashboard div {
-    background-color: white;
-}
-
-.panel {
-    align-items: center;
-    display: flex;
-    gap: 2px;
-    flex-direction: column;
-}
-
-.btn-multiline > span {
-    width: 100%;
-}
-
-.v-chip.v-size--default {
-    height: auto !important;
-    min-height: 32px;
-}
-
-.v-chip {
-    white-space: normal !important;
-}
-
-.composedSoSPanel {
-    min-height: 90%;
-}
-
-.behaviors {
-    min-height: 100px;
-    width: 90%;
-    border-color: black;
-    border-style: solid;
-    border-width: 1px;
-}
-
-.row {
-    margin: 0 !important;
-}
-
-#observed {
-    width: 90%;
-    border-color: black;
-    border-style: solid;
-    border-width: 1px;
-}
-</style> -->

@@ -3,10 +3,12 @@ from flask import jsonify, request, Response
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy import text
-from models import SoS, Constituent, Basic_Feature, Emergent_Behavior, SoS_Constituent, Constituent_Basic_Feature, Basic_Feature_Emergent_Behavior, SoS_Emergent_Behavior
+from models import SoS, Constituent, Basic_Feature, Emergent_Behavior, SoS_Constituent, Constituent_Basic_Feature, Basic_Feature_Emergent_Behavior, SoS_Emergent_Behavior, User
 import os
 import datetime
 import jsons
+
+import jwt
 
 from tensorflow.keras.callbacks import Callback,ModelCheckpoint
 # from tensorflow.keras.layers import Dense, Flatten, LSTM, Conv1D, MaxPooling1D, Dropout, Activation, Input
@@ -172,7 +174,7 @@ def MLSMOTE(X,y, n_sample):
     return new_X, target
 
 
-@app.route('/database/process')
+@app.route('/database/process', methods=['POST'])
 def processDatabase():
     try:
         print('Starting process...')
@@ -359,6 +361,12 @@ def processDatabase():
 
         # print(history)
 
+        token = request.json['token']
+        data = jwt.decode(token, os.environ.get('SECRET_KEY'), algorithms=['HS256'])
+        # print('data => ', data)
+        user = User.User.query.filter_by(email=data['sub']).first()
+        logged_user = user.email
+
         ts = str(datetime.datetime.now())
         string_replacements = {' ':'T', ':':'_'}
 
@@ -410,6 +418,10 @@ def processDatabase():
         report_labels_filepath = os.path.join(report_path, 'summary.csv')
         df_report_labels.to_csv(report_labels_filepath)
 
+        user_file = os.path.join(report_path, 'user.txt')
+        with open(user_file, 'w') as f:
+            f.write(logged_user)
+
         # print('Total :', np.sum(f1_score_results))
 
         # print('f1_score_results => ', f1_score_results)
@@ -445,6 +457,10 @@ def processDatabase():
         plot_labels_filepath = os.path.join(fig_path, 'summary.csv')
         df_report_labels.to_csv(plot_labels_filepath)
 
+        user_file = os.path.join(fig_path, 'user.txt')
+        with open(user_file, 'w') as f:
+            f.write(logged_user)
+
 
 
 
@@ -477,6 +493,10 @@ def processDatabase():
         with open(dump_sosEmergentBehavior_path, 'wb') as dump_sosEmergentBehavior:
             dump_sosEmergentBehavior.write(dumps(db.session.query(SoS_Emergent_Behavior.SoS_Emergent_Behavior).all()))            
             
+
+        user_file = os.path.join(dumps_path, 'user.txt')
+        with open(user_file, 'w') as f:
+            f.write(logged_user)
             # disp = ConfusionMatrixDisplay(confusion_matrix(y_test[col], y_pred[col_idx]),
             #                             display_labels=[1,0])
             # disp.plot(ax=axes[col_idx], values_format='.4g')
@@ -497,10 +517,11 @@ def processDatabase():
         return jsonify('Database processed and model trained succesfully!')  
     except Exception as e:
         # db.session.rollback()
-        return Response(
-                "Internal Server Error",
-                status=500,
-            )     
+        print('ERROR => ', e)
+        # return Response(
+        #         "Internal Server Error",
+        #         status=500,
+        #     )     
 
 
 @app.route('/database/saveplot')
@@ -541,9 +562,10 @@ def temp():
 @app.route('/predict', methods=['POST'])
 def predict():
     class EmergentBehavior():
-        def __init__(self, emergent_external_id, description):
+        def __init__(self, emergent_external_id, description, probability):
             self.emergent_external_id = emergent_external_id
             self.description = description
+            self.probability = probability
 
         def toJSON(self):
             return jsons.dump(self) 
@@ -707,30 +729,40 @@ def predict():
                 for subitem in item:
                     flat_list.append(subitem)
 
-        rounded_flat_list = []
+        # print('FLAT LIST => ', flat_list)
+        # rounded_flat_list = []
 
-        for i in range(len(flat_list)):
-            rounded_flat_list.append(flat_list[i].round())
+        # for i in range(len(flat_list)):
+        #     rounded_flat_list.append(flat_list[i].round())
 
         possible_emergent_behaviors = []
+        possible_emergent_behaviors_labels = []
 
-        for i in range(len(rounded_flat_list)):
-            if (rounded_flat_list[i] == 1):
-                possible_emergent_behaviors.append(emergent_behaviors_labels[i])
+        for i in range(len(flat_list)):
+            rounded_probability = flat_list[i].round()
+            if (rounded_probability == 1):
+                possible_emergent_behavior = {
+                    "label": emergent_behaviors_labels[i],
+                    "probability": float("{:.2f}".format(flat_list[i] * 100))
+                }
+                possible_emergent_behaviors.append(possible_emergent_behavior)
+                possible_emergent_behaviors_labels.append(emergent_behaviors_labels[i])
 
-        emergent_behaviors_obj = Emergent_Behavior.Emergent_Behavior.query.filter(Emergent_Behavior.Emergent_Behavior.description.in_(possible_emergent_behaviors))
-
+        emergent_behaviors_obj = Emergent_Behavior.Emergent_Behavior.query.filter(Emergent_Behavior.Emergent_Behavior.description.in_(possible_emergent_behaviors_labels))
         arr_prediction_obj = []
         for behavior_obj in emergent_behaviors_obj:
-            prediction = EmergentBehavior(emergent_external_id=behavior_obj.emergent_external_id, description=behavior_obj.description)
+            item = [p for p in possible_emergent_behaviors if p["label"] == behavior_obj.description]
+            probability = item[0]['probability']
+         
+            prediction = EmergentBehavior(emergent_external_id=behavior_obj.emergent_external_id, description=behavior_obj.description, probability=probability)
             arr_prediction_obj.append(prediction)
-        
         return jsonify([e.toJSON() for e in arr_prediction_obj])
     except Exception as e:
-        return Response(
-                "Internal Server Error",
-                status=500,
-            )
+        print('ERROR => ', e)
+        # return Response(
+        #         "Internal Server Error",
+        #         status=500,
+        #     )
 
 
 

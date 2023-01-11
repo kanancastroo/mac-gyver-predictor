@@ -1,11 +1,11 @@
 <template>
-  <div class="manager" @scroll="console.log('scrolled!')">
+  <div class="manager">
     <div class="manager__panel h-100">
       <div class="manager__title">SoS</div>
       <div class="manager__content">
         <v-dialog v-model="sosDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on">
+            <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
               Create
             </v-btn>
           </template>
@@ -42,6 +42,7 @@
           </v-card>
         </v-dialog>
         <v-select
+          style="max-height: 35px"
           :items="this.sos"
           item-text="sos_name"
           item-value="sos_external_id"
@@ -59,7 +60,7 @@
           max-width="600px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on">
+            <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
               <v-icon>
                 {{ icons.mdiPencil }}
               </v-icon>
@@ -119,16 +120,16 @@
           </template>
         </v-dialog>
 
-        <v-btn depressed color="primary" @click="removeSoS()">
+        <v-btn dark color="#A4BE7B" @click="removeSoS()">
           <v-icon>
             {{ icons.mdiDelete }}
           </v-icon>
         </v-btn>
 
-        <v-btn color="primary" elevation="2" @click="saveSoS()"
+        <v-btn color="#A4BE7B" dark elevation="2" @click="saveSoS"
           >Save Changes</v-btn
         >
-        <v-btn color="primary" elevation="2" @click="redrawLines()"
+        <v-btn color="#A4BE7B" dark elevation="2" @click="redrawLines"
           >Redraw lines</v-btn
         >
       </div>
@@ -139,7 +140,7 @@
         <v-dialog v-model="constituentDialog" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#A4BE7B"
               dark
               v-bind="attrs"
               v-on="on"
@@ -177,7 +178,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              
               <v-btn
                 color="blue darken-1"
                 text
@@ -248,7 +248,6 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -279,7 +278,7 @@
         <v-dialog v-model="featureDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#A4BE7B"
               dark
               v-bind="attrs"
               v-on="on"
@@ -317,7 +316,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              
               <v-btn color="blue darken-1" text @click="featureDialog = false">
                 Cancel
               </v-btn>
@@ -384,7 +382,6 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -415,7 +412,7 @@
         <v-dialog v-model="behaviorDialog" persistent max-width="700px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="#A4BE7B"
               dark
               v-bind="attrs"
               v-on="on"
@@ -453,7 +450,6 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              
               <v-btn color="blue darken-1" text @click="behaviorDialog = false">
                 Cancel
               </v-btn>
@@ -520,7 +516,6 @@
                 </v-container>
               </v-card-text>
               <v-card-actions>
-                
                 <v-btn
                   color="blue darken-1"
                   text
@@ -557,14 +552,13 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            
-            <v-btn color="primary" text @click="dialog = false"> OK </v-btn>
+            <v-btn color="#A4BE7B" text @click="dialog = false"> OK </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
 
       <v-dialog v-model="saveDialog" hide-overlay persistent width="300">
-        <v-card color="blue" dark>
+        <v-card color="#A4BE7B" dark>
           <v-card-text>
             Saving SoS and updating model...
             <v-progress-linear
@@ -573,6 +567,22 @@
               class="mb-0"
             ></v-progress-linear>
           </v-card-text>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog
+        v-model="successDialog"
+        transition="dialog-top-transition"
+        max-width="600"
+      >
+        <v-card>
+          <v-toolbar color="#A4BE7B" dark>Success</v-toolbar>
+          <v-card-text>
+            <div class="text-h5 pa-12">Updates performed successfully!</div>
+          </v-card-text>
+          <v-card-actions class="justify-end">
+            <v-btn text @click="successDialog = false">Close</v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </div>
@@ -584,6 +594,7 @@ import axios from "axios";
 import LeaderLine from "leader-line-new";
 import { v4 as uuidv4 } from "uuid";
 import { mdiPencil, mdiDelete } from "@mdi/js";
+import store from "@/store";
 
 export default {
   data: () => ({
@@ -636,6 +647,7 @@ export default {
     behaviorDialog: false,
     saveDialog: false,
     errorDialog: false,
+    successDialog: false,
 
     editConstituentDialog: false,
     editBasicFeatureDialog: false,
@@ -646,15 +658,26 @@ export default {
     this.clearAll();
     this.getSoS();
   },
+  beforeDestroy() {
+    this.clearAll();
+  },
   methods: {
     updateModel() {
       const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
       return new Promise((resolve, reject) => {
-        axios
-          .get(path_processing)
+        let payload = {
+          token: store.getters.getJwt.token,
+        };
+        console.log("PAYLOAD => ", payload);
+        axios({
+          url: path_processing,
+          method: "post",
+          data: payload,
+        })
           .then((res) => {
             console.log("Model updated successfully!");
             this.saveDialog = false;
+            this.successDialog = true;
             resolve();
           })
           .catch((error) => {
@@ -2416,16 +2439,17 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   background-color: #dfe8cc;
-  padding: 10px;
+  padding-inline: 10px;
+  padding-block: 10px 60px;
 
   & > div {
     flex: 1 0 100%;
   }
 
   &__panel {
+    // max-height: calc(100vh - 180px);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 
     #{$self}__title {
       background-color: #373640;
@@ -2442,25 +2466,32 @@ export default {
       flex-direction: column;
       gap: 10px;
       border-radius: 6px;
-      height: 100%;
       padding: 4px 10px;
-      overflow-y: auto;
+      // overflow: auto;
     }
   }
 
-  .h-100 {
-    height: 100%;
-  }
+  // .h-100 {
+  //   height: 100%;
+  // }
 }
 
 .v-chip.v-size--default {
   height: auto !important;
+  max-width: 100%;
+}
+
+.v-chip .v-chip__content {
+  height: auto;
   min-height: 32px;
+  white-space: pre-wrap;
 }
 
 .v-chip {
+  width: 100%;
   white-space: normal !important;
   text-align: left;
+  overflow: initial !important;
 
   &__content {
     justify-content: space-between;
@@ -2469,6 +2500,6 @@ export default {
 }
 
 .v-application {
-    background-color: #dfe8cc !important;
+  background-color: #dfe8cc !important;
 }
 </style>

@@ -3,19 +3,17 @@
     <div class="bottom-up__panel">
       <div class="bottom-up__title">SoS</div>
       <div class="bottom-up__content">
-        <v-row justify="center">
-          <v-select
-            :items="this.sos"
-            item-text="sos_name"
-            item-value="sos_external_id"
-            label="Pick a SoS"
-            v-model="selectedSoS"
-            ref="sos"
-            @change="getConstituentsWithFeatures(selectedSoS.sos_external_id)"
-            dense
-            return-object
-          ></v-select>
-        </v-row>
+        <v-select
+          :items="this.sos"
+          item-text="sos_name"
+          item-value="sos_external_id"
+          label="Pick a SoS"
+          v-model="selectedSoS"
+          ref="sos"
+          @change="getConstituentsWithFeatures(selectedSoS.sos_external_id)"
+          dense
+          return-object
+        ></v-select>
 
         <div class="bottom-up__title">
           {{ this.getConstituentsColumnLabel() }}
@@ -29,7 +27,7 @@
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">
                 <v-chip
-                  color="#5F8D4E"
+                  color="primary"
                   dark
                   ref="constituents"
                   @click="addConstituent(constituent)"
@@ -88,7 +86,7 @@
               <span v-bind="attrs" v-on="on">
                 <v-chip
                   class="d-flex justify-between"
-                  color="#5F8D4E"
+                  color="primary"
                   dark
                   close
                   @click:close="removeConstituent(index)"
@@ -163,9 +161,9 @@
           </v-card>
         </v-dialog>
         <v-dialog v-model="saveDialog" hide-overlay persistent width="300">
-          <v-card color="red" dark>
+          <v-card color="#A4BE7B" dark>
             <v-card-text>
-              Saving new SoS...
+              Saving new SoS and updating model...
               <v-progress-linear
                 indeterminate
                 color="white"
@@ -192,144 +190,208 @@
             >Show</v-btn
           >
         </div> -->
-        <div class="bottom-up__group">
-          <label class="bottom-up__label">Predicted:</label>
-          <div class="bottom-up__behaviors">
-            <v-chip
-              class="ma-2"
-              color="primary"
-              close
-              v-for="(prediction, index) in predictions"
-              :key="index"
-              @click:close="removePrediction(index)"
-            >
-              {{ prediction.description }}
-            </v-chip>
-          </div>
-          <v-btn
-            :disabled="predictDialog"
-            :loading="predictDialog"
-            color="#A4BE7B"
-            dark
-            @click="
-              predictDialog = true;
-              predict();
-            "
-          >
-            Predict
-          </v-btn>
-          <v-dialog v-model="predictDialog" hide-overlay persistent width="300">
-            <v-card color="primary" dark>
-              <v-card-text>
-                Processing predictions...
-                <v-progress-linear
-                  indeterminate
-                  color="white"
-                  class="mb-0"
-                ></v-progress-linear>
-              </v-card-text>
-            </v-card>
-          </v-dialog>
-        </div>
-        <div class="bottom-up__group">
-          <label class="bottom-up__label">Observed:</label>
-          <div class="bottom-up__behaviors">
-            <v-chip
-              class="ma-2"
-              color="primary"
-              close
-              v-for="(behavior, index) in observedBehaviors"
-              :key="index"
-              @click:close="removeObservedBehavior(index)"
-            >
-              {{ behavior.description }}
-            </v-chip>
-          </div>
-          <v-dialog v-model="behaviorDialog" persistent max-width="600px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on"> Add </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h5">Emergent Behavior</span>
-                <small
-                  >Pick one from the list or type a new behavior in the
-                  textbox</small
-                >
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="12">
-                      <v-select
-                        :items="this.emergentBehaviors"
-                        item-text="description"
-                        label="Pick an emergent behavior"
-                        v-model="selectedBehavior"
-                        return-object
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field
-                        v-model="insertedBehavior"
-                        label="...or type a new one here"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="behaviorDialog = false"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="
-                    behaviorDialog = false;
-                    addObservedBehavior(selectedBehavior, insertedBehavior);
-                  "
-                >
-                  Add
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
 
-          <v-dialog transition="dialog-top-transition" max-width="600">
-            <!-- <template v-slot:activator="{ on, attrs }">
+        <v-card>
+          <v-tabs v-model="tab" background-color="#A4BE7B" dark>
+            <v-tab v-for="item in items" :key="item.tab">
+              {{ item.tab }}
+            </v-tab>
+          </v-tabs>
+
+          <v-tabs-items v-model="tab">
+            <v-tab-item>
+              <v-card flat>
+                <div class="bottom-up__group">
+                  <v-btn
+                    :disabled="predictDialog"
+                    :loading="predictDialog"
+                    color="#A4BE7B"
+                    dark
+                    @click="
+                      predictDialog = true;
+                      predict();
+                    "
+                  >
+                    Predict!
+                  </v-btn>
+                  <!-- <label class="bottom-up__label">Predicted:</label> -->
+                  <div class="bottom-up__behaviors">
+                    <v-tooltip
+                      v-for="(prediction, index) in predictions"
+                      :key="index"
+                      left
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <span v-bind="attrs" v-on="on">
+                          <v-chip
+                            class="ma-2"
+                            color="primary"
+                            close
+                            @click:close="removePrediction(index)"
+                          >
+                            {{ prediction.description }}
+                          </v-chip>
+                        </span>
+                      </template>
+                      Probability: {{ prediction.probability }} %
+                      <!-- <span>{{ constituent.basic_features }}</span> -->
+                    </v-tooltip>
+                  </div>
+                  <v-dialog
+                    v-model="predictDialog"
+                    hide-overlay
+                    persistent
+                    width="300"
+                  >
+                    <v-card color="#A4BE7B" dark>
+                      <v-card-text>
+                        Processing predictions...
+                        <v-progress-linear
+                          indeterminate
+                          color="white"
+                          class="mb-0"
+                        ></v-progress-linear>
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
+                </div>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item>
+              <v-card flat>
+                <div class="bottom-up__group">
+                  <v-dialog
+                    v-model="behaviorDialog"
+                    persistent
+                    max-width="600px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn color="#A4BE7B" dark v-bind="attrs" v-on="on">
+                        Add
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-title>
+                        <span class="text-h5">Emergent Behavior</span>
+                        <small
+                          >Pick one from the list or type a new behavior in the
+                          textbox</small
+                        >
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="12" sm="12">
+                              <v-select
+                                :items="this.emergentBehaviors"
+                                item-text="description"
+                                label="Pick an emergent behavior"
+                                v-model="selectedBehavior"
+                                return-object
+                              ></v-select>
+                            </v-col>
+                            <v-col cols="12">
+                              <v-text-field
+                                v-model="insertedBehavior"
+                                label="...or type a new one here"
+                              ></v-text-field>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="behaviorDialog = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="
+                            behaviorDialog = false;
+                            addObservedBehavior(
+                              selectedBehavior,
+                              insertedBehavior
+                            );
+                          "
+                        >
+                          Add
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <!-- <label class="bottom-up__label">Observed:</label> -->
+                  <div class="bottom-up__behaviors">
+                    <v-chip
+                      class="ma-2"
+                      color="primary"
+                      close
+                      v-for="(behavior, index) in observedBehaviors"
+                      :key="index"
+                      @click:close="removeObservedBehavior(index)"
+                    >
+                      {{ behavior.description }}
+                    </v-chip>
+                  </div>
+
+                  <v-dialog transition="dialog-top-transition" max-width="600">
+                    <!-- <template v-slot:activator="{ on, attrs }">
               <v-btn
                 color="#A4BE7B"
                 v-bind="attrs"
                 v-on="on"
               >Error Dialog</v-btn>
             </template> -->
-            <template v-slot:default="errorDialog">
-              <v-card>
-                <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
-                <v-card-text>
-                  <div class="text-h5 pa-12">Sorry, an error occurred!</div>
-                </v-card-text>
-                <v-card-actions class="justify-end">
-                  <v-btn text @click="errorDialog.value = false">Close</v-btn>
-                </v-card-actions>
+                    <template v-slot:default="errorDialog">
+                      <v-card>
+                        <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
+                        <v-card-text>
+                          <div class="text-h5 pa-12">
+                            Sorry, an error occurred!
+                          </div>
+                        </v-card-text>
+                        <v-card-actions class="justify-end">
+                          <v-btn text @click="errorDialog.value = false"
+                            >Close</v-btn
+                          >
+                        </v-card-actions>
+                      </v-card>
+                    </template>
+                  </v-dialog>
+                </div>
               </v-card>
-            </template>
-          </v-dialog>
-        </div>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
       </div>
     </div>
+
+    <v-dialog
+      v-model="successDialog"
+      transition="dialog-top-transition"
+      max-width="600"
+    >
+      <v-card>
+        <v-toolbar color="#A4BE7B" dark>Success</v-toolbar>
+        <v-card-text>
+          <div class="text-h5 pa-12">New SoS saved successfully!</div>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn text @click="successDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import store from "@/store";
 // import LeaderLine from 'leader-line-new';
 
 export default {
@@ -352,7 +414,14 @@ export default {
     behaviorDialog: false,
     addSoSDialog: false,
     errorDialog: false,
+    successDialog: false,
     sosName: "Unnamed SoS",
+
+    tab: null,
+    items: [
+      { tab: "Predicted", content: "" },
+      { tab: "Observed", content: "" },
+    ],
   }),
   watch: {
     predictDialog(val) {
@@ -377,6 +446,26 @@ export default {
     },
   },
   methods: {
+    clearAll() {
+      (this.selectedSoS = null),
+        (this.sos = []),
+        (this.constituents = []),
+        (this.composedSoS = []),
+        (this.featuresFromChosenConstituents = []),
+        (this.predictions = []),
+        (this.knownBehaviors = []),
+        (this.observedBehaviors = []),
+        (this.SoSLines = []),
+        (this.emergentBehaviors = []),
+        (this.selectedBehavior = null),
+        (this.insertedBehavior = null),
+        (this.predictDialog = false),
+        (this.saveDialog = false),
+        (this.behaviorDialog = false),
+        (this.addSoSDialog = false),
+        (this.errorDialog = false),
+        (this.successDialog = false);
+    },
     getConstituentsColumnLabel() {
       if (this.selectedSoS != null)
         return "Constituents from " + this.selectedSoS.sos_name;
@@ -516,11 +605,22 @@ export default {
     updateModel() {
       const path_processing = `${process.env.VUE_APP_BASE_URL}/database/process`;
       return new Promise((resolve, reject) => {
-        axios
-          .get(path_processing)
+        let payload = {
+          token: store.getters.getJwt.token,
+        };
+        console.log("PAYLOAD => ", payload);
+        axios({
+          url: path_processing,
+          method: "post",
+          data: payload,
+        })
           .then((res) => {
             console.log("Model updated successfully!");
             this.saveDialog = false;
+            this.clearAll();
+            this.getSoS();
+            this.getAllEmergentBehaviors();
+            this.successDialog = true;
             resolve();
           })
           .catch((error) => {
@@ -606,19 +706,19 @@ export default {
       const constituents_path = `${process.env.VUE_APP_BASE_URL}/sos/${sos_id}/constituents/get`;
       return new Promise((resolve, reject) => {
         axios
-        .get(constituents_path)
-        .then((res) => {
-          this.constituents = res.data;
-          console.log(this.constituents);
-          this.$nextTick(() => {
-            resolve();
+          .get(constituents_path)
+          .then((res) => {
+            this.constituents = res.data;
+            console.log(this.constituents);
+            this.$nextTick(() => {
+              resolve();
+            });
+          })
+          .catch((error) => {
+            this.errorDialog = true;
+            console.error(error);
           });
-        })
-        .catch((error) => {
-          this.errorDialog = true;
-          console.error(error);
-        });
-      })
+      });
     },
     async getFeaturesForConstituents() {
       let promisesArray = [];
@@ -642,59 +742,68 @@ export default {
       await Promise.all(promisesArray);
     },
     getConstituentsWithFeatures(sos_id) {
-      this.getConstituents(sos_id).then(result => {
-        console.log('Got constituents!')
-        this.getFeaturesForConstituents().then(result => {
-          console.log('Got features for constituents!')
+      this.getConstituents(sos_id).then((result) => {
+        console.log("Got constituents!");
+        this.getFeaturesForConstituents().then((result) => {
+          console.log("Got features for constituents!");
           this.$nextTick(() => {
-            console.log('Resolving after $nextTick')
+            let auxConstituents = this.constituents;
+            this.constituents = [];
+            this.constituents = auxConstituents;
+            console.log("Resolving after $nextTick");
           });
-        })
-      })
+        });
+      });
 
+      // console.log(this.$refs.constituents)
+      // this.$nextTick(() => {
+      //     this.$refs.constituents.forEach(constituent => {
+      //     // var startElement = document.getElementById(sos);
+      //     // var endElement = document.getElementById(constituent);
+      //     console.log(el, constituent)
+      //     const line = new LeaderLine(el.$el, constituent.$el, {
+      //         color: 'red',
+      //         size: 3,
+      //         startPlug: 'disc',
+      //         endPlug: 'disc',
+      //     });
 
-          // console.log(this.$refs.constituents)
-          // this.$nextTick(() => {
-          //     this.$refs.constituents.forEach(constituent => {
-          //     // var startElement = document.getElementById(sos);
-          //     // var endElement = document.getElementById(constituent);
-          //     console.log(el, constituent)
-          //     const line = new LeaderLine(el.$el, constituent.$el, {
-          //         color: 'red',
-          //         size: 3,
-          //         startPlug: 'disc',
-          //         endPlug: 'disc',
-          //     });
+      //     this.SoSLines.push(line)
+      // })
+      // })
 
-          //     this.SoSLines.push(line)
-          // })
-          // })
+      // let sos_list = []
+      // sos_list.push(sos)
 
-          // let sos_list = []
-          // sos_list.push(sos)
+      // let constituent_list = []
+      // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
 
-          // let constituent_list = []
-          // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
+      // console.log(sos_list)
+      // console.log(constituent_list)
 
-          // console.log(sos_list)
-          // console.log(constituent_list)
-
-          // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
-          // axios.get(relations_path, {params: {
-          //     sos_list: sos_list.reduce((f, s) => `${f},${s}`),
-          //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
-          //     }})
-          //     .then((res) => {
-          //         console.log(res.data)
-          //     })
-          //     .catch((error) => {
-          //         console.error(error);
-          //     });
+      // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
+      // axios.get(relations_path, {params: {
+      //     sos_list: sos_list.reduce((f, s) => `${f},${s}`),
+      //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
+      //     }})
+      //     .then((res) => {
+      //         console.log(res.data)
+      //     })
+      //     .catch((error) => {
+      //         console.error(error);
+      //     });
     },
     preProcessDatabase() {
       const path = `${process.env.VUE_APP_BASE_URL}/database/process`;
-      axios
-        .get(path)
+      let payload = {
+        token: store.getters.getJwt.token,
+      };
+      console.log("PAYLOAD => ", payload);
+      axios({
+        url: path,
+        method: "post",
+        data: payload,
+      })
         .then((res) => {
           this.message = res.data;
         })
@@ -725,6 +834,7 @@ export default {
         .then((res) => {
           // your action after success
           this.predictions = res.data;
+          console.log("PREDICTIONS => ", this.predictions);
           // this.dialog = false
           console.log(this.predictions);
 
@@ -781,7 +891,7 @@ export default {
 <style lang="scss">
 .bottom-up {
   $self: &;
-  height: calc(100vh - 160px);
+  // height: calc(100vh - 160px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
@@ -795,7 +905,7 @@ export default {
   &__panel {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    padding-bottom: 50px;
 
     #{$self}__title {
       background-color: #373640;
@@ -813,9 +923,10 @@ export default {
       gap: 10px;
       border-radius: 6px;
       height: 100%;
-      padding: 4px 10px;
+      width: 100%;
+      padding: 15px 10px;
+      margin: auto;
       overflow-y: auto;
-      overflow-x: hidden;
     }
   }
 
@@ -842,6 +953,7 @@ export default {
       background-color: #e3e3e3;
       height: clamp(100px, 100px, 150px);
       width: 100%;
+      height: 70%;
       overflow-y: auto;
     }
   }
@@ -849,13 +961,20 @@ export default {
 
 .v-chip.v-size--default {
   height: auto !important;
+}
+
+.v-chip .v-chip__content {
+  height: auto;
   min-height: 32px;
+  white-space: pre-wrap;
 }
 
 .v-chip {
   width: 100%;
+  max-width: 90% !important;
   white-space: normal !important;
   text-align: left;
+  overflow: initial !important;
 
   &__content {
     justify-content: space-between;

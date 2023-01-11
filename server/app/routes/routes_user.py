@@ -4,7 +4,7 @@ from models import User
 from functools import wraps
 from datetime import datetime, timedelta
 
-from flask import Blueprint, jsonify, request, current_app
+from flask import Blueprint, jsonify, request, current_app, Response
 
 import jwt
 
@@ -38,6 +38,25 @@ def login():
     # return jsonify({ 'token': token.decode('UTF-8') })    
     return jsonify({ 'token': token }) 
 
+@app.route('/login/checkuser', methods=('POST',))
+def checkUser():
+    try:
+        auth_headers = request.headers.get('Authorization', '').split()
+        token = auth_headers[0]
+        data = jwt.decode(token, os.environ.get('SECRET_KEY'), algorithms=['HS256'])
+        # print('data => ', data)
+        user = User.User.query.filter_by(email=data['sub']).first()
+        # print('USER EMAIL => ', user.email)
+        if user.email == 'kcs.kanan@gmail.com':
+            return jsonify(True)
+        return jsonify(False)
+
+    except Exception as e:
+        # print('ERROR => ', e)
+	    return Response(
+                "Internal Server Error",
+                status=500,
+            )
 
 def token_required(f):
     @wraps(f)
