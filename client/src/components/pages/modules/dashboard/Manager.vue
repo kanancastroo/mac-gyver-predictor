@@ -552,13 +552,13 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-btn color="primary" text @click="dialog = false"> OK </v-btn>
+            <v-btn color="#A4BE7B" text @click="dialog = false"> OK </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
 
       <v-dialog v-model="saveDialog" hide-overlay persistent width="300">
-        <v-card color="blue" dark>
+        <v-card color="#A4BE7B" dark>
           <v-card-text>
             Saving SoS and updating model...
             <v-progress-linear
@@ -567,6 +567,22 @@
               class="mb-0"
             ></v-progress-linear>
           </v-card-text>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog
+        v-model="successDialog"
+        transition="dialog-top-transition"
+        max-width="600"
+      >
+        <v-card>
+          <v-toolbar color="#A4BE7B" dark>Success</v-toolbar>
+          <v-card-text>
+            <div class="text-h5 pa-12">Updates performed successfully!</div>
+          </v-card-text>
+          <v-card-actions class="justify-end">
+            <v-btn text @click="successDialog = false">Close</v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </div>
@@ -578,6 +594,7 @@ import axios from "axios";
 import LeaderLine from "leader-line-new";
 import { v4 as uuidv4 } from "uuid";
 import { mdiPencil, mdiDelete } from "@mdi/js";
+import store from "@/store";
 
 export default {
   data: () => ({
@@ -630,6 +647,7 @@ export default {
     behaviorDialog: false,
     saveDialog: false,
     errorDialog: false,
+    successDialog: false,
 
     editConstituentDialog: false,
     editBasicFeatureDialog: false,
@@ -659,6 +677,7 @@ export default {
           .then((res) => {
             console.log("Model updated successfully!");
             this.saveDialog = false;
+            this.successDialog = true;
             resolve();
           })
           .catch((error) => {

@@ -66,8 +66,8 @@
                 color="#A4BE7B"
                 dark
                 @click="
-                  // dialog = true;
-                  trainModel()
+                  dialog = true;
+                  trainModel();
                 "
               >
                 Train Model
@@ -142,6 +142,22 @@
         </v-card>
       </template>
     </v-dialog>
+
+    <v-dialog
+      v-model="successDialog"
+      transition="dialog-top-transition"
+      max-width="600"
+    >
+      <v-card>
+        <v-toolbar color="#A4BE7B" dark>Success</v-toolbar>
+        <v-card-text>
+          <div class="text-h5 pa-12">Request processed successfully!</div>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn text @click="successDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -156,6 +172,7 @@ export default {
     files: [],
     readers: [],
     errorDialog: false,
+    successDialog: false,
   }),
   methods: {
     resetPlatform() {
@@ -176,6 +193,7 @@ export default {
             .then((res) => {
               console.log("Plataform reseted successfully!");
               this.dialog = false;
+              this.successDialog = true;
             })
             .catch((error) => {
               console.error(error);
@@ -203,6 +221,7 @@ export default {
         .then((res) => {
           console.log("Model trained successfully!");
           this.dialog = false;
+          this.successDialog = true;
         })
         .catch((error) => {
           console.error(error);
@@ -288,6 +307,7 @@ export default {
           console.log("File upload successful!");
           console.log(response);
           this.dialog = false;
+          this.successDialog = true;
         })
         .catch((error) => {
           this.errorDialog = true;
@@ -329,6 +349,7 @@ export default {
         .then((res) => {
           console.log("Database droped successfully!");
           this.dialog = false;
+          this.successDialog = true;
         })
         .catch((error) => {
           this.errorDialog = true;

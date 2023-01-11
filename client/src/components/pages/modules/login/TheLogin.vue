@@ -36,11 +36,11 @@
 
         <div class="control">
           <v-spacer></v-spacer>
-          <v-btn elevation="2" @click="authenticate" color="#A4BE7B"
+          <v-btn elevation="2" @click="authenticate" color="#A4BE7B" dark
             >Login</v-btn
           >
           <v-spacer></v-spacer>
-          <v-btn elevation="2" @click="register" color="#A4BE7B"
+          <v-btn elevation="2" @click="register" color="#A4BE7B" dark
             >Register</v-btn
           >
           <v-spacer></v-spacer>
@@ -49,6 +49,18 @@
         </div>
       </div>
     </section>
+
+    <v-dialog transition="dialog-top-transition" max-width="600">
+      <v-card>
+        <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
+        <v-card-text>
+          <div class="text-h5 pa-12">Invalid login or password!</div>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn text @click="errorDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -61,6 +73,7 @@ export default {
       email: "",
       password: "",
       errorMsg: "",
+      errorDialog: false,
     };
   },
   methods: {
@@ -77,9 +90,11 @@ export default {
   },
   mounted() {
     EventBus.$on("failedRegistering", (msg) => {
+      this.errorDialog = true;
       this.errorMsg = msg;
     });
     EventBus.$on("failedAuthentication", (msg) => {
+      this.errorDialog = true;
       this.errorMsg = msg;
     });
   },
