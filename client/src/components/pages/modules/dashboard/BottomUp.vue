@@ -355,9 +355,7 @@
                           </div>
                         </v-card-text>
                         <v-card-actions class="justify-end">
-                          <v-btn text @click="errorDialog.value = false"
-                            >Close</v-btn
-                          >
+                          <v-btn text @click="errorDialog = false">Close</v-btn>
                         </v-card-actions>
                       </v-card>
                     </template>
