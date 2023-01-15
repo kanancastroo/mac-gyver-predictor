@@ -68,7 +68,7 @@ def rm_tree(pth):
 def dumpDatabase():
     try:
         files = []
-        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
         temp_path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'temp'))
 
         if temp_path.is_dir():
@@ -181,7 +181,7 @@ def dropDatabase():
 
 @app.route('/database/saveall', methods=['POST'])
 def saveEntireDirectory():            
-    ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+    ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
     shared_folder = pathlib.Path(os.path.join(ROOT_DIR, 'shared'))
 
     timestr = time.strftime("%Y%m%d-%H%M%S")

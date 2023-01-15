@@ -373,7 +373,7 @@ def processDatabase():
         for (x, y) in string_replacements.items():
             ts = ts.replace(x, y)
 
-        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
         model_path = os.path.join(ROOT_DIR, 'shared', 'models', 'model_%s.h5' % ts)
         # labels_path = os.path.join(ROOT_DIR, 'shared', 'labels', 'labels_%s.csv' % ts)
         
@@ -679,7 +679,7 @@ def predict():
         # print(constituents_one_hot_encoding)
         # print(np.shape(constituents_one_hot_encoding)[1])
 
-        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
         model_path = os.path.join(ROOT_DIR, 'shared', 'models')
 
         models_list_original = []
