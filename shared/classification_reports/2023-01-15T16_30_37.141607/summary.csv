@@ -1,0 +1,38 @@
+,Index,Emergent Behavior
+0,000,Negotiation and collaboration for resource allocation and demand efficiency
+1,001,Resolution of potencial conflicts
+2,002,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+3,003,agents perform different functions based on their unique advantages relative to other agents postdisruption
+4,004,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+5,005,Different responses according to different demand/response schemes (price-based)
+6,006,decision about the best control design of the Smart Grid
+7,007,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+8,008,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+9,009,optimizations of the decisions of the Smart Grid given the best control design
+10,010,distributed negotiations between groups
+11,011,energy consumption/production patterns
+12,012,demand side management
+13,013,peak optimization
+14,014,battery storage models
+15,015,market mechanisms
+16,016,cluster together into local energy collectives
+17,017,use storage and demand-response techniques
+18,018,balance energy consumption and production
+19,019,deploy batteries in different ways depending on the behaviour of their members
+20,020,promote to use a VPP from a new electricity production cost policy
+21,021,optimise energy usage in a range of weather conditions
+22,022,Optimize the overall charging behavior
+23,023,avoid many simultaneous charging cycles
+24,024,minimum peak loads emerging
+25,025,cost limits are not exceeded
+26,026,balance between energy production and consumption
+27,027,grid stability
+28,028,load-generation balance
+29,029,control the battery and enhance the operation of the system
+30,030,decrease the power consumption from power utility by using available energy from the solar panels
+31,031,supply power power to the electric load
+32,032,supply power to homes even in the event of an electric grid outage
+33,033,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+34,034,minimize the average vehicle waiting time in the network
+35,035,minimize the local waiting time for vehicles
+36,036,"north-to-south, red-to-green transition times"
