@@ -1,1 +1,1 @@
-web: cd server && gunicorn app:app --log-file -
+web: cd server && gunicorn app:app --preload --timeout 180 --log-file -
