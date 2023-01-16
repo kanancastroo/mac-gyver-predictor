@@ -55,10 +55,11 @@ def addRelationSoSEmergentBehavior():
             # return "Relation SoS/Constituent added. relation_id={}".format(sos_constituent.relation_id)
             return "Relation SoS/Emergent Behavior added successfully."
         except Exception as e:
-            return Response(
-                "Internal Server Error",
-                status=500,
-            )        
+            print('ERROR => ', e)
+            # return Response(
+            #     "Internal Server Error",
+            #     status=500,
+            # )        
 
 
 @app.route("/relation/sos_emergent_behavior/delete")
@@ -80,7 +81,7 @@ def deleteRelationSoSEmergentBehavior():
         return "Relation SoS/Emergent Behavior deleted successfully."
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )        
 
@@ -132,6 +133,6 @@ def getRelationsSoSEmergentBehavior():
         return jsonify([e.toJSON() for e in sos_emergent_behaviors_relations])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )   

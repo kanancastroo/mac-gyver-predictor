@@ -23,7 +23,7 @@ def addRelationConstituentBasicFeature():
         return "Relation Constituent/Basic Feature added successfully."
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )          
 
@@ -46,7 +46,7 @@ def deleteRelationConstituentBasicFeature():
         return "Relation Constituent/Basic Feature deleted successfully."
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )        
 
@@ -107,6 +107,6 @@ def getRelationsConstituentBasicFeature():
         return jsonify([e.toJSON() for e in constituent_basic_features_relations])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    

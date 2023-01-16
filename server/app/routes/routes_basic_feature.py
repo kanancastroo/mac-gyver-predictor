@@ -13,7 +13,7 @@ def getBasicFeatures():
         #return jsonify('HELL YEAH!')
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
 
@@ -31,7 +31,7 @@ def addBasicFeatures():
         return "Basic Feature added. feature_external_id={}.".format(basic_feature.feature_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )           
 
@@ -43,7 +43,7 @@ def getBasicFeature(feature_id):
         return jsonify(basic_feature.description)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    
 
@@ -58,7 +58,7 @@ def updateBasicFeature(feature_id):
         return "Basic Feature updated. feature_external_id={}.".format(basic_feature.feature_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )     
 
@@ -72,6 +72,6 @@ def deleteBasicFeature(feature_id):
         return "Basic Feature id={} was deleted sucessfully.".format(feature_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    

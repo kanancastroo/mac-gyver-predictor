@@ -18,9 +18,7 @@
         <v-btn v-if="this.showAdmin">Admin</v-btn>
       </router-link>
 
-      <router-link to="/dashboard/logout">
-        <v-btn color="red" @click="logout()">Logout</v-btn>
-      </router-link>
+      <v-btn color="red" @click="logout()">Logout</v-btn>
     </v-toolbar>
   </v-card>
 </template>

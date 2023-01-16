@@ -129,7 +129,7 @@ def dumpDatabase():
     
     except Exception as e:
         return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    
 
@@ -153,7 +153,7 @@ def restoreDatabase():
     
     except Exception as e:
         return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
 
@@ -175,7 +175,7 @@ def dropDatabase():
     
     except Exception as e:
         return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
 

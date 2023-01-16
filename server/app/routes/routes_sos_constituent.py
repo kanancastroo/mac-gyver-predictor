@@ -23,7 +23,7 @@ def addRelationSoSConstituent():
         return "Relation SoS/Constituent added successfully."
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )          
 
@@ -46,7 +46,7 @@ def deleteRelationSoSConstituent():
         return "Relation SoS/Constituent deleted successfully."
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )   
 
@@ -96,6 +96,6 @@ def getRelationsSoSConstituent():
         return jsonify([e.toJSON() for e in sos_constituent_relations])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
