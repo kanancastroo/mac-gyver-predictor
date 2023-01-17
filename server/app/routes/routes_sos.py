@@ -8,7 +8,6 @@ import array as arr
 import uuid
 
 @app.route("/sos/get")
-@cross_origin()
 def getAllSoS():
     try:
         sos=SoS.SoS.query.all()
