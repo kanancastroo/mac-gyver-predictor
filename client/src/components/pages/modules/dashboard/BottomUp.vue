@@ -338,29 +338,22 @@
                     </v-chip>
                   </div>
 
-                  <v-dialog transition="dialog-top-transition" max-width="600">
-                    <!-- <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="#A4BE7B"
-                v-bind="attrs"
-                v-on="on"
-              >Error Dialog</v-btn>
-            </template> -->
-                    <template v-slot:default="errorDialog">
-                      <v-card>
-                        <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
-                        <v-card-text>
-                          <div class="text-h5 pa-12">
-                            Sorry, an error occurred!
-                          </div>
-                        </v-card-text>
-                        <v-card-actions class="justify-end">
-                          <v-btn text @click="errorDialog.value = false"
-                            >Close</v-btn
-                          >
-                        </v-card-actions>
-                      </v-card>
-                    </template>
+                  <v-dialog
+                    transition="dialog-top-transition"
+                    max-width="600"
+                    v-model="errorDialog"
+                  >
+                    <v-card>
+                      <v-toolbar color="red" dark>Error</v-toolbar>
+                      <v-card-text>
+                        <div class="text-h5 pa-12">
+                          Sorry, an error occurred!
+                        </div>
+                      </v-card-text>
+                      <v-card-actions class="justify-end">
+                        <v-btn text @click="errorDialog = false">Close</v-btn>
+                      </v-card-actions>
+                    </v-card>
                   </v-dialog>
                 </div>
               </v-card>
@@ -483,6 +476,7 @@ export default {
             newBehavior.emergent_external_id = res.data;
             newBehavior.description = insertedBehavior;
             this.observedBehaviors.push(newBehavior);
+            // console.log("observed Behaviors => ", this.observedBehaviors);
           })
           .catch((error) => {
             this.errorDialog = true;
@@ -566,35 +560,115 @@ export default {
 
           await Promise.all(promises);
           console.log(
-            "Relations SoS/Constituent added Successfully. Now adding relations Basic Features/Emergent Behaviors..."
+            "Relations SoS/Constituent added Successfully. Now adding relations SoS/Emergent Behaviors..."
           );
 
-          console.log(
-            "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.predictions)"
-          );
-          this.addRelationBasicFeaturesEmergentBehaviors(
-            sos_external_id,
-            this.predictions
-          ).then((result) => {
+          if (this.predictions.length > 0) {
+            console.log("ENTREI NO IF");
             console.log(
-              "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.knownBehaviors)"
+              "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.predictions)"
             );
             this.addRelationBasicFeaturesEmergentBehaviors(
               sos_external_id,
-              this.knownBehaviors
-            ).then((result) => {
-              console.log(
-                "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.observedBehaviors)"
-              );
-              this.addRelationBasicFeaturesEmergentBehaviors(
-                sos_external_id,
-                this.observedBehaviors
-              ).then((result) => {
-                console.log("Executing updateModel()");
-                this.updateModel().then((result) => console.log("DONE!"));
+              this.predictions
+            )
+              .then((result) => {
+                // console.log(
+                //   "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.knownBehaviors)"
+                // );
+                // this.addRelationBasicFeaturesEmergentBehaviors(
+                //   sos_external_id,
+                //   this.knownBehaviors
+                // ).then((result) => {
+                console.log(
+                  "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.observedBehaviors)"
+                );
+                this.addRelationBasicFeaturesEmergentBehaviors(
+                  sos_external_id,
+                  this.observedBehaviors
+                )
+                  .then((result) => {
+                    console.log("Executing updateModel()");
+                    this.updateModel()
+                      .then((result) => console.log("DONE!"))
+                      .catch((error) => {
+                        this.saveDialog = false;
+                        this.errorDialog = true;
+                        console.error("ERROR ON updateModel() =>>> ", error);
+                      });
+                  })
+                  .catch((error) => {
+                    this.saveDialog = false;
+                    this.errorDialog = true;
+                    console.error(
+                      "ERROR ON addRelationBasicFeaturesEmergentBehaviors() with observedBehaviors =>>> ",
+                      error
+                    );
+                  });
+                // });
+              })
+              .catch((error) => {
+                this.saveDialog = false;
+                this.errorDialog = true;
+                console.error(
+                  "ERROR ON addRelationBasicFeaturesEmergentBehaviors() with predictions =>>> ",
+                  error
+                );
               });
-            });
-          });
+          } else {
+            console.log("ENTREI NO ELSE");
+            const featuresPath = `${process.env.VUE_APP_BASE_URL}/constituents/basic_features/post`;
+            let payload = {
+              constituent_list: this.composedSoS,
+            };
+            axios({
+              url: featuresPath,
+              method: "post",
+              data: payload,
+            })
+              .then((res) => {
+                // your action after success
+                this.featuresFromChosenConstituents = res.data;
+                console.log("BASIC FEATURES:");
+                console.log(this.featuresFromChosenConstituents);
+                console.log(
+                  "Executing addRelationBasicFeaturesEmergentBehaviors(sos_external_id, this.observedBehaviors)"
+                );
+                console.log("observedBehaviors => ", this.observedBehaviors);
+                this.addRelationBasicFeaturesEmergentBehaviors(
+                  sos_external_id,
+                  this.observedBehaviors
+                )
+                  .then((result) => {
+                    // console.log("Would execute updateModel()");
+                    // this.saveDialog = false;
+                    console.log("Executing updateModel()");
+                    this.updateModel()
+                      .then((result) => console.log("DONE!"))
+                      .catch((error) => {
+                        this.saveDialog = false;
+                        this.errorDialog = true;
+                        console.error("ERROR ON updateModel() =>>> ", error);
+                      });
+                  })
+                  .catch((error) => {
+                    this.saveDialog = false;
+                    this.errorDialog = true;
+                    console.error(
+                      "ERROR ON GETTING featuresFromChosenConstituents() =>>> ",
+                      error
+                    );
+                  });
+              })
+              .catch((error) => {
+                this.saveDialog = false;
+                this.errorDialog = true;
+                console.error(
+                  "ERROR ON addRelationBasicFeaturesEmergentBehaviors() with observedBehaviors =>>> ",
+                  error
+                );
+              });
+          }
         })
         .catch((error) => {
           this.saveDialog = false;
@@ -632,6 +706,11 @@ export default {
     },
     addRelationBasicFeaturesEmergentBehaviors(sos_external_id, behaviorsList) {
       console.log("sos_external_id =>>> ", sos_external_id);
+      console.log(
+        "featuresFromChosenConstituents =>>> ",
+        this.featuresFromChosenConstituents
+      );
+      console.log("behaviors List => ", behaviorsList);
       let payload = {
         basic_features_list: this.featuresFromChosenConstituents,
         emergent_behaviors_list: behaviorsList,
@@ -754,44 +833,6 @@ export default {
           });
         });
       });
-
-      // console.log(this.$refs.constituents)
-      // this.$nextTick(() => {
-      //     this.$refs.constituents.forEach(constituent => {
-      //     // var startElement = document.getElementById(sos);
-      //     // var endElement = document.getElementById(constituent);
-      //     console.log(el, constituent)
-      //     const line = new LeaderLine(el.$el, constituent.$el, {
-      //         color: 'red',
-      //         size: 3,
-      //         startPlug: 'disc',
-      //         endPlug: 'disc',
-      //     });
-
-      //     this.SoSLines.push(line)
-      // })
-      // })
-
-      // let sos_list = []
-      // sos_list.push(sos)
-
-      // let constituent_list = []
-      // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
-
-      // console.log(sos_list)
-      // console.log(constituent_list)
-
-      // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
-      // axios.get(relations_path, {params: {
-      //     sos_list: sos_list.reduce((f, s) => `${f},${s}`),
-      //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
-      //     }})
-      //     .then((res) => {
-      //         console.log(res.data)
-      //     })
-      //     .catch((error) => {
-      //         console.error(error);
-      //     });
     },
     preProcessDatabase() {
       const path = `${process.env.VUE_APP_BASE_URL}/database/process`;
@@ -814,15 +855,6 @@ export default {
     },
     predict() {
       const path = `${process.env.VUE_APP_BASE_URL}/predict`;
-      // console.log(this.composedSoS)
-      // let constituents_elements = this.composedSoS.map(constituent => {return constituent.constituent_name})
-      // console.log(constituents_elements)
-      // let constituents_elements = this.composedSoS[0].toString()
-      // for (let i=1; i < this.composedSoS.length - 1; i++){
-      //     constituents_elements.concat(',',this.composedSoS[i])
-      // }
-      // constituents_elements.concat(',',this.composedSoS[this.composedSoS.length])
-      // console.log(constituents_elements)
       let payload = {
         constituent_list: this.composedSoS,
       };

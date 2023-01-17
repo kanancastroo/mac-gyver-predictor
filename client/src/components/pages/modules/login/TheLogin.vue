@@ -50,9 +50,13 @@
       </div>
     </section>
 
-    <v-dialog transition="dialog-top-transition" max-width="600">
+    <v-dialog
+      transition="dialog-top-transition"
+      max-width="600"
+      v-model="errorDialog"
+    >
       <v-card>
-        <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
+        <v-toolbar color="red" dark>Error</v-toolbar>
         <v-card-text>
           <div class="text-h5 pa-12">Invalid login or password!</div>
         </v-card-text>
@@ -80,27 +84,29 @@ export default {
     authenticate() {
       this.$store
         .dispatch("login", { email: this.email, password: this.password })
-        .then(() => this.$router.push("/dashboard/bottom-up"));
+        .then(() => this.$router.push("/dashboard/bottom-up"))
+        .catch((err) => (this.errorDialog = true));
     },
     register() {
       this.$store
         .dispatch("register", { email: this.email, password: this.password })
-        .then(() => this.authenticate());
+        .then(() => this.authenticate())
+        .catch((err) => (this.errorDialog = true));
     },
   },
   mounted() {
-    EventBus.$on("failedRegistering", (msg) => {
-      this.errorDialog = true;
-      this.errorMsg = msg;
-    });
-    EventBus.$on("failedAuthentication", (msg) => {
-      this.errorDialog = true;
-      this.errorMsg = msg;
-    });
+    // EventBus.$on("failedRegistering", (msg) => {
+    //   this.errorDialog = true;
+    //   this.errorMsg = msg;
+    // });
+    // EventBus.$on("failedAuthentication", (msg) => {
+    //   this.errorDialog = true;
+    //   this.errorMsg = msg;
+    // });
   },
   beforeDestroy() {
-    EventBus.$off("failedRegistering");
-    EventBus.$off("failedAuthentication");
+    // EventBus.$off("failedRegistering");
+    // EventBus.$off("failedAuthentication");
   },
 };
 </script>

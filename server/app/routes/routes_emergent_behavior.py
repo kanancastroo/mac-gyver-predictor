@@ -13,7 +13,7 @@ def getEmergentBehaviors():
         #return jsonify('HELL YEAH!')
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )
 
@@ -28,10 +28,11 @@ def addEmergentBehavior():
         )
         db.session.add(emergent_behavior)
         db.session.commit()
-        return "Emergent Behavior added. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
+        # return "Emergent Behavior added. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
+        return jsonify(emergent_behavior.emergent_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    
 
@@ -43,7 +44,7 @@ def getEmergentBehavior(emergent_id):
         return jsonify(emergent_behavior.description)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    
 
@@ -58,7 +59,7 @@ def updateEmergentBehavior(emergent_id):
         return "Emergent Behavior updated. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )     
 
@@ -72,7 +73,7 @@ def deleteEmergentBehavior(emergent_id):
         return "Emergent Behavior id={} was deleted sucessfully.".format(emergent_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    
 
@@ -127,6 +128,6 @@ def getConstituentsFromEmergentBehaviors():
 
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )          

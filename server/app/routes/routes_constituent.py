@@ -13,7 +13,7 @@ def getConstituents():
         #return jsonify('HELL YEAH!')
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )   
 
@@ -31,7 +31,7 @@ def addConstituent():
         return "Constituent added. constituent_external_id={}.".format(constituent.constituent_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
 
@@ -43,7 +43,7 @@ def getConstituent(constituent_id):
         return jsonify(constituent.constituent_name)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    
 
@@ -58,7 +58,7 @@ def updateConstituent(constituent_id):
         return "Constituent updated. constituent_external_id={}.".format(constituent.constituent_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )     
 
@@ -72,7 +72,7 @@ def deleteConstituent(constituent_id):
         return "Constituent id={} was deleted sucessfully.".format(constituent_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )   
 
@@ -107,7 +107,7 @@ def getBasicFeaturesFromConstituent(constituent_id):
         return jsonify([e.toJSON() for e in array_basic_features])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             ) 
 
@@ -155,7 +155,7 @@ def getBasicFeaturesFromConstituents():
         return jsonify([e.toJSON() for e in new_list])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
 
@@ -205,6 +205,6 @@ def getEmergentBehaviorsFromConstituents():
         return jsonify([e.toJSON() for e in new_list])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  

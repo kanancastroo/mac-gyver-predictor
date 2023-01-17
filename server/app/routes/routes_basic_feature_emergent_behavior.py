@@ -10,8 +10,8 @@ def addRelationBasicFeatureEmergentBehavior():
         basic_features_list=request.json['basic_features_list']
         emergent_behaviors_list=request.json['emergent_behaviors_list']
 
-        # print(len(basic_features_list))
-        # print(len(emergent_behaviors_list))
+        # print('basic_features_list =>>> ', basic_features_list)
+        # print('emergent_behaviors_list =>>> ', emergent_behaviors_list)
         try:
             items = []
             i = 0
@@ -24,6 +24,9 @@ def addRelationBasicFeatureEmergentBehavior():
                     basic_feature = Basic_Feature.Basic_Feature.query.filter_by(feature_external_id=feature['feature_external_id']).first()
                     emergent_behavior = Emergent_Behavior.Emergent_Behavior.query.filter_by(emergent_external_id=behavior['emergent_external_id']).first()
                     
+                    # print('FEATURE => ', basic_feature.description)
+                    # print('BEHAVIOR => ', emergent_behavior.description)
+
                     basic_feature_emergent_behavior=Basic_Feature_Emergent_Behavior.Basic_Feature_Emergent_Behavior(
                         basic_feature_id=basic_feature.feature_id,
                         emergent_behavior_id=emergent_behavior.emergent_id,
@@ -41,7 +44,7 @@ def addRelationBasicFeatureEmergentBehavior():
             return "Relations Basic Feature/Emergent Behavior added successfully."
         except Exception as e:
             return Response(
-                "Internal Server Error",
+                "Internal Server Error: {}".format(e),
                 status=500,
             )
 
@@ -63,7 +66,7 @@ def addRelationBasicFeatureEmergentBehavior():
             return "Relation Basic Feature/Emergent Behavior added successfully."
         except Exception as e:
             return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )        
 
@@ -87,7 +90,7 @@ def deleteRelationBasicFeatureEmergentBehavior():
         return "Relation Basic Feature/Emergent Behavior deleted successfully."
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )        
 
@@ -143,6 +146,6 @@ def getRelationsBasicFeatureEmergentBehavior():
         return jsonify([e.toJSON() for e in basic_features_emergent_behaviors_relations])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )    

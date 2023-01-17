@@ -285,8 +285,11 @@ def processDatabase():
             #print(col_name)
             output_columns_binary.append(col_name)
         
+        # print('SHAPE X => ', X.shape)
+        # print('LENGTH Y => ', len(y))
+
         X_sub, y_sub = get_minority_instace(X, y)
-        X_res, y_res =MLSMOTE(X_sub, y_sub, 85)
+        X_res, y_res =MLSMOTE(X_sub, y_sub, 6 * len(y))
         X_res = X_res.round(decimals = 0)
         X_res[X_res > 1] = 1
 
@@ -373,7 +376,7 @@ def processDatabase():
         for (x, y) in string_replacements.items():
             ts = ts.replace(x, y)
 
-        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
         model_path = os.path.join(ROOT_DIR, 'shared', 'models', 'model_%s.h5' % ts)
         # labels_path = os.path.join(ROOT_DIR, 'shared', 'labels', 'labels_%s.csv' % ts)
         
@@ -462,8 +465,6 @@ def processDatabase():
             f.write(logged_user)
 
 
-
-
         dumps_path = pathlib.Path(os.path.join(ROOT_DIR, 'shared', 'dumps', ts))
         dumps_path.mkdir(parents=True, exist_ok=True)
 
@@ -497,66 +498,15 @@ def processDatabase():
         user_file = os.path.join(dumps_path, 'user.txt')
         with open(user_file, 'w') as f:
             f.write(logged_user)
-            # disp = ConfusionMatrixDisplay(confusion_matrix(y_test[col], y_pred[col_idx]),
-            #                             display_labels=[1,0])
-            # disp.plot(ax=axes[col_idx], values_format='.4g')
-            # disp.ax_.set_title(formatString(col))
-
-            # if col_idx<10:
-            #     disp.ax_.set_xlabel('')
-            # if col_idx%5!=0:
-            #     disp.ax_.set_ylabel('')
-            # disp.im_.colorbar.remove()
-
-
-        # plt.subplots_adjust(wspace=1, hspace=1)
-        # # f.colorbar(disp.im_, ax=axes)
-        # # plt.savefig('confusion_matrix_results.png')
-        # plt.show()
 
         return jsonify('Database processed and model trained succesfully!')  
     except Exception as e:
-        # db.session.rollback()
-        print('ERROR => ', e)
-        # return Response(
-        #         "Internal Server Error",
-        #         status=500,
-        #     )     
-
-
-@app.route('/database/saveplot')
-def savePlot():
-    df = pd.DataFrame()
-    for i in range(100):
-        new_row = pd.DataFrame({'index': i, 'text': 'Banana'}, index=[0])
-        df = pd.concat([df.loc[:], new_row]).reset_index(drop=True)
- 
-    df.loc[0] = [999, 'Morango']
-    df.to_csv('test.csv')
-    #     y_true = [2, 0, 2, 2, 0, 1]
-    #     y_pred = [0, 0, 2, 2, 0, 2]
-
-    #     # print(type(y_true))
-    #     # print(np.shape(y_true))
-    #     confusion_matrix1  =confusion_matrix(y_true, y_pred)
-    #     display = ConfusionMatrixDisplay(confusion_matrix1).plot()
-    #     plt.savefig("Instant{}.png".format(i))
-    #     plt.clf()
-    # return 'ok'
-    # plt.show()
-
-@app.route('/temp')
-def temp():
-    # ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
-    # model_path = os.path.join(ROOT_DIR, 'shared', 'models', 'model.h5')
-    # print(model_path)
-    ct = str(datetime.datetime.now())
-    string_replacements = {' ':'Z', ':':'_'}
-
-    for (x, y) in string_replacements.items():
-        ct = ct.replace(x, y)
-    print("current time:-", ct)
-    return jsonify(ct)
+        db.session.rollback()
+        # print('ERROR => ', e)
+        return Response(
+                "Internal Server Error: {}".format(e),
+                status=500,
+            )     
 
 
 @app.route('/predict', methods=['POST'])
@@ -679,7 +629,7 @@ def predict():
         # print(constituents_one_hot_encoding)
         # print(np.shape(constituents_one_hot_encoding)[1])
 
-        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+        ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
         model_path = os.path.join(ROOT_DIR, 'shared', 'models')
 
         models_list_original = []
@@ -758,127 +708,8 @@ def predict():
             arr_prediction_obj.append(prediction)
         return jsonify([e.toJSON() for e in arr_prediction_obj])
     except Exception as e:
-        print('ERROR => ', e)
-        # return Response(
-        #         "Internal Server Error",
-        #         status=500,
-        #     )
-
-
-
-# def process_database(dataframe):
-#     try:
-#         # REVIEW FROM HERE ON...
-
-#         # hist_df = pd.DataFrame(history.history)
-#         # df_acurracies = hist_df.iloc[:, 38:74]
-#         # n = len(df_acurracies)
-
-#         # accuracy = []
-#         # epoch = []
-#         # print('Checkpoint 5...')
-#         # for i in range(n):
-#         #     epoch.append(i)
-#         #     accuracy.append(mean(df_acurracies.iloc[i].values))
-#         #     print('Epoch', i, '- Accuracy:', mean(df_acurracies.iloc[i].values))   
-#         # print('Checkpoint 6...')
-#         # # t = epoch
-#         # # s = accuracy
-
-#         # # fig, ax = plt.subplots()
-#         # # ax.plot(t, s)
-#         # print('Checkpoint 7...')
-
-#         # # ax.set(xlabel='Epoch', ylabel='Accuracy',
-#         # #     title='Evolution of Accuracy of the model through epochs')
-#         # # ax.grid()
-
-#         # # fig.savefig("accuracy_evolution.png")
-#         # # plt.show()              
-
-#         # # model.summary()
-#         # # plot_model(model, to_file='model_plot4a.png', show_shapes=True, show_layer_names=True)
-
-#         # # return jsonify('Database processed sucessfully!')
-
-#         # y_pred = model.predict(X_test)
-
-#         # THRESHOLD = 0.5 # threshold between classes
-
-#         # precision_results = []
-#         # recall_results = []
-#         # f1_score_results = []
-
-#         # overall_precision = []
-#         # overall_recall = []
-#         # overall_f1 = []
-
-#         # # Binary Outputs
-#         # for col_idx, col in enumerate(output_columns_binary):
-#         #     print(f'{col_idx}', '-' , f'{col}')
-            
-#         #     # print('y_pred[col_idx]: ', y_pred[col_idx])
-#         #     # print('y_pred[col_idx][y_pred[col_idx]>=THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]>=THRESHOLD])
-#         #     # print('y_pred[col_idx][y_pred[col_idx]<THRESHOLD]:', y_pred[col_idx][y_pred[col_idx]<THRESHOLD])
-#         #     # print('y_test[col]:', y_test[col])
-
-#         #     # Transform array of probabilities to class: 0 or 1
-#         #     y_pred[col_idx][y_pred[col_idx]>=THRESHOLD] = 1
-#         #     y_pred[col_idx][y_pred[col_idx]<THRESHOLD] = 0
-
-#         #     precision_results.append(precision_score(y_test[col], y_pred[col_idx], average='macro'))
-#         #     recall_results.append(recall_score(y_test[col], y_pred[col_idx], average='macro'))
-#         #     f1_score_results.append(f1_score(y_test[col], y_pred[col_idx], average='macro'))
-            
-#         #     # print(classification_report(y_test[col], y_pred[col_idx]))
-#         #     overall_precision.append(mean(precision_results))
-#         #     overall_recall.append(mean(recall_results))
-#         #     overall_f1.append(mean(f1_score_results))
-#         #     print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
-#         #     print()
-
-#         # mean_precision = mean(overall_precision)
-#         # mean_recall = mean(overall_recall)
-#         # mean_f1 = mean(overall_f1)
-
-#         # print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))
-
-#         # y_pred_train = model.predict(X_train)
-
-#         # precision_results = []
-#         # recall_results = []
-#         # f1_score_results = []
-
-#         # overall_precision = []
-#         # overall_recall = []
-#         # overall_f1 = []
-
-#         # # Binary Outputs
-#         # for col_idx, col in enumerate(output_columns_binary):
-#         #     print(f'{col_idx}', '-' , f'{col}')
-
-#         #     # Transform array of probabilities to class: 0 or 1
-#         #     y_pred_train[col_idx][y_pred_train[col_idx]>=THRESHOLD] = 1
-#         #     y_pred_train[col_idx][y_pred_train[col_idx]<THRESHOLD] = 0
-
-#         #     precision_results.append(precision_score(y_train[col], y_pred_train[col_idx], average='macro'))
-#         #     recall_results.append(recall_score(y_train[col], y_pred_train[col_idx], average='macro'))
-#         #     f1_score_results.append(f1_score(y_train[col], y_pred_train[col_idx], average='macro'))
-            
-#         #     # print(classification_report(y_test[col], y_pred[col_idx]))
-#         #     overall_precision.append(mean(precision_results))
-#         #     overall_recall.append(mean(recall_results))
-#         #     overall_f1.append(mean(f1_score_results))
-#         #     print('Precision: %.2f - Recall: %.2f - F1-Score: %.2f' % (mean(precision_results), mean(recall_results), mean(f1_score_results)))
-#         #     print()
-
-#         # mean_precision = mean(overall_precision)
-#         # mean_recall = mean(overall_recall)
-#         # mean_f1 = mean(overall_f1)
-
-#         # print('Mean values =>>> Precision: %.3f - Recall: %.3f - F1-Score: %.3f' % (mean_precision, mean_recall, mean_f1))    
-    
-#         # print('Checkpoint 8...')
-        
-#     except Exception as e:
-# 	    return(str(e))    
+        # print('ERROR => ', e)
+        return Response(
+                "Internal Server Error: {}".format(e),
+                status=500,
+            )

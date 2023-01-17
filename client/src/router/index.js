@@ -49,12 +49,12 @@ const routes = [
         component: AdminView,
         beforeEnter: (to, from, next) => ifAuthenticated(to, from, next),
       },
-      {
-        path: "/dashboard/logout",
-        name: "DashboardLogout",
-        redirect: "/login",
-      },
     ],
+  },
+  {
+    path: "/dashboard/logout",
+    beforeEnter: (to, from, next) => ifAuthenticated(to, from, next),
+    redirect: "/login"
   },
   {
     path: "/login",

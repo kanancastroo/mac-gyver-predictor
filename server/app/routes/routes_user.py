@@ -54,7 +54,7 @@ def checkUser():
     except Exception as e:
         # print('ERROR => ', e)
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )
 

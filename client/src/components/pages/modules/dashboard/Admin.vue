@@ -129,18 +129,20 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog transition="dialog-top-transition" max-width="600">
-      <template v-slot:default="errorDialog">
-        <v-card>
-          <v-toolbar color="#A4BE7B" dark>Error</v-toolbar>
-          <v-card-text>
-            <div class="text-h5 pa-12">Sorry, an error occurred!</div>
-          </v-card-text>
-          <v-card-actions class="justify-end">
-            <v-btn text @click="errorDialog.value = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </template>
+    <v-dialog
+      transition="dialog-top-transition"
+      max-width="600"
+      v-model="errorDialog"
+    >
+      <v-card>
+        <v-toolbar color="red" dark>Error</v-toolbar>
+        <v-card-text>
+          <div class="text-h5 pa-12">Sorry, an error occurred!</div>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn text @click="errorDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-dialog>
 
     <v-dialog

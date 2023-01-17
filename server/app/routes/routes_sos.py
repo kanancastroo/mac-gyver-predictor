@@ -14,7 +14,7 @@ def getAllSoS():
         return  jsonify([e.serialize() for e in sos])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )   
 
@@ -32,7 +32,7 @@ def addSoS():
         return "SoS added. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )  
 
@@ -44,7 +44,7 @@ def getSoS(sos_id):
         return jsonify(sos.sos_name)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )                
 
@@ -59,7 +59,7 @@ def updateSoS(sos_id):
         return "SoS updated. sos_external_id={}.".format(sos.sos_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )                       
 
@@ -73,7 +73,7 @@ def deleteSoS(sos_id):
         return "SoS id={} was deleted sucessfully.".format(sos_external_id)
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )       
 
@@ -120,7 +120,7 @@ def getConstituentsFromSoS(sos_external_id):
         return jsonify([e.toJSON() for e in array_constituents])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )           
 
@@ -171,7 +171,7 @@ def getBasicFeaturesFromSoS(sos_external_id):
         return jsonify([e.toJSON() for e in new_list])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )      
 
@@ -221,6 +221,6 @@ def getEmergentBehaviorsFromSoS(sos_external_id):
         return jsonify([e.toJSON() for e in array_emergent_behaviors])
     except Exception as e:
 	    return Response(
-                "Internal Server Error",
+                "Internal Server Error {}".format(e),
                 status=500,
             )      
