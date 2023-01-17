@@ -59,13 +59,6 @@
       max-width="600"
       v-model="errorDialog"
     >
-      <!-- <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    color="#A4BE7B"
-                    v-bind="attrs"
-                    v-on="on"
-                >Error Dialog</v-btn>
-                </template> -->
       <v-card>
         <v-toolbar color="red" dark>Error</v-toolbar>
         <v-card-text>

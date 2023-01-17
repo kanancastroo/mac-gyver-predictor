@@ -343,13 +343,6 @@
                     max-width="600"
                     v-model="errorDialog"
                   >
-                    <!-- <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="#A4BE7B"
-                v-bind="attrs"
-                v-on="on"
-              >Error Dialog</v-btn>
-            </template> -->
                     <v-card>
                       <v-toolbar color="red" dark>Error</v-toolbar>
                       <v-card-text>
@@ -840,44 +833,6 @@ export default {
           });
         });
       });
-
-      // console.log(this.$refs.constituents)
-      // this.$nextTick(() => {
-      //     this.$refs.constituents.forEach(constituent => {
-      //     // var startElement = document.getElementById(sos);
-      //     // var endElement = document.getElementById(constituent);
-      //     console.log(el, constituent)
-      //     const line = new LeaderLine(el.$el, constituent.$el, {
-      //         color: 'red',
-      //         size: 3,
-      //         startPlug: 'disc',
-      //         endPlug: 'disc',
-      //     });
-
-      //     this.SoSLines.push(line)
-      // })
-      // })
-
-      // let sos_list = []
-      // sos_list.push(sos)
-
-      // let constituent_list = []
-      // this.constituents.forEach(constituent => constituent_list.push(constituent.constituent_external_id))
-
-      // console.log(sos_list)
-      // console.log(constituent_list)
-
-      // const relations_path = `${process.env.VUE_APP_BASE_URL}/relation/sos_constituent/get`;
-      // axios.get(relations_path, {params: {
-      //     sos_list: sos_list.reduce((f, s) => `${f},${s}`),
-      //     constituent_list: constituent_list.reduce((f, s) => `${f},${s}`)
-      //     }})
-      //     .then((res) => {
-      //         console.log(res.data)
-      //     })
-      //     .catch((error) => {
-      //         console.error(error);
-      //     });
     },
     preProcessDatabase() {
       const path = `${process.env.VUE_APP_BASE_URL}/database/process`;
@@ -900,15 +855,6 @@ export default {
     },
     predict() {
       const path = `${process.env.VUE_APP_BASE_URL}/predict`;
-      // console.log(this.composedSoS)
-      // let constituents_elements = this.composedSoS.map(constituent => {return constituent.constituent_name})
-      // console.log(constituents_elements)
-      // let constituents_elements = this.composedSoS[0].toString()
-      // for (let i=1; i < this.composedSoS.length - 1; i++){
-      //     constituents_elements.concat(',',this.composedSoS[i])
-      // }
-      // constituents_elements.concat(',',this.composedSoS[this.composedSoS.length])
-      // console.log(constituents_elements)
       let payload = {
         constituent_list: this.composedSoS,
       };
