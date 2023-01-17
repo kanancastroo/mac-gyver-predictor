@@ -23,6 +23,7 @@ def register():
 
 
 @app.route('/login/', methods=('POST',))
+@cross_origin()
 def login():
     data = request.get_json()
     user = User.User.authenticate(**data)
