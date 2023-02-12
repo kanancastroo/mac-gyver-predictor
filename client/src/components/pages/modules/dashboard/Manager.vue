@@ -2467,6 +2467,7 @@ export default {
     // max-height: calc(100vh - 180px);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     #{$self}__title {
       background-color: #373640;
