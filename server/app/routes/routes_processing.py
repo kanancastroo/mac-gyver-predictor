@@ -178,6 +178,8 @@ def MLSMOTE(X,y, n_sample):
 def processDatabase():
     try:
         print('Starting process...')
+        print('Cleaning session...')
+        K.clear_session()
 
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
@@ -521,6 +523,8 @@ def predict():
             return jsons.dump(self) 
     try:
         print('Starting process...')
+        print('Cleaning session...')
+        K.clear_session()
 
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
