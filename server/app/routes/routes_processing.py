@@ -194,7 +194,7 @@ def processDatabase():
                 df = pd.read_sql(query, con = con)
 
         print('Dataset sucessfuly read from db. Initiating pre-process...') 
-
+        # df.to_csv('D:/df_from_db.csv')
         df.columns=['Constituent', 'Emergent Behavior']
 
         compose_dataset = pd.DataFrame()
@@ -264,7 +264,7 @@ def processDatabase():
         print('Dataset pre-processed sucessfuly.')
         # print(type(working_deep_learning_base_dataset))
         # print(working_deep_learning_base_dataset)
-
+        # working_deep_learning_base_dataset.to_csv('D:/working_deep_learning_base_dataset.csv')
         print('Starting main process...')
         
         df = pd.DataFrame(working_deep_learning_base_dataset['Constituents'].map(str))

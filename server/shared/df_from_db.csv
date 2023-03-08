@@ -1,0 +1,1612 @@
+,constituent,emergent_behavior
+0,Storage Agent,load-generation balance
+1,Battery storages,load-generation balance
+2,Storage Agent,load-generation balance
+3,Battery storages,load-generation balance
+4,Battery storages,load-generation balance
+5,Battery storages,load-generation balance
+6,Battery storages,load-generation balance
+7,Electric Load,load-generation balance
+8,Building Management System (BMS),load-generation balance
+9,Heating/Ventilation and Air-Conditioning system (HVAC),load-generation balance
+10,Building Management System (BMS),load-generation balance
+11,smart home applications utilizing IoT technologies,load-generation balance
+12,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),load-generation balance
+13,Heating/Ventilation and Air-Conditioning system (HVAC),load-generation balance
+14,one heating system,load-generation balance
+15,distributed traffic lights network,load-generation balance
+16,distributed traffic lights network,load-generation balance
+17,Storage Agent,supply power to homes even in the event of an electric grid outage
+18,Battery storages,supply power to homes even in the event of an electric grid outage
+19,Storage Agent,supply power to homes even in the event of an electric grid outage
+20,Battery storages,supply power to homes even in the event of an electric grid outage
+21,Battery storages,supply power to homes even in the event of an electric grid outage
+22,Battery storages,supply power to homes even in the event of an electric grid outage
+23,Battery storages,supply power to homes even in the event of an electric grid outage
+24,Electric Load,supply power to homes even in the event of an electric grid outage
+25,Building Management System (BMS),supply power to homes even in the event of an electric grid outage
+26,Heating/Ventilation and Air-Conditioning system (HVAC),supply power to homes even in the event of an electric grid outage
+27,Building Management System (BMS),supply power to homes even in the event of an electric grid outage
+28,smart home applications utilizing IoT technologies,supply power to homes even in the event of an electric grid outage
+29,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),supply power to homes even in the event of an electric grid outage
+30,Heating/Ventilation and Air-Conditioning system (HVAC),supply power to homes even in the event of an electric grid outage
+31,one heating system,supply power to homes even in the event of an electric grid outage
+32,distributed traffic lights network,supply power to homes even in the event of an electric grid outage
+33,distributed traffic lights network,supply power to homes even in the event of an electric grid outage
+34,Storage Agent,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+35,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+36,Storage Agent,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+37,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+38,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+39,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+40,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+41,Electric Load,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+42,Building Management System (BMS),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+43,Heating/Ventilation and Air-Conditioning system (HVAC),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+44,Building Management System (BMS),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+45,smart home applications utilizing IoT technologies,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+46,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+47,Heating/Ventilation and Air-Conditioning system (HVAC),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+48,one heating system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+49,distributed traffic lights network,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+50,distributed traffic lights network,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+51,Storage Agent,minimize the average vehicle waiting time in the network
+52,Battery storages,minimize the average vehicle waiting time in the network
+53,Storage Agent,minimize the average vehicle waiting time in the network
+54,Battery storages,minimize the average vehicle waiting time in the network
+55,Battery storages,minimize the average vehicle waiting time in the network
+56,Battery storages,minimize the average vehicle waiting time in the network
+57,Battery storages,minimize the average vehicle waiting time in the network
+58,Electric Load,minimize the average vehicle waiting time in the network
+59,Building Management System (BMS),minimize the average vehicle waiting time in the network
+60,Heating/Ventilation and Air-Conditioning system (HVAC),minimize the average vehicle waiting time in the network
+61,Building Management System (BMS),minimize the average vehicle waiting time in the network
+62,smart home applications utilizing IoT technologies,minimize the average vehicle waiting time in the network
+63,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),minimize the average vehicle waiting time in the network
+64,Heating/Ventilation and Air-Conditioning system (HVAC),minimize the average vehicle waiting time in the network
+65,one heating system,minimize the average vehicle waiting time in the network
+66,distributed traffic lights network,minimize the average vehicle waiting time in the network
+67,distributed traffic lights network,minimize the average vehicle waiting time in the network
+68,Storage Agent,"north-to-south, red-to-green transition times"
+69,Battery storages,"north-to-south, red-to-green transition times"
+70,Storage Agent,"north-to-south, red-to-green transition times"
+71,Battery storages,"north-to-south, red-to-green transition times"
+72,Battery storages,"north-to-south, red-to-green transition times"
+73,Battery storages,"north-to-south, red-to-green transition times"
+74,Battery storages,"north-to-south, red-to-green transition times"
+75,Electric Load,"north-to-south, red-to-green transition times"
+76,Building Management System (BMS),"north-to-south, red-to-green transition times"
+77,Heating/Ventilation and Air-Conditioning system (HVAC),"north-to-south, red-to-green transition times"
+78,Building Management System (BMS),"north-to-south, red-to-green transition times"
+79,smart home applications utilizing IoT technologies,"north-to-south, red-to-green transition times"
+80,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),"north-to-south, red-to-green transition times"
+81,Heating/Ventilation and Air-Conditioning system (HVAC),"north-to-south, red-to-green transition times"
+82,one heating system,"north-to-south, red-to-green transition times"
+83,distributed traffic lights network,"north-to-south, red-to-green transition times"
+84,distributed traffic lights network,"north-to-south, red-to-green transition times"
+85,Storage Agent,avoid many simultaneous charging cycles
+86,Battery storages,avoid many simultaneous charging cycles
+87,Storage Agent,avoid many simultaneous charging cycles
+88,Battery storages,avoid many simultaneous charging cycles
+89,Battery storages,avoid many simultaneous charging cycles
+90,Battery storages,avoid many simultaneous charging cycles
+91,Battery storages,avoid many simultaneous charging cycles
+92,Electric Load,avoid many simultaneous charging cycles
+93,Building Management System (BMS),avoid many simultaneous charging cycles
+94,Heating/Ventilation and Air-Conditioning system (HVAC),avoid many simultaneous charging cycles
+95,Building Management System (BMS),avoid many simultaneous charging cycles
+96,smart home applications utilizing IoT technologies,avoid many simultaneous charging cycles
+97,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),avoid many simultaneous charging cycles
+98,Heating/Ventilation and Air-Conditioning system (HVAC),avoid many simultaneous charging cycles
+99,one heating system,avoid many simultaneous charging cycles
+100,distributed traffic lights network,avoid many simultaneous charging cycles
+101,distributed traffic lights network,avoid many simultaneous charging cycles
+102,Storage Agent,minimum peak loads emerging
+103,Battery storages,minimum peak loads emerging
+104,Storage Agent,minimum peak loads emerging
+105,Battery storages,minimum peak loads emerging
+106,Battery storages,minimum peak loads emerging
+107,Battery storages,minimum peak loads emerging
+108,Battery storages,minimum peak loads emerging
+109,Electric Load,minimum peak loads emerging
+110,Building Management System (BMS),minimum peak loads emerging
+111,Heating/Ventilation and Air-Conditioning system (HVAC),minimum peak loads emerging
+112,Building Management System (BMS),minimum peak loads emerging
+113,smart home applications utilizing IoT technologies,minimum peak loads emerging
+114,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),minimum peak loads emerging
+115,Heating/Ventilation and Air-Conditioning system (HVAC),minimum peak loads emerging
+116,one heating system,minimum peak loads emerging
+117,distributed traffic lights network,minimum peak loads emerging
+118,distributed traffic lights network,minimum peak loads emerging
+119,Storage Agent,cost limits are not exceeded
+120,Battery storages,cost limits are not exceeded
+121,Storage Agent,cost limits are not exceeded
+122,Battery storages,cost limits are not exceeded
+123,Battery storages,cost limits are not exceeded
+124,Battery storages,cost limits are not exceeded
+125,Battery storages,cost limits are not exceeded
+126,Electric Load,cost limits are not exceeded
+127,Building Management System (BMS),cost limits are not exceeded
+128,Heating/Ventilation and Air-Conditioning system (HVAC),cost limits are not exceeded
+129,Building Management System (BMS),cost limits are not exceeded
+130,smart home applications utilizing IoT technologies,cost limits are not exceeded
+131,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),cost limits are not exceeded
+132,Heating/Ventilation and Air-Conditioning system (HVAC),cost limits are not exceeded
+133,one heating system,cost limits are not exceeded
+134,distributed traffic lights network,cost limits are not exceeded
+135,distributed traffic lights network,cost limits are not exceeded
+136,Storage Agent,balance between energy production and consumption
+137,Battery storages,balance between energy production and consumption
+138,Storage Agent,balance between energy production and consumption
+139,Battery storages,balance between energy production and consumption
+140,Battery storages,balance between energy production and consumption
+141,Battery storages,balance between energy production and consumption
+142,Battery storages,balance between energy production and consumption
+143,Electric Load,balance between energy production and consumption
+144,Building Management System (BMS),balance between energy production and consumption
+145,Heating/Ventilation and Air-Conditioning system (HVAC),balance between energy production and consumption
+146,Building Management System (BMS),balance between energy production and consumption
+147,smart home applications utilizing IoT technologies,balance between energy production and consumption
+148,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),balance between energy production and consumption
+149,Heating/Ventilation and Air-Conditioning system (HVAC),balance between energy production and consumption
+150,one heating system,balance between energy production and consumption
+151,distributed traffic lights network,balance between energy production and consumption
+152,distributed traffic lights network,balance between energy production and consumption
+153,Storage Agent,optimise energy usage in a range of weather conditions
+154,Battery storages,optimise energy usage in a range of weather conditions
+155,Storage Agent,optimise energy usage in a range of weather conditions
+156,Battery storages,optimise energy usage in a range of weather conditions
+157,Battery storages,optimise energy usage in a range of weather conditions
+158,Battery storages,optimise energy usage in a range of weather conditions
+159,Battery storages,optimise energy usage in a range of weather conditions
+160,Electric Load,optimise energy usage in a range of weather conditions
+161,Building Management System (BMS),optimise energy usage in a range of weather conditions
+162,Heating/Ventilation and Air-Conditioning system (HVAC),optimise energy usage in a range of weather conditions
+163,Building Management System (BMS),optimise energy usage in a range of weather conditions
+164,smart home applications utilizing IoT technologies,optimise energy usage in a range of weather conditions
+165,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),optimise energy usage in a range of weather conditions
+166,Heating/Ventilation and Air-Conditioning system (HVAC),optimise energy usage in a range of weather conditions
+167,one heating system,optimise energy usage in a range of weather conditions
+168,distributed traffic lights network,optimise energy usage in a range of weather conditions
+169,distributed traffic lights network,optimise energy usage in a range of weather conditions
+170,Storage Agent,promote to use a VPP from a new electricity production cost policy
+171,Battery storages,promote to use a VPP from a new electricity production cost policy
+172,Storage Agent,promote to use a VPP from a new electricity production cost policy
+173,Battery storages,promote to use a VPP from a new electricity production cost policy
+174,Battery storages,promote to use a VPP from a new electricity production cost policy
+175,Battery storages,promote to use a VPP from a new electricity production cost policy
+176,Battery storages,promote to use a VPP from a new electricity production cost policy
+177,Electric Load,promote to use a VPP from a new electricity production cost policy
+178,Building Management System (BMS),promote to use a VPP from a new electricity production cost policy
+179,Heating/Ventilation and Air-Conditioning system (HVAC),promote to use a VPP from a new electricity production cost policy
+180,Building Management System (BMS),promote to use a VPP from a new electricity production cost policy
+181,smart home applications utilizing IoT technologies,promote to use a VPP from a new electricity production cost policy
+182,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),promote to use a VPP from a new electricity production cost policy
+183,Heating/Ventilation and Air-Conditioning system (HVAC),promote to use a VPP from a new electricity production cost policy
+184,one heating system,promote to use a VPP from a new electricity production cost policy
+185,distributed traffic lights network,promote to use a VPP from a new electricity production cost policy
+186,distributed traffic lights network,promote to use a VPP from a new electricity production cost policy
+187,Storage Agent,cluster together into local energy collectives
+188,Battery storages,cluster together into local energy collectives
+189,Storage Agent,cluster together into local energy collectives
+190,Battery storages,cluster together into local energy collectives
+191,Battery storages,cluster together into local energy collectives
+192,Battery storages,cluster together into local energy collectives
+193,Battery storages,cluster together into local energy collectives
+194,Electric Load,cluster together into local energy collectives
+195,Building Management System (BMS),cluster together into local energy collectives
+196,Heating/Ventilation and Air-Conditioning system (HVAC),cluster together into local energy collectives
+197,Building Management System (BMS),cluster together into local energy collectives
+198,smart home applications utilizing IoT technologies,cluster together into local energy collectives
+199,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),cluster together into local energy collectives
+200,Heating/Ventilation and Air-Conditioning system (HVAC),cluster together into local energy collectives
+201,one heating system,cluster together into local energy collectives
+202,distributed traffic lights network,cluster together into local energy collectives
+203,distributed traffic lights network,cluster together into local energy collectives
+204,Storage Agent,market mechanisms
+205,Battery storages,market mechanisms
+206,Storage Agent,market mechanisms
+207,Battery storages,market mechanisms
+208,Battery storages,market mechanisms
+209,Battery storages,market mechanisms
+210,Battery storages,market mechanisms
+211,Electric Load,market mechanisms
+212,Building Management System (BMS),market mechanisms
+213,Heating/Ventilation and Air-Conditioning system (HVAC),market mechanisms
+214,Building Management System (BMS),market mechanisms
+215,smart home applications utilizing IoT technologies,market mechanisms
+216,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),market mechanisms
+217,Heating/Ventilation and Air-Conditioning system (HVAC),market mechanisms
+218,one heating system,market mechanisms
+219,distributed traffic lights network,market mechanisms
+220,distributed traffic lights network,market mechanisms
+221,Storage Agent,peak optimization
+222,Battery storages,peak optimization
+223,Storage Agent,peak optimization
+224,Battery storages,peak optimization
+225,Battery storages,peak optimization
+226,Battery storages,peak optimization
+227,Battery storages,peak optimization
+228,Electric Load,peak optimization
+229,Building Management System (BMS),peak optimization
+230,Heating/Ventilation and Air-Conditioning system (HVAC),peak optimization
+231,Building Management System (BMS),peak optimization
+232,smart home applications utilizing IoT technologies,peak optimization
+233,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),peak optimization
+234,Heating/Ventilation and Air-Conditioning system (HVAC),peak optimization
+235,one heating system,peak optimization
+236,distributed traffic lights network,peak optimization
+237,distributed traffic lights network,peak optimization
+238,Storage Agent,distributed negotiations between groups
+239,Battery storages,distributed negotiations between groups
+240,Storage Agent,distributed negotiations between groups
+241,Battery storages,distributed negotiations between groups
+242,Battery storages,distributed negotiations between groups
+243,Battery storages,distributed negotiations between groups
+244,Battery storages,distributed negotiations between groups
+245,Electric Load,distributed negotiations between groups
+246,Building Management System (BMS),distributed negotiations between groups
+247,Heating/Ventilation and Air-Conditioning system (HVAC),distributed negotiations between groups
+248,Building Management System (BMS),distributed negotiations between groups
+249,smart home applications utilizing IoT technologies,distributed negotiations between groups
+250,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),distributed negotiations between groups
+251,Heating/Ventilation and Air-Conditioning system (HVAC),distributed negotiations between groups
+252,one heating system,distributed negotiations between groups
+253,distributed traffic lights network,distributed negotiations between groups
+254,distributed traffic lights network,distributed negotiations between groups
+255,Storage Agent,optimizations of the decisions of the Smart Grid given the best control design
+256,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+257,Storage Agent,optimizations of the decisions of the Smart Grid given the best control design
+258,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+259,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+260,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+261,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+262,Electric Load,optimizations of the decisions of the Smart Grid given the best control design
+263,Building Management System (BMS),optimizations of the decisions of the Smart Grid given the best control design
+264,Heating/Ventilation and Air-Conditioning system (HVAC),optimizations of the decisions of the Smart Grid given the best control design
+265,Building Management System (BMS),optimizations of the decisions of the Smart Grid given the best control design
+266,smart home applications utilizing IoT technologies,optimizations of the decisions of the Smart Grid given the best control design
+267,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),optimizations of the decisions of the Smart Grid given the best control design
+268,Heating/Ventilation and Air-Conditioning system (HVAC),optimizations of the decisions of the Smart Grid given the best control design
+269,one heating system,optimizations of the decisions of the Smart Grid given the best control design
+270,distributed traffic lights network,optimizations of the decisions of the Smart Grid given the best control design
+271,distributed traffic lights network,optimizations of the decisions of the Smart Grid given the best control design
+272,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+273,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+274,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+275,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+276,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+277,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+278,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+279,Electric Load,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+280,Building Management System (BMS),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+281,Heating/Ventilation and Air-Conditioning system (HVAC),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+282,Building Management System (BMS),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+283,smart home applications utilizing IoT technologies,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+284,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+285,Heating/Ventilation and Air-Conditioning system (HVAC),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+286,one heating system,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+287,distributed traffic lights network,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+288,distributed traffic lights network,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+289,Storage Agent,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+290,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+291,Storage Agent,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+292,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+293,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+294,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+295,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+296,Electric Load,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+297,Building Management System (BMS),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+298,Heating/Ventilation and Air-Conditioning system (HVAC),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+299,Building Management System (BMS),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+300,smart home applications utilizing IoT technologies,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+301,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+302,Heating/Ventilation and Air-Conditioning system (HVAC),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+303,one heating system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+304,distributed traffic lights network,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+305,distributed traffic lights network,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+306,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+307,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+308,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+309,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+310,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+311,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+312,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+313,Electric Load,agents perform different functions based on their unique advantages relative to other agents postdisruption
+314,Building Management System (BMS),agents perform different functions based on their unique advantages relative to other agents postdisruption
+315,Heating/Ventilation and Air-Conditioning system (HVAC),agents perform different functions based on their unique advantages relative to other agents postdisruption
+316,Building Management System (BMS),agents perform different functions based on their unique advantages relative to other agents postdisruption
+317,smart home applications utilizing IoT technologies,agents perform different functions based on their unique advantages relative to other agents postdisruption
+318,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),agents perform different functions based on their unique advantages relative to other agents postdisruption
+319,Heating/Ventilation and Air-Conditioning system (HVAC),agents perform different functions based on their unique advantages relative to other agents postdisruption
+320,one heating system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+321,distributed traffic lights network,agents perform different functions based on their unique advantages relative to other agents postdisruption
+322,distributed traffic lights network,agents perform different functions based on their unique advantages relative to other agents postdisruption
+323,Storage Agent,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+324,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+325,Storage Agent,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+326,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+327,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+328,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+329,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+330,Electric Load,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+331,Building Management System (BMS),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+332,Heating/Ventilation and Air-Conditioning system (HVAC),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+333,Building Management System (BMS),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+334,smart home applications utilizing IoT technologies,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+335,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+336,Heating/Ventilation and Air-Conditioning system (HVAC),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+337,one heating system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+338,distributed traffic lights network,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+339,distributed traffic lights network,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+340,Storage Agent,Negotiation and collaboration for resource allocation and demand efficiency
+341,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+342,Storage Agent,Negotiation and collaboration for resource allocation and demand efficiency
+343,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+344,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+345,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+346,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+347,Electric Load,Negotiation and collaboration for resource allocation and demand efficiency
+348,Building Management System (BMS),Negotiation and collaboration for resource allocation and demand efficiency
+349,Heating/Ventilation and Air-Conditioning system (HVAC),Negotiation and collaboration for resource allocation and demand efficiency
+350,Building Management System (BMS),Negotiation and collaboration for resource allocation and demand efficiency
+351,smart home applications utilizing IoT technologies,Negotiation and collaboration for resource allocation and demand efficiency
+352,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),Negotiation and collaboration for resource allocation and demand efficiency
+353,Heating/Ventilation and Air-Conditioning system (HVAC),Negotiation and collaboration for resource allocation and demand efficiency
+354,one heating system,Negotiation and collaboration for resource allocation and demand efficiency
+355,distributed traffic lights network,Negotiation and collaboration for resource allocation and demand efficiency
+356,distributed traffic lights network,Negotiation and collaboration for resource allocation and demand efficiency
+357,Storage Agent,Resolution of potencial conflicts
+358,Battery storages,Resolution of potencial conflicts
+359,Storage Agent,Resolution of potencial conflicts
+360,Battery storages,Resolution of potencial conflicts
+361,Battery storages,Resolution of potencial conflicts
+362,Battery storages,Resolution of potencial conflicts
+363,Battery storages,Resolution of potencial conflicts
+364,Electric Load,Resolution of potencial conflicts
+365,Building Management System (BMS),Resolution of potencial conflicts
+366,Heating/Ventilation and Air-Conditioning system (HVAC),Resolution of potencial conflicts
+367,Building Management System (BMS),Resolution of potencial conflicts
+368,smart home applications utilizing IoT technologies,Resolution of potencial conflicts
+369,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),Resolution of potencial conflicts
+370,Heating/Ventilation and Air-Conditioning system (HVAC),Resolution of potencial conflicts
+371,one heating system,Resolution of potencial conflicts
+372,distributed traffic lights network,Resolution of potencial conflicts
+373,distributed traffic lights network,Resolution of potencial conflicts
+374,Electric Load,supply power power to the electric load
+375,Electric Load,supply power power to the electric load
+376,Population survey data,supply power power to the electric load
+377,Electric Load,load-generation balance
+378,Electric Load,load-generation balance
+379,Population survey data,load-generation balance
+380,Commercial Greenhouse Growers (CGGs),Negotiation and collaboration for resource allocation and demand efficiency
+381,Commercial Greenhouse Growers (CGGs),Negotiation and collaboration for resource allocation and demand efficiency
+382,Commercial Greenhouse Growers (CGGs),Negotiation and collaboration for resource allocation and demand efficiency
+383,Commercial Greenhouse Growers (CGGs),Negotiation and collaboration for resource allocation and demand efficiency
+384,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Negotiation and collaboration for resource allocation and demand efficiency
+385,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Negotiation and collaboration for resource allocation and demand efficiency
+386,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Negotiation and collaboration for resource allocation and demand efficiency
+387,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Negotiation and collaboration for resource allocation and demand efficiency
+388,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Negotiation and collaboration for resource allocation and demand efficiency
+389,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Negotiation and collaboration for resource allocation and demand efficiency
+390,Commercial Greenhouse Growers (CGGs),Resolution of potencial conflicts
+391,Commercial Greenhouse Growers (CGGs),Resolution of potencial conflicts
+392,Commercial Greenhouse Growers (CGGs),Resolution of potencial conflicts
+393,Commercial Greenhouse Growers (CGGs),Resolution of potencial conflicts
+394,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Resolution of potencial conflicts
+395,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Resolution of potencial conflicts
+396,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Resolution of potencial conflicts
+397,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Resolution of potencial conflicts
+398,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Resolution of potencial conflicts
+399,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,Resolution of potencial conflicts
+400,Transportation system (prosumer),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+401,Oil & gas supply sytem (prosumer),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+402,Water supply system (prosumer),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+403,Smart Grid CS,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+404,(Prosumers) Households with Photovoltaic cells and wind turbines,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+405,Transportation system (prosumer),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+406,Oil & gas supply sytem (prosumer),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+407,Water supply system (prosumer),system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+408,Smart Grid CS,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+409,(Prosumers) Households with Photovoltaic cells and wind turbines,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+410,provider of raw material,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+411,provider of raw material,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+412,Transportation system (prosumer),agents perform different functions based on their unique advantages relative to other agents postdisruption
+413,Oil & gas supply sytem (prosumer),agents perform different functions based on their unique advantages relative to other agents postdisruption
+414,Water supply system (prosumer),agents perform different functions based on their unique advantages relative to other agents postdisruption
+415,Smart Grid CS,agents perform different functions based on their unique advantages relative to other agents postdisruption
+416,(Prosumers) Households with Photovoltaic cells and wind turbines,agents perform different functions based on their unique advantages relative to other agents postdisruption
+417,Transportation system (prosumer),agents perform different functions based on their unique advantages relative to other agents postdisruption
+418,Oil & gas supply sytem (prosumer),agents perform different functions based on their unique advantages relative to other agents postdisruption
+419,Water supply system (prosumer),agents perform different functions based on their unique advantages relative to other agents postdisruption
+420,Smart Grid CS,agents perform different functions based on their unique advantages relative to other agents postdisruption
+421,(Prosumers) Households with Photovoltaic cells and wind turbines,agents perform different functions based on their unique advantages relative to other agents postdisruption
+422,provider of raw material,agents perform different functions based on their unique advantages relative to other agents postdisruption
+423,provider of raw material,agents perform different functions based on their unique advantages relative to other agents postdisruption
+424,Transportation system (prosumer),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+425,Oil & gas supply sytem (prosumer),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+426,Water supply system (prosumer),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+427,Smart Grid CS,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+428,(Prosumers) Households with Photovoltaic cells and wind turbines,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+429,Transportation system (prosumer),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+430,Oil & gas supply sytem (prosumer),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+431,Water supply system (prosumer),"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+432,Smart Grid CS,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+433,(Prosumers) Households with Photovoltaic cells and wind turbines,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+434,provider of raw material,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+435,provider of raw material,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+436,smart home applications utilizing IoT technologies,Different responses according to different demand/response schemes (price-based)
+437,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),Different responses according to different demand/response schemes (price-based)
+438,Heating/Ventilation and Air-Conditioning system (HVAC),Different responses according to different demand/response schemes (price-based)
+439,one heating system,Different responses according to different demand/response schemes (price-based)
+440,Central controller,Different responses according to different demand/response schemes (price-based)
+441,Central controller,Different responses according to different demand/response schemes (price-based)
+442,Building Management System (BMS),decision about the best control design of the Smart Grid
+443,Diesel Generator Agent,decision about the best control design of the Smart Grid
+444,Smart Grid CS,decision about the best control design of the Smart Grid
+445,Smart Grid CS,decision about the best control design of the Smart Grid
+446,Smart Grid CS,decision about the best control design of the Smart Grid
+447,Sensors,decision about the best control design of the Smart Grid
+448,Central controller,decision about the best control design of the Smart Grid
+449,Photovoltaic System,decision about the best control design of the Smart Grid
+450,Wind Energy system,decision about the best control design of the Smart Grid
+451,Diesel Generator Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+452,Transfer Switch,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+453,Transfer Switch,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+454,Storage Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+455,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+456,Storage Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+457,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+458,IT Servers,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+459,Thermal Storage Device (TES),to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+460,Cooling System,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+461,Cooling System,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+462,Cooling System,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+463,Power Distribution Unit (PDU),to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+464,Wind Energy system,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+465,Diesel Generator Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+466,Transfer Switch,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+467,Transfer Switch,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+468,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+469,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+470,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+471,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+472,IT Servers,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+473,Thermal Storage Device (TES),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+474,Cooling System,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+475,Cooling System,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+476,Cooling System,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+477,Power Distribution Unit (PDU),"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+478,Wind Energy system,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+479,Building Management System (BMS),optimizations of the decisions of the Smart Grid given the best control design
+480,Diesel Generator Agent,optimizations of the decisions of the Smart Grid given the best control design
+481,Smart Grid CS,optimizations of the decisions of the Smart Grid given the best control design
+482,Smart Grid CS,optimizations of the decisions of the Smart Grid given the best control design
+483,Smart Grid CS,optimizations of the decisions of the Smart Grid given the best control design
+484,Sensors,optimizations of the decisions of the Smart Grid given the best control design
+485,Central controller,optimizations of the decisions of the Smart Grid given the best control design
+486,Photovoltaic System,optimizations of the decisions of the Smart Grid given the best control design
+487,Wind Energy system,optimizations of the decisions of the Smart Grid given the best control design
+488,Market Agent,distributed negotiations between groups
+489,Storage Agent,distributed negotiations between groups
+490,Optimizer Agent,distributed negotiations between groups
+491,Group (Representative) Agent - collectives,distributed negotiations between groups
+492,(Prosumers) Households with Photovoltaic cells and wind turbines,distributed negotiations between groups
+493,Group (Representative) Agent - collectives,distributed negotiations between groups
+494,Group (Representative) Agent - collectives,distributed negotiations between groups
+495,Group (Representative) Agent - collectives,distributed negotiations between groups
+496,Group (Representative) Agent - collectives,distributed negotiations between groups
+497,Group (Representative) Agent - collectives,distributed negotiations between groups
+498,Group (Representative) Agent - collectives,distributed negotiations between groups
+499,Group (Representative) Agent - collectives,distributed negotiations between groups
+500,Group (Representative) Agent - collectives,distributed negotiations between groups
+501,Service providers,distributed negotiations between groups
+502,Market Agent,energy consumption/production patterns
+503,Storage Agent,energy consumption/production patterns
+504,Optimizer Agent,energy consumption/production patterns
+505,Group (Representative) Agent - collectives,energy consumption/production patterns
+506,(Prosumers) Households with Photovoltaic cells and wind turbines,energy consumption/production patterns
+507,Group (Representative) Agent - collectives,energy consumption/production patterns
+508,Group (Representative) Agent - collectives,energy consumption/production patterns
+509,Group (Representative) Agent - collectives,energy consumption/production patterns
+510,Group (Representative) Agent - collectives,energy consumption/production patterns
+511,Group (Representative) Agent - collectives,energy consumption/production patterns
+512,Group (Representative) Agent - collectives,energy consumption/production patterns
+513,Group (Representative) Agent - collectives,energy consumption/production patterns
+514,Group (Representative) Agent - collectives,energy consumption/production patterns
+515,Service providers,energy consumption/production patterns
+516,Market Agent,demand side management
+517,Storage Agent,demand side management
+518,Optimizer Agent,demand side management
+519,Group (Representative) Agent - collectives,demand side management
+520,(Prosumers) Households with Photovoltaic cells and wind turbines,demand side management
+521,Group (Representative) Agent - collectives,demand side management
+522,Group (Representative) Agent - collectives,demand side management
+523,Group (Representative) Agent - collectives,demand side management
+524,Group (Representative) Agent - collectives,demand side management
+525,Group (Representative) Agent - collectives,demand side management
+526,Group (Representative) Agent - collectives,demand side management
+527,Group (Representative) Agent - collectives,demand side management
+528,Group (Representative) Agent - collectives,demand side management
+529,Service providers,demand side management
+530,Market Agent,peak optimization
+531,Storage Agent,peak optimization
+532,Optimizer Agent,peak optimization
+533,Group (Representative) Agent - collectives,peak optimization
+534,(Prosumers) Households with Photovoltaic cells and wind turbines,peak optimization
+535,Group (Representative) Agent - collectives,peak optimization
+536,Group (Representative) Agent - collectives,peak optimization
+537,Group (Representative) Agent - collectives,peak optimization
+538,Group (Representative) Agent - collectives,peak optimization
+539,Group (Representative) Agent - collectives,peak optimization
+540,Group (Representative) Agent - collectives,peak optimization
+541,Group (Representative) Agent - collectives,peak optimization
+542,Group (Representative) Agent - collectives,peak optimization
+543,Service providers,peak optimization
+544,Market Agent,battery storage models
+545,Storage Agent,battery storage models
+546,Optimizer Agent,battery storage models
+547,Group (Representative) Agent - collectives,battery storage models
+548,(Prosumers) Households with Photovoltaic cells and wind turbines,battery storage models
+549,Group (Representative) Agent - collectives,battery storage models
+550,Group (Representative) Agent - collectives,battery storage models
+551,Group (Representative) Agent - collectives,battery storage models
+552,Group (Representative) Agent - collectives,battery storage models
+553,Group (Representative) Agent - collectives,battery storage models
+554,Group (Representative) Agent - collectives,battery storage models
+555,Group (Representative) Agent - collectives,battery storage models
+556,Group (Representative) Agent - collectives,battery storage models
+557,Service providers,battery storage models
+558,Market Agent,market mechanisms
+559,Storage Agent,market mechanisms
+560,Optimizer Agent,market mechanisms
+561,Group (Representative) Agent - collectives,market mechanisms
+562,(Prosumers) Households with Photovoltaic cells and wind turbines,market mechanisms
+563,Group (Representative) Agent - collectives,market mechanisms
+564,Group (Representative) Agent - collectives,market mechanisms
+565,Group (Representative) Agent - collectives,market mechanisms
+566,Group (Representative) Agent - collectives,market mechanisms
+567,Group (Representative) Agent - collectives,market mechanisms
+568,Group (Representative) Agent - collectives,market mechanisms
+569,Group (Representative) Agent - collectives,market mechanisms
+570,Group (Representative) Agent - collectives,market mechanisms
+571,Service providers,market mechanisms
+572,Group (Representative) Agent - collectives,cluster together into local energy collectives
+573,(Prosumers) Households with Photovoltaic cells and wind turbines,cluster together into local energy collectives
+574,Group (Representative) Agent - collectives,use storage and demand-response techniques
+575,(Prosumers) Households with Photovoltaic cells and wind turbines,use storage and demand-response techniques
+576,Group (Representative) Agent - collectives,balance energy consumption and production
+577,(Prosumers) Households with Photovoltaic cells and wind turbines,balance energy consumption and production
+578,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+579,(Prosumers) Households with Photovoltaic cells and wind turbines,deploy batteries in different ways depending on the behaviour of their members
+580,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+581,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+582,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+583,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+584,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+585,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+586,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+587,Group (Representative) Agent - collectives,deploy batteries in different ways depending on the behaviour of their members
+588,Smart Grid CS,promote to use a VPP from a new electricity production cost policy
+589,Smart Grid CS,promote to use a VPP from a new electricity production cost policy
+590,Smart Grid CS,promote to use a VPP from a new electricity production cost policy
+591,Smart Grid CS,promote to use a VPP from a new electricity production cost policy
+592,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,promote to use a VPP from a new electricity production cost policy
+593,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,promote to use a VPP from a new electricity production cost policy
+594,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,promote to use a VPP from a new electricity production cost policy
+595,Virtual Power Plant (VPP) - Generator units/Controllable loads/Storage systems,promote to use a VPP from a new electricity production cost policy
+596,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+597,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+598,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+599,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+600,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+601,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+602,one heating system,optimise energy usage in a range of weather conditions
+603,one heating system,optimise energy usage in a range of weather conditions
+604,one home automation system,optimise energy usage in a range of weather conditions
+605,one vehicle parking system,optimise energy usage in a range of weather conditions
+606,one vehicle parking system,optimise energy usage in a range of weather conditions
+607,electric vehicles,Optimize the overall charging behavior
+608,electric vehicles,avoid many simultaneous charging cycles
+609,electric vehicles,minimum peak loads emerging
+610,electric vehicles,cost limits are not exceeded
+611,smart home applications utilizing IoT technologies,Optimize the overall charging behavior
+612,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),Optimize the overall charging behavior
+613,Heating/Ventilation and Air-Conditioning system (HVAC),Optimize the overall charging behavior
+614,one heating system,Optimize the overall charging behavior
+615,smart home applications utilizing IoT technologies,avoid many simultaneous charging cycles
+616,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),avoid many simultaneous charging cycles
+617,Heating/Ventilation and Air-Conditioning system (HVAC),avoid many simultaneous charging cycles
+618,one heating system,avoid many simultaneous charging cycles
+619,smart home applications utilizing IoT technologies,minimum peak loads emerging
+620,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),minimum peak loads emerging
+621,Heating/Ventilation and Air-Conditioning system (HVAC),minimum peak loads emerging
+622,one heating system,minimum peak loads emerging
+623,smart home applications utilizing IoT technologies,cost limits are not exceeded
+624,Electric Appliances (lights/refrigerators/freezers/washers/dyers/water heaters/baseload),cost limits are not exceeded
+625,Heating/Ventilation and Air-Conditioning system (HVAC),cost limits are not exceeded
+626,one heating system,cost limits are not exceeded
+627,Photovoltaic System,balance between energy production and consumption
+628,Photovoltaic System,grid stability
+629,electric vehicles,balance between energy production and consumption
+630,electric vehicles,grid stability
+631,Photovoltaic System,balance between energy production and consumption
+632,electric vehicles,balance between energy production and consumption
+633,Photovoltaic System,grid stability
+634,electric vehicles,grid stability
+635,electric vehicles,balance between energy production and consumption
+636,electric vehicles,grid stability
+637,electric vehicles,balance between energy production and consumption
+638,electric vehicles,grid stability
+639,Photovoltaic System,balance between energy production and consumption
+640,electric vehicles,balance between energy production and consumption
+641,Photovoltaic System,grid stability
+642,electric vehicles,grid stability
+643,Electric Load,load-generation balance
+644,Photovoltaic System,load-generation balance
+645,Wind Energy system,load-generation balance
+646,Battery storages,control the battery and enhance the operation of the system
+647,Battery storages,control the battery and enhance the operation of the system
+648,Battery storages,control the battery and enhance the operation of the system
+649,Electric Load,control the battery and enhance the operation of the system
+650,Photovoltaic System,control the battery and enhance the operation of the system
+651,Wind Energy system,control the battery and enhance the operation of the system
+652,charging station for electric vehicles,control the battery and enhance the operation of the system
+653,(Prosumers) Households with Photovoltaic cells and wind turbines,control the battery and enhance the operation of the system
+654,Transformer,control the battery and enhance the operation of the system
+655,Transmission line,control the battery and enhance the operation of the system
+656,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+657,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+658,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+659,Electric Load,decrease the power consumption from power utility by using available energy from the solar panels
+660,Photovoltaic System,decrease the power consumption from power utility by using available energy from the solar panels
+661,Wind Energy system,decrease the power consumption from power utility by using available energy from the solar panels
+662,charging station for electric vehicles,decrease the power consumption from power utility by using available energy from the solar panels
+663,(Prosumers) Households with Photovoltaic cells and wind turbines,decrease the power consumption from power utility by using available energy from the solar panels
+664,Transformer,decrease the power consumption from power utility by using available energy from the solar panels
+665,Transmission line,decrease the power consumption from power utility by using available energy from the solar panels
+666,Battery storages,supply power power to the electric load
+667,Battery storages,supply power power to the electric load
+668,Battery storages,supply power power to the electric load
+669,Electric Load,supply power power to the electric load
+670,Photovoltaic System,supply power power to the electric load
+671,Wind Energy system,supply power power to the electric load
+672,charging station for electric vehicles,supply power power to the electric load
+673,(Prosumers) Households with Photovoltaic cells and wind turbines,supply power power to the electric load
+674,Transformer,supply power power to the electric load
+675,Transmission line,supply power power to the electric load
+676,Battery storages,supply power to homes even in the event of an electric grid outage
+677,Battery storages,supply power to homes even in the event of an electric grid outage
+678,Battery storages,supply power to homes even in the event of an electric grid outage
+679,Electric Load,supply power to homes even in the event of an electric grid outage
+680,Photovoltaic System,supply power to homes even in the event of an electric grid outage
+681,Wind Energy system,supply power to homes even in the event of an electric grid outage
+682,charging station for electric vehicles,supply power to homes even in the event of an electric grid outage
+683,(Prosumers) Households with Photovoltaic cells and wind turbines,supply power to homes even in the event of an electric grid outage
+684,Transformer,supply power to homes even in the event of an electric grid outage
+685,Transmission line,supply power to homes even in the event of an electric grid outage
+686,Heating/Ventilation and Air-Conditioning system (HVAC),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+687,Building Management System (BMS),to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+688,Lighting CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+689,Smart Grid CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+690,Smart Grid CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+691,Audiovisual Management CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+692,Online Scheduling CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+693,Online Scheduling CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+694,Fire Detection CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+695,Fire Detection CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+696,Security Surveillance CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+697,Security Surveillance CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+698,Security Surveillance CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+699,Emergency Management CS,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+700,distributed traffic lights network,minimize the average vehicle waiting time in the network
+701,distributed traffic lights network,minimize the local waiting time for vehicles
+702,distributed traffic lights network,"north-to-south, red-to-green transition times"
+703,Storage Agent,supply power power to the electric load
+704,Battery storages,supply power power to the electric load
+705,Storage Agent,supply power power to the electric load
+706,Battery storages,supply power power to the electric load
+707,Battery storages,supply power power to the electric load
+708,Battery storages,supply power power to the electric load
+709,Battery storages,supply power power to the electric load
+710,Electric Load,supply power power to the electric load
+711,Storage Agent,minimize the average vehicle waiting time in the network
+712,Battery storages,minimize the average vehicle waiting time in the network
+713,Storage Agent,minimize the average vehicle waiting time in the network
+714,Battery storages,minimize the average vehicle waiting time in the network
+715,Battery storages,minimize the average vehicle waiting time in the network
+716,Battery storages,minimize the average vehicle waiting time in the network
+717,Battery storages,minimize the average vehicle waiting time in the network
+718,Electric Load,minimize the average vehicle waiting time in the network
+719,Storage Agent,minimum peak loads emerging
+720,Battery storages,minimum peak loads emerging
+721,Storage Agent,minimum peak loads emerging
+722,Battery storages,minimum peak loads emerging
+723,Battery storages,minimum peak loads emerging
+724,Battery storages,minimum peak loads emerging
+725,Battery storages,minimum peak loads emerging
+726,Electric Load,minimum peak loads emerging
+727,Storage Agent,cost limits are not exceeded
+728,Battery storages,cost limits are not exceeded
+729,Storage Agent,cost limits are not exceeded
+730,Battery storages,cost limits are not exceeded
+731,Battery storages,cost limits are not exceeded
+732,Battery storages,cost limits are not exceeded
+733,Battery storages,cost limits are not exceeded
+734,Electric Load,cost limits are not exceeded
+735,Storage Agent,optimise energy usage in a range of weather conditions
+736,Battery storages,optimise energy usage in a range of weather conditions
+737,Storage Agent,optimise energy usage in a range of weather conditions
+738,Battery storages,optimise energy usage in a range of weather conditions
+739,Battery storages,optimise energy usage in a range of weather conditions
+740,Battery storages,optimise energy usage in a range of weather conditions
+741,Battery storages,optimise energy usage in a range of weather conditions
+742,Electric Load,optimise energy usage in a range of weather conditions
+743,Storage Agent,promote to use a VPP from a new electricity production cost policy
+744,Battery storages,promote to use a VPP from a new electricity production cost policy
+745,Storage Agent,promote to use a VPP from a new electricity production cost policy
+746,Battery storages,promote to use a VPP from a new electricity production cost policy
+747,Battery storages,promote to use a VPP from a new electricity production cost policy
+748,Battery storages,promote to use a VPP from a new electricity production cost policy
+749,Battery storages,promote to use a VPP from a new electricity production cost policy
+750,Electric Load,promote to use a VPP from a new electricity production cost policy
+751,Storage Agent,cluster together into local energy collectives
+752,Battery storages,cluster together into local energy collectives
+753,Storage Agent,cluster together into local energy collectives
+754,Battery storages,cluster together into local energy collectives
+755,Battery storages,cluster together into local energy collectives
+756,Battery storages,cluster together into local energy collectives
+757,Battery storages,cluster together into local energy collectives
+758,Electric Load,cluster together into local energy collectives
+759,Storage Agent,balance energy consumption and production
+760,Battery storages,balance energy consumption and production
+761,Storage Agent,balance energy consumption and production
+762,Battery storages,balance energy consumption and production
+763,Battery storages,balance energy consumption and production
+764,Battery storages,balance energy consumption and production
+765,Battery storages,balance energy consumption and production
+766,Electric Load,balance energy consumption and production
+767,Storage Agent,deploy batteries in different ways depending on the behaviour of their members
+768,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+769,Storage Agent,deploy batteries in different ways depending on the behaviour of their members
+770,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+771,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+772,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+773,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+774,Electric Load,deploy batteries in different ways depending on the behaviour of their members
+775,Storage Agent,market mechanisms
+776,Battery storages,market mechanisms
+777,Storage Agent,market mechanisms
+778,Battery storages,market mechanisms
+779,Battery storages,market mechanisms
+780,Battery storages,market mechanisms
+781,Battery storages,market mechanisms
+782,Electric Load,market mechanisms
+783,Storage Agent,battery storage models
+784,Battery storages,battery storage models
+785,Storage Agent,battery storage models
+786,Battery storages,battery storage models
+787,Battery storages,battery storage models
+788,Battery storages,battery storage models
+789,Battery storages,battery storage models
+790,Electric Load,battery storage models
+791,Storage Agent,peak optimization
+792,Battery storages,peak optimization
+793,Storage Agent,peak optimization
+794,Battery storages,peak optimization
+795,Battery storages,peak optimization
+796,Battery storages,peak optimization
+797,Battery storages,peak optimization
+798,Electric Load,peak optimization
+799,Storage Agent,demand side management
+800,Battery storages,demand side management
+801,Storage Agent,demand side management
+802,Battery storages,demand side management
+803,Battery storages,demand side management
+804,Battery storages,demand side management
+805,Battery storages,demand side management
+806,Electric Load,demand side management
+807,Storage Agent,energy consumption/production patterns
+808,Battery storages,energy consumption/production patterns
+809,Storage Agent,energy consumption/production patterns
+810,Battery storages,energy consumption/production patterns
+811,Battery storages,energy consumption/production patterns
+812,Battery storages,energy consumption/production patterns
+813,Battery storages,energy consumption/production patterns
+814,Electric Load,energy consumption/production patterns
+815,Storage Agent,optimizations of the decisions of the Smart Grid given the best control design
+816,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+817,Storage Agent,optimizations of the decisions of the Smart Grid given the best control design
+818,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+819,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+820,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+821,Battery storages,optimizations of the decisions of the Smart Grid given the best control design
+822,Electric Load,optimizations of the decisions of the Smart Grid given the best control design
+823,Storage Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+824,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+825,Storage Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+826,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+827,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+828,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+829,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+830,Electric Load,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+831,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+832,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+833,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+834,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+835,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+836,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+837,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+838,Electric Load,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+839,Storage Agent,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+840,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+841,Storage Agent,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+842,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+843,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+844,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+845,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+846,Electric Load,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+847,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+848,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+849,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+850,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+851,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+852,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+853,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+854,Electric Load,agents perform different functions based on their unique advantages relative to other agents postdisruption
+855,Electric Load,supply power power to the electric load
+856,Electric Load,supply power power to the electric load
+857,Population survey data,supply power power to the electric load
+858,Electric Load,load-generation balance
+859,Electric Load,load-generation balance
+860,Population survey data,load-generation balance
+861,Storage Agent,control the battery and enhance the operation of the system
+862,Battery storages,control the battery and enhance the operation of the system
+863,Storage Agent,control the battery and enhance the operation of the system
+864,Battery storages,control the battery and enhance the operation of the system
+865,Battery storages,control the battery and enhance the operation of the system
+866,Battery storages,control the battery and enhance the operation of the system
+867,Battery storages,control the battery and enhance the operation of the system
+868,Transformer,control the battery and enhance the operation of the system
+869,Transmission line,control the battery and enhance the operation of the system
+870,Central controller,control the battery and enhance the operation of the system
+871,Central controller,control the battery and enhance the operation of the system
+872,Central controller,control the battery and enhance the operation of the system
+873,Sensors,control the battery and enhance the operation of the system
+874,IT Servers,control the battery and enhance the operation of the system
+875,Storage Agent,decrease the power consumption from power utility by using available energy from the solar panels
+876,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+877,Storage Agent,decrease the power consumption from power utility by using available energy from the solar panels
+878,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+879,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+880,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+881,Battery storages,decrease the power consumption from power utility by using available energy from the solar panels
+882,Transformer,decrease the power consumption from power utility by using available energy from the solar panels
+883,Transmission line,decrease the power consumption from power utility by using available energy from the solar panels
+884,Central controller,decrease the power consumption from power utility by using available energy from the solar panels
+885,Central controller,decrease the power consumption from power utility by using available energy from the solar panels
+886,Central controller,decrease the power consumption from power utility by using available energy from the solar panels
+887,Sensors,decrease the power consumption from power utility by using available energy from the solar panels
+888,IT Servers,decrease the power consumption from power utility by using available energy from the solar panels
+889,Storage Agent,supply power power to the electric load
+890,Battery storages,supply power power to the electric load
+891,Storage Agent,supply power power to the electric load
+892,Battery storages,supply power power to the electric load
+893,Battery storages,supply power power to the electric load
+894,Battery storages,supply power power to the electric load
+895,Battery storages,supply power power to the electric load
+896,Transformer,supply power power to the electric load
+897,Transmission line,supply power power to the electric load
+898,Central controller,supply power power to the electric load
+899,Central controller,supply power power to the electric load
+900,Central controller,supply power power to the electric load
+901,Sensors,supply power power to the electric load
+902,IT Servers,supply power power to the electric load
+903,Storage Agent,minimize the average vehicle waiting time in the network
+904,Battery storages,minimize the average vehicle waiting time in the network
+905,Storage Agent,minimize the average vehicle waiting time in the network
+906,Battery storages,minimize the average vehicle waiting time in the network
+907,Battery storages,minimize the average vehicle waiting time in the network
+908,Battery storages,minimize the average vehicle waiting time in the network
+909,Battery storages,minimize the average vehicle waiting time in the network
+910,Transformer,minimize the average vehicle waiting time in the network
+911,Transmission line,minimize the average vehicle waiting time in the network
+912,Central controller,minimize the average vehicle waiting time in the network
+913,Central controller,minimize the average vehicle waiting time in the network
+914,Central controller,minimize the average vehicle waiting time in the network
+915,Sensors,minimize the average vehicle waiting time in the network
+916,IT Servers,minimize the average vehicle waiting time in the network
+917,Storage Agent,"north-to-south, red-to-green transition times"
+918,Battery storages,"north-to-south, red-to-green transition times"
+919,Storage Agent,"north-to-south, red-to-green transition times"
+920,Battery storages,"north-to-south, red-to-green transition times"
+921,Battery storages,"north-to-south, red-to-green transition times"
+922,Battery storages,"north-to-south, red-to-green transition times"
+923,Battery storages,"north-to-south, red-to-green transition times"
+924,Transformer,"north-to-south, red-to-green transition times"
+925,Transmission line,"north-to-south, red-to-green transition times"
+926,Central controller,"north-to-south, red-to-green transition times"
+927,Central controller,"north-to-south, red-to-green transition times"
+928,Central controller,"north-to-south, red-to-green transition times"
+929,Sensors,"north-to-south, red-to-green transition times"
+930,IT Servers,"north-to-south, red-to-green transition times"
+931,Storage Agent,minimum peak loads emerging
+932,Battery storages,minimum peak loads emerging
+933,Storage Agent,minimum peak loads emerging
+934,Battery storages,minimum peak loads emerging
+935,Battery storages,minimum peak loads emerging
+936,Battery storages,minimum peak loads emerging
+937,Battery storages,minimum peak loads emerging
+938,Transformer,minimum peak loads emerging
+939,Transmission line,minimum peak loads emerging
+940,Central controller,minimum peak loads emerging
+941,Central controller,minimum peak loads emerging
+942,Central controller,minimum peak loads emerging
+943,Sensors,minimum peak loads emerging
+944,IT Servers,minimum peak loads emerging
+945,Storage Agent,cost limits are not exceeded
+946,Battery storages,cost limits are not exceeded
+947,Storage Agent,cost limits are not exceeded
+948,Battery storages,cost limits are not exceeded
+949,Battery storages,cost limits are not exceeded
+950,Battery storages,cost limits are not exceeded
+951,Battery storages,cost limits are not exceeded
+952,Transformer,cost limits are not exceeded
+953,Transmission line,cost limits are not exceeded
+954,Central controller,cost limits are not exceeded
+955,Central controller,cost limits are not exceeded
+956,Central controller,cost limits are not exceeded
+957,Sensors,cost limits are not exceeded
+958,IT Servers,cost limits are not exceeded
+959,Storage Agent,grid stability
+960,Battery storages,grid stability
+961,Storage Agent,grid stability
+962,Battery storages,grid stability
+963,Battery storages,grid stability
+964,Battery storages,grid stability
+965,Battery storages,grid stability
+966,Transformer,grid stability
+967,Transmission line,grid stability
+968,Central controller,grid stability
+969,Central controller,grid stability
+970,Central controller,grid stability
+971,Sensors,grid stability
+972,IT Servers,grid stability
+973,Storage Agent,optimise energy usage in a range of weather conditions
+974,Battery storages,optimise energy usage in a range of weather conditions
+975,Storage Agent,optimise energy usage in a range of weather conditions
+976,Battery storages,optimise energy usage in a range of weather conditions
+977,Battery storages,optimise energy usage in a range of weather conditions
+978,Battery storages,optimise energy usage in a range of weather conditions
+979,Battery storages,optimise energy usage in a range of weather conditions
+980,Transformer,optimise energy usage in a range of weather conditions
+981,Transmission line,optimise energy usage in a range of weather conditions
+982,Central controller,optimise energy usage in a range of weather conditions
+983,Central controller,optimise energy usage in a range of weather conditions
+984,Central controller,optimise energy usage in a range of weather conditions
+985,Sensors,optimise energy usage in a range of weather conditions
+986,IT Servers,optimise energy usage in a range of weather conditions
+987,Storage Agent,promote to use a VPP from a new electricity production cost policy
+988,Battery storages,promote to use a VPP from a new electricity production cost policy
+989,Storage Agent,promote to use a VPP from a new electricity production cost policy
+990,Battery storages,promote to use a VPP from a new electricity production cost policy
+991,Battery storages,promote to use a VPP from a new electricity production cost policy
+992,Battery storages,promote to use a VPP from a new electricity production cost policy
+993,Battery storages,promote to use a VPP from a new electricity production cost policy
+994,Transformer,promote to use a VPP from a new electricity production cost policy
+995,Transmission line,promote to use a VPP from a new electricity production cost policy
+996,Central controller,promote to use a VPP from a new electricity production cost policy
+997,Central controller,promote to use a VPP from a new electricity production cost policy
+998,Central controller,promote to use a VPP from a new electricity production cost policy
+999,Sensors,promote to use a VPP from a new electricity production cost policy
+1000,IT Servers,promote to use a VPP from a new electricity production cost policy
+1001,Storage Agent,use storage and demand-response techniques
+1002,Battery storages,use storage and demand-response techniques
+1003,Storage Agent,use storage and demand-response techniques
+1004,Battery storages,use storage and demand-response techniques
+1005,Battery storages,use storage and demand-response techniques
+1006,Battery storages,use storage and demand-response techniques
+1007,Battery storages,use storage and demand-response techniques
+1008,Transformer,use storage and demand-response techniques
+1009,Transmission line,use storage and demand-response techniques
+1010,Central controller,use storage and demand-response techniques
+1011,Central controller,use storage and demand-response techniques
+1012,Central controller,use storage and demand-response techniques
+1013,Sensors,use storage and demand-response techniques
+1014,IT Servers,use storage and demand-response techniques
+1015,Storage Agent,battery storage models
+1016,Battery storages,battery storage models
+1017,Storage Agent,battery storage models
+1018,Battery storages,battery storage models
+1019,Battery storages,battery storage models
+1020,Battery storages,battery storage models
+1021,Battery storages,battery storage models
+1022,Transformer,battery storage models
+1023,Transmission line,battery storage models
+1024,Central controller,battery storage models
+1025,Central controller,battery storage models
+1026,Central controller,battery storage models
+1027,Sensors,battery storage models
+1028,IT Servers,battery storage models
+1029,Storage Agent,peak optimization
+1030,Battery storages,peak optimization
+1031,Storage Agent,peak optimization
+1032,Battery storages,peak optimization
+1033,Battery storages,peak optimization
+1034,Battery storages,peak optimization
+1035,Battery storages,peak optimization
+1036,Transformer,peak optimization
+1037,Transmission line,peak optimization
+1038,Central controller,peak optimization
+1039,Central controller,peak optimization
+1040,Central controller,peak optimization
+1041,Sensors,peak optimization
+1042,IT Servers,peak optimization
+1043,Storage Agent,demand side management
+1044,Battery storages,demand side management
+1045,Storage Agent,demand side management
+1046,Battery storages,demand side management
+1047,Battery storages,demand side management
+1048,Battery storages,demand side management
+1049,Battery storages,demand side management
+1050,Transformer,demand side management
+1051,Transmission line,demand side management
+1052,Central controller,demand side management
+1053,Central controller,demand side management
+1054,Central controller,demand side management
+1055,Sensors,demand side management
+1056,IT Servers,demand side management
+1057,Storage Agent,distributed negotiations between groups
+1058,Battery storages,distributed negotiations between groups
+1059,Storage Agent,distributed negotiations between groups
+1060,Battery storages,distributed negotiations between groups
+1061,Battery storages,distributed negotiations between groups
+1062,Battery storages,distributed negotiations between groups
+1063,Battery storages,distributed negotiations between groups
+1064,Transformer,distributed negotiations between groups
+1065,Transmission line,distributed negotiations between groups
+1066,Central controller,distributed negotiations between groups
+1067,Central controller,distributed negotiations between groups
+1068,Central controller,distributed negotiations between groups
+1069,Sensors,distributed negotiations between groups
+1070,IT Servers,distributed negotiations between groups
+1071,Storage Agent,Different responses according to different demand/response schemes (price-based)
+1072,Battery storages,Different responses according to different demand/response schemes (price-based)
+1073,Storage Agent,Different responses according to different demand/response schemes (price-based)
+1074,Battery storages,Different responses according to different demand/response schemes (price-based)
+1075,Battery storages,Different responses according to different demand/response schemes (price-based)
+1076,Battery storages,Different responses according to different demand/response schemes (price-based)
+1077,Battery storages,Different responses according to different demand/response schemes (price-based)
+1078,Transformer,Different responses according to different demand/response schemes (price-based)
+1079,Transmission line,Different responses according to different demand/response schemes (price-based)
+1080,Central controller,Different responses according to different demand/response schemes (price-based)
+1081,Central controller,Different responses according to different demand/response schemes (price-based)
+1082,Central controller,Different responses according to different demand/response schemes (price-based)
+1083,Sensors,Different responses according to different demand/response schemes (price-based)
+1084,IT Servers,Different responses according to different demand/response schemes (price-based)
+1085,Storage Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1086,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1087,Storage Agent,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1088,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1089,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1090,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1091,Battery storages,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1092,Transformer,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1093,Transmission line,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1094,Central controller,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1095,Central controller,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1096,Central controller,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1097,Sensors,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1098,IT Servers,to proactively plan the DC operation as a system to be able to exploit its latent flexible energy to achieve a deeper and more efficient integration with the local Smart Grid.
+1099,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1100,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1101,Storage Agent,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1102,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1103,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1104,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1105,Battery storages,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1106,Transformer,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1107,Transmission line,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1108,Central controller,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1109,Central controller,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1110,Central controller,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1111,Sensors,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1112,IT Servers,"to use as much as possible of the locally produced renewable energy and transact energy to decrease operational costs, optimizing its integration in smart grid advanced context."
+1113,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1114,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1115,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1116,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1117,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1118,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1119,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1120,Transformer,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1121,Transmission line,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1122,Central controller,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1123,Central controller,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1124,Central controller,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1125,Sensors,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1126,IT Servers,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1127,Storage Agent,Negotiation and collaboration for resource allocation and demand efficiency
+1128,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1129,Storage Agent,Negotiation and collaboration for resource allocation and demand efficiency
+1130,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1131,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1132,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1133,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1134,Transformer,Negotiation and collaboration for resource allocation and demand efficiency
+1135,Transmission line,Negotiation and collaboration for resource allocation and demand efficiency
+1136,Central controller,Negotiation and collaboration for resource allocation and demand efficiency
+1137,Central controller,Negotiation and collaboration for resource allocation and demand efficiency
+1138,Central controller,Negotiation and collaboration for resource allocation and demand efficiency
+1139,Sensors,Negotiation and collaboration for resource allocation and demand efficiency
+1140,IT Servers,Negotiation and collaboration for resource allocation and demand efficiency
+1141,Storage Agent,Resolution of potencial conflicts
+1142,Battery storages,Resolution of potencial conflicts
+1143,Storage Agent,Resolution of potencial conflicts
+1144,Battery storages,Resolution of potencial conflicts
+1145,Battery storages,Resolution of potencial conflicts
+1146,Battery storages,Resolution of potencial conflicts
+1147,Battery storages,Resolution of potencial conflicts
+1148,Transformer,Resolution of potencial conflicts
+1149,Transmission line,Resolution of potencial conflicts
+1150,Central controller,Resolution of potencial conflicts
+1151,Central controller,Resolution of potencial conflicts
+1152,Central controller,Resolution of potencial conflicts
+1153,Sensors,Resolution of potencial conflicts
+1154,IT Servers,Resolution of potencial conflicts
+1155,Storage Agent,load-generation balance
+1156,Battery storages,load-generation balance
+1157,Storage Agent,load-generation balance
+1158,Battery storages,load-generation balance
+1159,Battery storages,load-generation balance
+1160,Battery storages,load-generation balance
+1161,Battery storages,load-generation balance
+1162,Photovoltaic System,load-generation balance
+1163,electric vehicles,load-generation balance
+1164,Photovoltaic System,load-generation balance
+1165,electric vehicles,load-generation balance
+1166,Photovoltaic System,load-generation balance
+1167,Wind Energy system,load-generation balance
+1168,Wind Energy system,load-generation balance
+1169,Wind Energy system,load-generation balance
+1170,Wind Energy system,load-generation balance
+1171,Wind Energy system,load-generation balance
+1172,Wind Energy system,load-generation balance
+1173,Wind Energy system,load-generation balance
+1174,distributed traffic lights network,load-generation balance
+1175,distributed traffic lights network,load-generation balance
+1176,electric vehicles,load-generation balance
+1177,electric vehicles,load-generation balance
+1178,electric vehicles,load-generation balance
+1179,Storage Agent,supply power power to the electric load
+1180,Battery storages,supply power power to the electric load
+1181,Storage Agent,supply power power to the electric load
+1182,Battery storages,supply power power to the electric load
+1183,Battery storages,supply power power to the electric load
+1184,Battery storages,supply power power to the electric load
+1185,Battery storages,supply power power to the electric load
+1186,Photovoltaic System,supply power power to the electric load
+1187,electric vehicles,supply power power to the electric load
+1188,Photovoltaic System,supply power power to the electric load
+1189,electric vehicles,supply power power to the electric load
+1190,Photovoltaic System,supply power power to the electric load
+1191,Wind Energy system,supply power power to the electric load
+1192,Wind Energy system,supply power power to the electric load
+1193,Wind Energy system,supply power power to the electric load
+1194,Wind Energy system,supply power power to the electric load
+1195,Wind Energy system,supply power power to the electric load
+1196,Wind Energy system,supply power power to the electric load
+1197,Wind Energy system,supply power power to the electric load
+1198,distributed traffic lights network,supply power power to the electric load
+1199,distributed traffic lights network,supply power power to the electric load
+1200,electric vehicles,supply power power to the electric load
+1201,electric vehicles,supply power power to the electric load
+1202,electric vehicles,supply power power to the electric load
+1203,Storage Agent,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1204,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1205,Storage Agent,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1206,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1207,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1208,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1209,Battery storages,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1210,Photovoltaic System,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1211,electric vehicles,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1212,Photovoltaic System,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1213,electric vehicles,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1214,Photovoltaic System,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1215,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1216,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1217,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1218,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1219,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1220,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1221,Wind Energy system,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1222,distributed traffic lights network,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1223,distributed traffic lights network,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1224,electric vehicles,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1225,electric vehicles,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1226,electric vehicles,to ensure the comfort of its occupants by enhancing the automation to relief them from manual control of different services while increasing the energy savings
+1227,Storage Agent,minimize the average vehicle waiting time in the network
+1228,Battery storages,minimize the average vehicle waiting time in the network
+1229,Storage Agent,minimize the average vehicle waiting time in the network
+1230,Battery storages,minimize the average vehicle waiting time in the network
+1231,Battery storages,minimize the average vehicle waiting time in the network
+1232,Battery storages,minimize the average vehicle waiting time in the network
+1233,Battery storages,minimize the average vehicle waiting time in the network
+1234,Photovoltaic System,minimize the average vehicle waiting time in the network
+1235,electric vehicles,minimize the average vehicle waiting time in the network
+1236,Photovoltaic System,minimize the average vehicle waiting time in the network
+1237,electric vehicles,minimize the average vehicle waiting time in the network
+1238,Photovoltaic System,minimize the average vehicle waiting time in the network
+1239,Wind Energy system,minimize the average vehicle waiting time in the network
+1240,Wind Energy system,minimize the average vehicle waiting time in the network
+1241,Wind Energy system,minimize the average vehicle waiting time in the network
+1242,Wind Energy system,minimize the average vehicle waiting time in the network
+1243,Wind Energy system,minimize the average vehicle waiting time in the network
+1244,Wind Energy system,minimize the average vehicle waiting time in the network
+1245,Wind Energy system,minimize the average vehicle waiting time in the network
+1246,distributed traffic lights network,minimize the average vehicle waiting time in the network
+1247,distributed traffic lights network,minimize the average vehicle waiting time in the network
+1248,electric vehicles,minimize the average vehicle waiting time in the network
+1249,electric vehicles,minimize the average vehicle waiting time in the network
+1250,electric vehicles,minimize the average vehicle waiting time in the network
+1251,Storage Agent,minimize the local waiting time for vehicles
+1252,Battery storages,minimize the local waiting time for vehicles
+1253,Storage Agent,minimize the local waiting time for vehicles
+1254,Battery storages,minimize the local waiting time for vehicles
+1255,Battery storages,minimize the local waiting time for vehicles
+1256,Battery storages,minimize the local waiting time for vehicles
+1257,Battery storages,minimize the local waiting time for vehicles
+1258,Photovoltaic System,minimize the local waiting time for vehicles
+1259,electric vehicles,minimize the local waiting time for vehicles
+1260,Photovoltaic System,minimize the local waiting time for vehicles
+1261,electric vehicles,minimize the local waiting time for vehicles
+1262,Photovoltaic System,minimize the local waiting time for vehicles
+1263,Wind Energy system,minimize the local waiting time for vehicles
+1264,Wind Energy system,minimize the local waiting time for vehicles
+1265,Wind Energy system,minimize the local waiting time for vehicles
+1266,Wind Energy system,minimize the local waiting time for vehicles
+1267,Wind Energy system,minimize the local waiting time for vehicles
+1268,Wind Energy system,minimize the local waiting time for vehicles
+1269,Wind Energy system,minimize the local waiting time for vehicles
+1270,distributed traffic lights network,minimize the local waiting time for vehicles
+1271,distributed traffic lights network,minimize the local waiting time for vehicles
+1272,electric vehicles,minimize the local waiting time for vehicles
+1273,electric vehicles,minimize the local waiting time for vehicles
+1274,electric vehicles,minimize the local waiting time for vehicles
+1275,Storage Agent,Optimize the overall charging behavior
+1276,Battery storages,Optimize the overall charging behavior
+1277,Storage Agent,Optimize the overall charging behavior
+1278,Battery storages,Optimize the overall charging behavior
+1279,Battery storages,Optimize the overall charging behavior
+1280,Battery storages,Optimize the overall charging behavior
+1281,Battery storages,Optimize the overall charging behavior
+1282,Photovoltaic System,Optimize the overall charging behavior
+1283,electric vehicles,Optimize the overall charging behavior
+1284,Photovoltaic System,Optimize the overall charging behavior
+1285,electric vehicles,Optimize the overall charging behavior
+1286,Photovoltaic System,Optimize the overall charging behavior
+1287,Wind Energy system,Optimize the overall charging behavior
+1288,Wind Energy system,Optimize the overall charging behavior
+1289,Wind Energy system,Optimize the overall charging behavior
+1290,Wind Energy system,Optimize the overall charging behavior
+1291,Wind Energy system,Optimize the overall charging behavior
+1292,Wind Energy system,Optimize the overall charging behavior
+1293,Wind Energy system,Optimize the overall charging behavior
+1294,distributed traffic lights network,Optimize the overall charging behavior
+1295,distributed traffic lights network,Optimize the overall charging behavior
+1296,electric vehicles,Optimize the overall charging behavior
+1297,electric vehicles,Optimize the overall charging behavior
+1298,electric vehicles,Optimize the overall charging behavior
+1299,Storage Agent,avoid many simultaneous charging cycles
+1300,Battery storages,avoid many simultaneous charging cycles
+1301,Storage Agent,avoid many simultaneous charging cycles
+1302,Battery storages,avoid many simultaneous charging cycles
+1303,Battery storages,avoid many simultaneous charging cycles
+1304,Battery storages,avoid many simultaneous charging cycles
+1305,Battery storages,avoid many simultaneous charging cycles
+1306,Photovoltaic System,avoid many simultaneous charging cycles
+1307,electric vehicles,avoid many simultaneous charging cycles
+1308,Photovoltaic System,avoid many simultaneous charging cycles
+1309,electric vehicles,avoid many simultaneous charging cycles
+1310,Photovoltaic System,avoid many simultaneous charging cycles
+1311,Wind Energy system,avoid many simultaneous charging cycles
+1312,Wind Energy system,avoid many simultaneous charging cycles
+1313,Wind Energy system,avoid many simultaneous charging cycles
+1314,Wind Energy system,avoid many simultaneous charging cycles
+1315,Wind Energy system,avoid many simultaneous charging cycles
+1316,Wind Energy system,avoid many simultaneous charging cycles
+1317,Wind Energy system,avoid many simultaneous charging cycles
+1318,distributed traffic lights network,avoid many simultaneous charging cycles
+1319,distributed traffic lights network,avoid many simultaneous charging cycles
+1320,electric vehicles,avoid many simultaneous charging cycles
+1321,electric vehicles,avoid many simultaneous charging cycles
+1322,electric vehicles,avoid many simultaneous charging cycles
+1323,Storage Agent,minimum peak loads emerging
+1324,Battery storages,minimum peak loads emerging
+1325,Storage Agent,minimum peak loads emerging
+1326,Battery storages,minimum peak loads emerging
+1327,Battery storages,minimum peak loads emerging
+1328,Battery storages,minimum peak loads emerging
+1329,Battery storages,minimum peak loads emerging
+1330,Photovoltaic System,minimum peak loads emerging
+1331,electric vehicles,minimum peak loads emerging
+1332,Photovoltaic System,minimum peak loads emerging
+1333,electric vehicles,minimum peak loads emerging
+1334,Photovoltaic System,minimum peak loads emerging
+1335,Wind Energy system,minimum peak loads emerging
+1336,Wind Energy system,minimum peak loads emerging
+1337,Wind Energy system,minimum peak loads emerging
+1338,Wind Energy system,minimum peak loads emerging
+1339,Wind Energy system,minimum peak loads emerging
+1340,Wind Energy system,minimum peak loads emerging
+1341,Wind Energy system,minimum peak loads emerging
+1342,distributed traffic lights network,minimum peak loads emerging
+1343,distributed traffic lights network,minimum peak loads emerging
+1344,electric vehicles,minimum peak loads emerging
+1345,electric vehicles,minimum peak loads emerging
+1346,electric vehicles,minimum peak loads emerging
+1347,Storage Agent,cost limits are not exceeded
+1348,Battery storages,cost limits are not exceeded
+1349,Storage Agent,cost limits are not exceeded
+1350,Battery storages,cost limits are not exceeded
+1351,Battery storages,cost limits are not exceeded
+1352,Battery storages,cost limits are not exceeded
+1353,Battery storages,cost limits are not exceeded
+1354,Photovoltaic System,cost limits are not exceeded
+1355,electric vehicles,cost limits are not exceeded
+1356,Photovoltaic System,cost limits are not exceeded
+1357,electric vehicles,cost limits are not exceeded
+1358,Photovoltaic System,cost limits are not exceeded
+1359,Wind Energy system,cost limits are not exceeded
+1360,Wind Energy system,cost limits are not exceeded
+1361,Wind Energy system,cost limits are not exceeded
+1362,Wind Energy system,cost limits are not exceeded
+1363,Wind Energy system,cost limits are not exceeded
+1364,Wind Energy system,cost limits are not exceeded
+1365,Wind Energy system,cost limits are not exceeded
+1366,distributed traffic lights network,cost limits are not exceeded
+1367,distributed traffic lights network,cost limits are not exceeded
+1368,electric vehicles,cost limits are not exceeded
+1369,electric vehicles,cost limits are not exceeded
+1370,electric vehicles,cost limits are not exceeded
+1371,Storage Agent,optimise energy usage in a range of weather conditions
+1372,Battery storages,optimise energy usage in a range of weather conditions
+1373,Storage Agent,optimise energy usage in a range of weather conditions
+1374,Battery storages,optimise energy usage in a range of weather conditions
+1375,Battery storages,optimise energy usage in a range of weather conditions
+1376,Battery storages,optimise energy usage in a range of weather conditions
+1377,Battery storages,optimise energy usage in a range of weather conditions
+1378,Photovoltaic System,optimise energy usage in a range of weather conditions
+1379,electric vehicles,optimise energy usage in a range of weather conditions
+1380,Photovoltaic System,optimise energy usage in a range of weather conditions
+1381,electric vehicles,optimise energy usage in a range of weather conditions
+1382,Photovoltaic System,optimise energy usage in a range of weather conditions
+1383,Wind Energy system,optimise energy usage in a range of weather conditions
+1384,Wind Energy system,optimise energy usage in a range of weather conditions
+1385,Wind Energy system,optimise energy usage in a range of weather conditions
+1386,Wind Energy system,optimise energy usage in a range of weather conditions
+1387,Wind Energy system,optimise energy usage in a range of weather conditions
+1388,Wind Energy system,optimise energy usage in a range of weather conditions
+1389,Wind Energy system,optimise energy usage in a range of weather conditions
+1390,distributed traffic lights network,optimise energy usage in a range of weather conditions
+1391,distributed traffic lights network,optimise energy usage in a range of weather conditions
+1392,electric vehicles,optimise energy usage in a range of weather conditions
+1393,electric vehicles,optimise energy usage in a range of weather conditions
+1394,electric vehicles,optimise energy usage in a range of weather conditions
+1395,Storage Agent,promote to use a VPP from a new electricity production cost policy
+1396,Battery storages,promote to use a VPP from a new electricity production cost policy
+1397,Storage Agent,promote to use a VPP from a new electricity production cost policy
+1398,Battery storages,promote to use a VPP from a new electricity production cost policy
+1399,Battery storages,promote to use a VPP from a new electricity production cost policy
+1400,Battery storages,promote to use a VPP from a new electricity production cost policy
+1401,Battery storages,promote to use a VPP from a new electricity production cost policy
+1402,Photovoltaic System,promote to use a VPP from a new electricity production cost policy
+1403,electric vehicles,promote to use a VPP from a new electricity production cost policy
+1404,Photovoltaic System,promote to use a VPP from a new electricity production cost policy
+1405,electric vehicles,promote to use a VPP from a new electricity production cost policy
+1406,Photovoltaic System,promote to use a VPP from a new electricity production cost policy
+1407,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1408,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1409,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1410,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1411,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1412,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1413,Wind Energy system,promote to use a VPP from a new electricity production cost policy
+1414,distributed traffic lights network,promote to use a VPP from a new electricity production cost policy
+1415,distributed traffic lights network,promote to use a VPP from a new electricity production cost policy
+1416,electric vehicles,promote to use a VPP from a new electricity production cost policy
+1417,electric vehicles,promote to use a VPP from a new electricity production cost policy
+1418,electric vehicles,promote to use a VPP from a new electricity production cost policy
+1419,Storage Agent,cluster together into local energy collectives
+1420,Battery storages,cluster together into local energy collectives
+1421,Storage Agent,cluster together into local energy collectives
+1422,Battery storages,cluster together into local energy collectives
+1423,Battery storages,cluster together into local energy collectives
+1424,Battery storages,cluster together into local energy collectives
+1425,Battery storages,cluster together into local energy collectives
+1426,Photovoltaic System,cluster together into local energy collectives
+1427,electric vehicles,cluster together into local energy collectives
+1428,Photovoltaic System,cluster together into local energy collectives
+1429,electric vehicles,cluster together into local energy collectives
+1430,Photovoltaic System,cluster together into local energy collectives
+1431,Wind Energy system,cluster together into local energy collectives
+1432,Wind Energy system,cluster together into local energy collectives
+1433,Wind Energy system,cluster together into local energy collectives
+1434,Wind Energy system,cluster together into local energy collectives
+1435,Wind Energy system,cluster together into local energy collectives
+1436,Wind Energy system,cluster together into local energy collectives
+1437,Wind Energy system,cluster together into local energy collectives
+1438,distributed traffic lights network,cluster together into local energy collectives
+1439,distributed traffic lights network,cluster together into local energy collectives
+1440,electric vehicles,cluster together into local energy collectives
+1441,electric vehicles,cluster together into local energy collectives
+1442,electric vehicles,cluster together into local energy collectives
+1443,Storage Agent,use storage and demand-response techniques
+1444,Battery storages,use storage and demand-response techniques
+1445,Storage Agent,use storage and demand-response techniques
+1446,Battery storages,use storage and demand-response techniques
+1447,Battery storages,use storage and demand-response techniques
+1448,Battery storages,use storage and demand-response techniques
+1449,Battery storages,use storage and demand-response techniques
+1450,Photovoltaic System,use storage and demand-response techniques
+1451,electric vehicles,use storage and demand-response techniques
+1452,Photovoltaic System,use storage and demand-response techniques
+1453,electric vehicles,use storage and demand-response techniques
+1454,Photovoltaic System,use storage and demand-response techniques
+1455,Wind Energy system,use storage and demand-response techniques
+1456,Wind Energy system,use storage and demand-response techniques
+1457,Wind Energy system,use storage and demand-response techniques
+1458,Wind Energy system,use storage and demand-response techniques
+1459,Wind Energy system,use storage and demand-response techniques
+1460,Wind Energy system,use storage and demand-response techniques
+1461,Wind Energy system,use storage and demand-response techniques
+1462,distributed traffic lights network,use storage and demand-response techniques
+1463,distributed traffic lights network,use storage and demand-response techniques
+1464,electric vehicles,use storage and demand-response techniques
+1465,electric vehicles,use storage and demand-response techniques
+1466,electric vehicles,use storage and demand-response techniques
+1467,Storage Agent,deploy batteries in different ways depending on the behaviour of their members
+1468,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+1469,Storage Agent,deploy batteries in different ways depending on the behaviour of their members
+1470,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+1471,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+1472,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+1473,Battery storages,deploy batteries in different ways depending on the behaviour of their members
+1474,Photovoltaic System,deploy batteries in different ways depending on the behaviour of their members
+1475,electric vehicles,deploy batteries in different ways depending on the behaviour of their members
+1476,Photovoltaic System,deploy batteries in different ways depending on the behaviour of their members
+1477,electric vehicles,deploy batteries in different ways depending on the behaviour of their members
+1478,Photovoltaic System,deploy batteries in different ways depending on the behaviour of their members
+1479,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1480,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1481,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1482,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1483,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1484,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1485,Wind Energy system,deploy batteries in different ways depending on the behaviour of their members
+1486,distributed traffic lights network,deploy batteries in different ways depending on the behaviour of their members
+1487,distributed traffic lights network,deploy batteries in different ways depending on the behaviour of their members
+1488,electric vehicles,deploy batteries in different ways depending on the behaviour of their members
+1489,electric vehicles,deploy batteries in different ways depending on the behaviour of their members
+1490,electric vehicles,deploy batteries in different ways depending on the behaviour of their members
+1491,Storage Agent,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1492,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1493,Storage Agent,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1494,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1495,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1496,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1497,Battery storages,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1498,Photovoltaic System,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1499,electric vehicles,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1500,Photovoltaic System,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1501,electric vehicles,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1502,Photovoltaic System,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1503,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1504,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1505,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1506,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1507,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1508,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1509,Wind Energy system,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1510,distributed traffic lights network,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1511,distributed traffic lights network,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1512,electric vehicles,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1513,electric vehicles,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1514,electric vehicles,system disruption responses and minimization of  the overall costs of satisfying total demand from the system in these events
+1515,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1516,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1517,Storage Agent,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1518,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1519,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1520,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1521,Battery storages,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1522,Photovoltaic System,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1523,electric vehicles,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1524,Photovoltaic System,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1525,electric vehicles,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1526,Photovoltaic System,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1527,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1528,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1529,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1530,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1531,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1532,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1533,Wind Energy system,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1534,distributed traffic lights network,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1535,distributed traffic lights network,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1536,electric vehicles,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1537,electric vehicles,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1538,electric vehicles,agents perform different functions based on their unique advantages relative to other agents postdisruption
+1539,Storage Agent,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1540,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1541,Storage Agent,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1542,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1543,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1544,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1545,Battery storages,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1546,Photovoltaic System,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1547,electric vehicles,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1548,Photovoltaic System,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1549,electric vehicles,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1550,Photovoltaic System,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1551,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1552,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1553,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1554,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1555,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1556,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1557,Wind Energy system,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1558,distributed traffic lights network,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1559,distributed traffic lights network,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1560,electric vehicles,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1561,electric vehicles,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1562,electric vehicles,"coordination mechanism, dynamic reorganization and coordination of the network under a disruption"
+1563,Storage Agent,Negotiation and collaboration for resource allocation and demand efficiency
+1564,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1565,Storage Agent,Negotiation and collaboration for resource allocation and demand efficiency
+1566,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1567,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1568,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1569,Battery storages,Negotiation and collaboration for resource allocation and demand efficiency
+1570,Photovoltaic System,Negotiation and collaboration for resource allocation and demand efficiency
+1571,electric vehicles,Negotiation and collaboration for resource allocation and demand efficiency
+1572,Photovoltaic System,Negotiation and collaboration for resource allocation and demand efficiency
+1573,electric vehicles,Negotiation and collaboration for resource allocation and demand efficiency
+1574,Photovoltaic System,Negotiation and collaboration for resource allocation and demand efficiency
+1575,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1576,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1577,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1578,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1579,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1580,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1581,Wind Energy system,Negotiation and collaboration for resource allocation and demand efficiency
+1582,distributed traffic lights network,Negotiation and collaboration for resource allocation and demand efficiency
+1583,distributed traffic lights network,Negotiation and collaboration for resource allocation and demand efficiency
+1584,electric vehicles,Negotiation and collaboration for resource allocation and demand efficiency
+1585,electric vehicles,Negotiation and collaboration for resource allocation and demand efficiency
+1586,electric vehicles,Negotiation and collaboration for resource allocation and demand efficiency
+1587,Storage Agent,Balance between battery consumption and energy production
+1588,Battery storages,Balance between battery consumption and energy production
+1589,Storage Agent,Balance between battery consumption and energy production
+1590,Battery storages,Balance between battery consumption and energy production
+1591,Battery storages,Balance between battery consumption and energy production
+1592,Battery storages,Balance between battery consumption and energy production
+1593,Battery storages,Balance between battery consumption and energy production
+1594,Photovoltaic System,Balance between battery consumption and energy production
+1595,electric vehicles,Balance between battery consumption and energy production
+1596,Photovoltaic System,Balance between battery consumption and energy production
+1597,electric vehicles,Balance between battery consumption and energy production
+1598,Photovoltaic System,Balance between battery consumption and energy production
+1599,Wind Energy system,Balance between battery consumption and energy production
+1600,Wind Energy system,Balance between battery consumption and energy production
+1601,Wind Energy system,Balance between battery consumption and energy production
+1602,Wind Energy system,Balance between battery consumption and energy production
+1603,Wind Energy system,Balance between battery consumption and energy production
+1604,Wind Energy system,Balance between battery consumption and energy production
+1605,Wind Energy system,Balance between battery consumption and energy production
+1606,distributed traffic lights network,Balance between battery consumption and energy production
+1607,distributed traffic lights network,Balance between battery consumption and energy production
+1608,electric vehicles,Balance between battery consumption and energy production
+1609,electric vehicles,Balance between battery consumption and energy production
+1610,electric vehicles,Balance between battery consumption and energy production
