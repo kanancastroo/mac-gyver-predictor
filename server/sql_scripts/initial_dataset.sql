@@ -1,19 +1,19 @@
 
 
 
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (1, gen_random_uuid(), 'SoS #1');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (2, gen_random_uuid(), 'SoS #2');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (3, gen_random_uuid(), 'SoS #3');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (4, gen_random_uuid(), 'SoS #4');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (5, gen_random_uuid(), 'SoS #5');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (6, gen_random_uuid(), 'SoS #6');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (7, gen_random_uuid(), 'SoS #7');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (8, gen_random_uuid(), 'SoS #8');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (9, gen_random_uuid(), 'SoS #9');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (10, gen_random_uuid(), 'SoS #10');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (11, gen_random_uuid(), 'SoS #11');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (12, gen_random_uuid(), 'SoS #12');
-INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (13, gen_random_uuid(), 'SoS #13');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (1, gen_random_uuid(), 'Microgrid SoS for energy generation and consumption management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (2, gen_random_uuid(), 'Smart Building SoS for comfort purposes and energy savings');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (3, gen_random_uuid(), 'Smart City SoS for traffic improvement purposes');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (4, gen_random_uuid(), 'Smart Grid SoS for energy generation and consumption management and grid stability');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (5, gen_random_uuid(), 'Smart Grid SoS for vehicles charging management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (6, gen_random_uuid(), 'Smart Building SoS for energy usage management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (7, gen_random_uuid(), 'Smart Grid SoS for Virtual Power Plant (VPP) management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (8, gen_random_uuid(), 'Smart Grid SoS for Virtual Power Plant (VPP) and energy production/consumption management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (9, gen_random_uuid(), 'Smart Grid SoS for price-based response energy management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (10, gen_random_uuid(), 'Microgrid SoS for design management and control of the grid');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (11, gen_random_uuid(), 'Smart Grid SoS for energy generation and consumption management');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (12, gen_random_uuid(), 'Smart City SoS for disruption responses');
+INSERT INTO sos (sos_id, sos_external_id, sos_name) VALUES (13, gen_random_uuid(), 'Smart Grid SoS for energy allocation and usage efficiency');
 SELECT setval(pg_get_serial_sequence('sos', 'sos_id'), COALESCE(MAX(sos_id), 1), MAX(sos_id) IS NOT null) FROM sos;
 
 
@@ -741,4 +741,15 @@ INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (9, 3);
 
 INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (14, 4);
 INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (15, 4);
+
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (18, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (19, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (20, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (21, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (22, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (23, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (24, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (25, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (26, 8);
+INSERT INTO sos_emergent_behavior (emergent_behavior_id, sos_id) VALUES (27, 8);
 SELECT setval(pg_get_serial_sequence('sos_emergent_behavior', 'relation_id'), COALESCE(MAX(relation_id), 1), MAX(relation_id) IS NOT null) FROM sos_emergent_behavior;

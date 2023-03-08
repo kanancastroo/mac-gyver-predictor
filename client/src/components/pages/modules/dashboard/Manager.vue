@@ -124,7 +124,14 @@
         <v-btn color="#A4BE7B" dark elevation="2" @click="saveSoS"
           >Save Changes</v-btn
         >
-        <v-btn color="#A4BE7B" dark elevation="2" @click="redrawLines"
+        <v-btn
+          color="#A4BE7B"
+          dark
+          elevation="2"
+          @click="
+            processDialog = true;
+            redrawLines();
+          "
           >Redraw lines</v-btn
         >
       </div>
@@ -580,6 +587,19 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="processDialog" hide-overlay persistent width="300">
+        <v-card color="#A4BE7B" dark>
+          <v-card-text>
+            Processing request...
+            <v-progress-linear
+              indeterminate
+              color="white"
+              class="mb-0"
+            ></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -635,6 +655,7 @@ export default {
     selectedBehaviors: [],
     selectedForCheck: [],
 
+    processDialog: false,
     dialog: false,
     sosDialog: false,
     constituentDialog: false,
@@ -1193,6 +1214,7 @@ export default {
 
         item.line = line;
       });
+      this.processDialog = false;
     },
     checkConnection() {
       if (this.selectedForCheck.length > 2) {
@@ -2445,6 +2467,7 @@ export default {
     // max-height: calc(100vh - 180px);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     #{$self}__title {
       background-color: #373640;

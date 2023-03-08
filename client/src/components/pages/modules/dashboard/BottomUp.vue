@@ -938,6 +938,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding-bottom: 50px;
+    overflow: hidden;
 
     #{$self}__title {
       background-color: #373640;
