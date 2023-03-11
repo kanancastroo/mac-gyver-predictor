@@ -31,10 +31,11 @@ def addEmergentBehavior():
         # return "Emergent Behavior added. emergent_external_id={}.".format(emergent_behavior.emergent_external_id)
         return jsonify(emergent_behavior.emergent_external_id)
     except Exception as e:
+        # print('ERRO => ', e)
 	    return Response(
                 "Internal Server Error {}".format(e),
                 status=500,
-            )    
+            )      
 
 @app.route("/emergent_behaviors/<emergent_id>/get")
 def getEmergentBehavior(emergent_id):
@@ -72,6 +73,7 @@ def deleteEmergentBehavior(emergent_id):
         db.session.commit()
         return "Emergent Behavior id={} was deleted sucessfully.".format(emergent_external_id)
     except Exception as e:
+        # print('ERRO => ', e)
 	    return Response(
                 "Internal Server Error {}".format(e),
                 status=500,

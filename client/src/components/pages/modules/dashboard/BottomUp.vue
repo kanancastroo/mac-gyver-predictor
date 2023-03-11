@@ -856,8 +856,10 @@ export default {
     predict() {
       const path = `${process.env.VUE_APP_BASE_URL}/predict`;
       let payload = {
+        token: store.getters.getJwt.token,
         constituent_list: this.composedSoS,
       };
+      console.log("PAYLOAD => ", payload);
       axios({
         url: path,
         method: "post",

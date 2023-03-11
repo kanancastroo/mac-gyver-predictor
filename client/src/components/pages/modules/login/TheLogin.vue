@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="container has-text-centered">
-      <h1 class="subtitle">MacGyver Predictor</h1>
+      <h1 class="subtitle">MacGyver Predictor 2.0</h1>
     </div>
     <div class="container has-text-centered">
       <h4 class="title">Login or Register</h4>

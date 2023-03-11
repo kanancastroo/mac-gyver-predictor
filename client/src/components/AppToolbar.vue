@@ -1,6 +1,6 @@
 <template>
   <v-card color="#285430" dark flat tile>
-    <h1 class="page-title">MacGyver Predictor</h1>
+    <h1 class="page-title">MacGyver Predictor 2.0</h1>
     <v-toolbar flat class="d-flex justify-center align-center" color="#5F8D4E">
       <router-link to="/dashboard/bottom-up">
         <v-btn>Bottom-Up</v-btn>
